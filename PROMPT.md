@@ -10,7 +10,7 @@ Your goal: advance the project by exactly ONE task, update context, commit, and 
 ## PROJECT CONTEXT
 
 **Project**: Active Memory — persistent context for AI coding assistants
-**Repository**: https://github.com/zerotohero-dev/active-memory
+**Repository**: https://github.com/josealekhine/ActiveMemory
 **Language**: Go 1.25+
 **Distribution**: Single binary via GitHub Releases
 
