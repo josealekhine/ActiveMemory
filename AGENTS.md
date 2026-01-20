@@ -21,8 +21,8 @@ Load context in this order (most critical first):
 ## Build & Run
 
 ```bash
-# Build the CLI
-go build -o amem ./cmd/amem
+# Build the CLI (CGO disabled for cross-platform compatibility)
+CGO_ENABLED=0 go build -o amem ./cmd/amem
 
 # Run tests
 go test ./...
@@ -50,7 +50,7 @@ Run these after implementing to get immediate feedback:
 - **Tests**: `go test ./...` — All context operations must be tested
 - **Lint**: `golangci-lint run` — Static analysis
 - **Format**: `go fmt ./...` — Code formatting
-- **Build**: `go build ./...` — Compilation check
+- **Build**: `CGO_ENABLED=0 go build ./...` — Compilation check
 - **Integration**: `go test -tags=integration ./...` — Test with real files
 
 ## Key Directories
