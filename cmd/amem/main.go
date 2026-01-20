@@ -33,6 +33,7 @@ func init() {
 	rootCmd.AddCommand(cli.DriftCmd())
 	rootCmd.AddCommand(cli.SyncCmd())
 	rootCmd.AddCommand(cli.CompactCmd())
+	rootCmd.AddCommand(cli.WatchCmd())
 }
 
 func main() {

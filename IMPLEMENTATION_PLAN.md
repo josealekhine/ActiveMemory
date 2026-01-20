@@ -23,7 +23,7 @@ This file tracks the implementation progress for Active Memory CLI.
 - [x] Implement `amem drift --json` — JSON output for automation
 - [x] Implement `amem sync` — Reconcile context with codebase
 - [x] Implement `amem compact` — Archive completed tasks
-- [ ] Implement `amem watch` — Watch for context-update commands
+- [x] Implement `amem watch` — Watch for context-update commands
 
 ## Milestone 5: Integration
 - [ ] Implement `amem hook` — Generate AI tool integration configs
