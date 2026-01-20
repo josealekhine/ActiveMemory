@@ -31,8 +31,8 @@ This file tracks the implementation progress for Active Memory CLI.
 - [x] Add `--version` flag with build-time version
 
 ## Milestone 6: Testing & Release
-- [ ] Write unit tests for `internal/context/` (loader, parser)
-- [ ] Write unit tests for `internal/drift/` (detector)
+- [x] Write unit tests for `internal/context/` (loader, parser)
+- [x] Write unit tests for `internal/drift/` (detector)
 - [ ] Write integration tests for CLI commands
 - [ ] Create `scripts/build-all.sh` for cross-platform builds
 - [ ] Create `.github/workflows/release.yml` for GitHub Actions
