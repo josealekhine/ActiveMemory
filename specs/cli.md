@@ -8,31 +8,31 @@ The Active Memory CLI provides commands for initializing, managing, and inspecti
 
 - **Language**: Go (minimal dependencies, single binary)
 - **Distribution**: GitHub Releases (pre-built binaries for Linux, macOS, Windows)
-- **Repository**: https://github.com/zerotohero-dev/active-memory
+- **Repository**: https://github.com/josealekhine/ActiveMemory
 
 ## Installation
 
 ```bash
 # Download the latest release for your platform
-# From: https://github.com/zerotohero-dev/active-memory/releases
+# From: https://github.com/josealekhine/ActiveMemory/releases
 
 # Linux (amd64)
-curl -LO https://github.com/zerotohero-dev/active-memory/releases/latest/download/amem-linux-amd64
+curl -LO https://github.com/josealekhine/ActiveMemory/releases/latest/download/amem-linux-amd64
 chmod +x amem-linux-amd64
 sudo mv amem-linux-amd64 /usr/local/bin/amem
 
 # Linux (arm64)
-curl -LO https://github.com/zerotohero-dev/active-memory/releases/latest/download/amem-linux-arm64
+curl -LO https://github.com/josealekhine/ActiveMemory/releases/latest/download/amem-linux-arm64
 chmod +x amem-linux-arm64
 sudo mv amem-linux-arm64 /usr/local/bin/amem
 
 # macOS (Apple Silicon)
-curl -LO https://github.com/zerotohero-dev/active-memory/releases/latest/download/amem-darwin-arm64
+curl -LO https://github.com/josealekhine/ActiveMemory/releases/latest/download/amem-darwin-arm64
 chmod +x amem-darwin-arm64
 sudo mv amem-darwin-arm64 /usr/local/bin/amem
 
 # macOS (Intel)
-curl -LO https://github.com/zerotohero-dev/active-memory/releases/latest/download/amem-darwin-amd64
+curl -LO https://github.com/josealekhine/ActiveMemory/releases/latest/download/amem-darwin-amd64
 chmod +x amem-darwin-amd64
 sudo mv amem-darwin-amd64 /usr/local/bin/amem
 

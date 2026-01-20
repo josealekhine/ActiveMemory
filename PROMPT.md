@@ -21,7 +21,7 @@ Your goal: advance the project by exactly ONE task, update context, commit, and 
 Check if `go.mod` exists.
 
 **IF NOT:**
-1. Run `go mod init github.com/zerotohero-dev/active-memory`
+1. Run `go mod init github.com/josealekhine/ActiveMemory`
 2. Create directory structure:
    ```
    cmd/amem/main.go

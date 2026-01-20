@@ -21,10 +21,10 @@ Active Memory treats context as infrastructure:
 
 ```bash
 # Install (download binary for your platform)
-# See: https://github.com/zerotohero-dev/active-memory/releases
+# See: https://github.com/josealekhine/ActiveMemory/releases
 
 # Linux/macOS example:
-curl -LO https://github.com/zerotohero-dev/active-memory/releases/latest/download/amem-$(uname -s | tr '[:upper:]' '[:lower:]')-$(uname -m)
+curl -LO https://github.com/josealekhine/ActiveMemory/releases/latest/download/amem-$(uname -s | tr '[:upper:]' '[:lower:]')-$(uname -m)
 chmod +x amem-*
 sudo mv amem-* /usr/local/bin/amem
 

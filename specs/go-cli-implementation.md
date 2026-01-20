@@ -69,7 +69,7 @@ Minimal dependencies (standard library preferred):
 
 ```go
 // go.mod
-module github.com/zerotohero-dev/active-memory
+module github.com/josealekhine/ActiveMemory
 
 go 1.22
 
@@ -191,7 +191,7 @@ package main
 import (
     "os"
     "github.com/spf13/cobra"
-    "github.com/zerotohero-dev/active-memory/internal/cli"
+    "github.com/josealekhine/ActiveMemory/internal/cli"
 )
 
 var Version = "dev"

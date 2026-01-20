@@ -88,7 +88,7 @@ Build "Active Memory" — a lightweight, file-based system that lets AI coding a
 
 **Implementation**: Go CLI (`amem`) distributed as single binary via GitHub Releases.
 
-**Repository**: https://github.com/zerotohero-dev/active-memory
+**Repository**: https://github.com/josealekhine/ActiveMemory
 
 The system must:
 1. **Persist knowledge** — Tasks, decisions, learnings survive session boundaries

@@ -1,4 +1,4 @@
-module github.com/zerotohero-dev/active-memory
+module github.com/josealekhine/ActiveMemory
 
 go 1.25.6
 

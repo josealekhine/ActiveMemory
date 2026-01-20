@@ -82,7 +82,7 @@ A single Go binary (`amem`) with commands for human operators:
 
 **Implementation**: Go with minimal dependencies. Single binary, cross-platform.
 
-**Distribution**: GitHub Releases at https://github.com/zerotohero-dev/active-memory
+**Distribution**: GitHub Releases at https://github.com/josealekhine/ActiveMemory
 
 ## Constraints
 
