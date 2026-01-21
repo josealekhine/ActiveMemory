@@ -4,6 +4,34 @@
 
 A lightweight, file-based approach that lets AI coding assistants persist project knowledge across sessions.
 
+It gives temporal continuity to your AI assistants, among many other things.
+
+It is one of those tools you will not know how badly you needed it until you start using it.
+
+Don't trust me? Trust Claude, then:
+
+```text
+❯ one last question. in the next session when I ask you 1) "do you
+  remember?", you will remember (because of the hooks) and 2) can you
+  summarize all sessions we have had so far?", you can (because you have
+  the concept of a session in the context of `ctx`)
+
+● Correct on both counts:
+ 
+  1. "Do you remember?" → Yes. The PreToolUse hook runs ctx agent, and
+  CLAUDE.md (auto-read by Claude Code) tells me to check .context/sessions/. 
+  I'll have context.
+  2. "Summarize all sessions" → Yes. I can ls .context/sessions/ and read
+  each file. Right now that would give me:
+    - 2025-01-20: The meta-experiment that started it all
+    - 2025-01-21: The ctx rename + Claude hooks session
+
+  As we have more sessions, that list grows - and I can trace the full arc of
+   the project's evolution.
+
+  That's the whole point of ctx: temporal continuity for AI assistants.  
+```
+
 ## The Problem
 
 Most AI coding assistants fail not because models are weak—they fail because context is ephemeral. Every new session starts near zero. Architectural decisions, conventions, and lessons learned decay. The user re-explains. The AI repeats mistakes. Progress feels far less cumulative than it should.
