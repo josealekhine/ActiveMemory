@@ -238,6 +238,60 @@ ctx session parse transcript.jsonl --extract
 
 This gives Claude **temporal continuity** — it knows what happened in previous sessions.
 
+### Session Auto-Save Setup
+
+After running `ctx init`, session auto-save is configured automatically. Here's how to verify and use it:
+
+**1. Verify the setup:**
+
+```bash
+# Check hooks directory exists
+ls .claude/hooks/
+# Should show: auto-save-session.sh
+
+# Check settings file
+cat .claude/settings.local.json
+# Should show PreToolUse and SessionEnd hooks
+```
+
+**2. What gets saved:**
+
+When a Claude Code session ends, the `SessionEnd` hook saves:
+- Current date/time
+- Session type (auto-save)
+- Summary of active tasks from `.context/TASKS.md`
+- Recent decisions and learnings
+
+Sessions are saved to: `.context/sessions/YYYY-MM-DD-HHMMSS-session-*.md`
+
+**3. View saved sessions:**
+
+```bash
+# List all sessions
+ctx session list
+
+# Load a specific session
+ctx session load 1  # most recent
+```
+
+**4. Manual save (if hooks aren't working):**
+
+```bash
+# Save current context snapshot
+ctx session save "description"
+
+# Or run the hook script directly
+.claude/hooks/auto-save-session.sh
+```
+
+**5. Troubleshooting:**
+
+| Issue | Solution |
+|-------|----------|
+| No sessions saved | Check `.claude/settings.local.json` has `SessionEnd` hook |
+| Hook script fails | Ensure `ctx` binary path in script is correct |
+| Missing sessions dir | Run `mkdir -p .context/sessions` |
+
 ### Automated Context Updates
 
 Use `ctx watch` to automatically process context-update commands from AI output:
