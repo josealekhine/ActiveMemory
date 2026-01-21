@@ -4,6 +4,16 @@
 
 ## Next Up
 
+### Project Rename `#priority:high` `#area:branding`
+- [ ] Rename project from "Active Memory" to "Context"
+  - Update README.md title and references
+  - Update Go module path (github.com/josealekhine/ActiveMemory → TBD)
+  - Update all import paths in Go files
+  - Update CLAUDE.md references
+  - Update any branding/taglines
+  - Keep `ctx` as binary name (short for context)
+  - Handle GitHub repo rename
+
 ### Auto-Save Enhancements `#priority:medium` `#area:cli`
 - [x] Implement `ctx watch --auto-save` mode — 2026-01-21
 
