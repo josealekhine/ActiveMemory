@@ -4,13 +4,6 @@
 
 ## Next Up
 
-### Enhance `ctx init` to Create Claude Hooks `#priority:high` `#area:cli`
-- [ ] Embed hook scripts in binary (like templates)
-- [ ] Create `.claude/hooks/auto-save-session.sh` during init
-- [ ] Create `.claude/settings.local.json` with PreToolUse and SessionEnd hooks
-- [ ] Detect platform to set correct binary path in hooks
-- [ ] Update `ctx init` output to mention Claude Code integration
-
 ### Handle CLAUDE.md Creation/Merge `#priority:high` `#area:cli`
 - [ ] Create CLAUDE.md if it doesn't exist
 - [ ] If CLAUDE.md exists, backup to CLAUDE.md.<unix_timestamp>.bak before any modification
@@ -37,6 +30,7 @@
 
 ## Completed (Recent)
 
+- [x] Enhance `ctx init` to create Claude hooks (embedded scripts, settings.local.json, platform detection) — 2025-01-21
 - [x] Set up PreToolUse hook for auto-load — 2025-01-20
 - [x] Set up SessionEnd hook for auto-save — 2025-01-20
 - [x] Create `.context/sessions/` directory structure — 2025-01-20

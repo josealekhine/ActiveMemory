@@ -56,49 +56,16 @@ Check if `go.mod` exists.
 
 ## PHASE 2: SELECT TASK
 
-Read `IMPLEMENTATION_PLAN.md` and pick the **first unchecked item**.
+1. Read `IMPLEMENTATION_PLAN.md` for the current directive
+2. Follow the directive — typically: "Check `.context/TASKS.md`"
+3. Read `.context/TASKS.md` and pick the **first unchecked item** in "Next Up"
 
-**IF NO UNCHECKED ITEMS:** Output `<promise>DONE</promise>` and exit.
+**IF NO UNCHECKED ITEMS in `.context/TASKS.md`:**
+1. Check `IMPLEMENTATION_PLAN.md` for North Star goals
+2. Remind user about Endgame goals before exiting
+3. Output `<promise>DONE</promise>`
 
-**NOTE:** Task tracking is done in `IMPLEMENTATION_PLAN.md`, not here.
-The milestones below are for reference only when creating a new plan.
-
-### Milestone 1: Project Scaffolding
-- Initialize Go module and directory structure
-- Create Cobra CLI skeleton in `cmd/ctx/main.go`
-- Create embedded templates in `internal/templates/`
-- Add all template files to `templates/` directory
-
-### Milestone 2: Core Commands (MVP)
-- Implement `ctx init` — Create `.context/` with template files
-- Implement `ctx status` — Show context summary with token estimate
-- Implement `ctx load` — Output assembled context markdown
-
-### Milestone 3: Context Operations
-- Implement `ctx add` — Add decision/task/learning/convention
-- Implement `ctx complete` — Mark task as done
-- Implement `ctx agent` — Print AI-ready context packet
-
-### Milestone 4: Maintenance Commands
-- Implement `ctx drift` — Detect stale paths, broken refs (text output)
-- Implement `ctx drift --json` — JSON output for automation
-- Implement `ctx sync` — Reconcile context with codebase
-- Implement `ctx compact` — Archive completed tasks
-- Implement `ctx watch` — Watch for context-update commands
-
-### Milestone 5: Integration
-- Implement `ctx hook` — Generate AI tool integration configs
-- Add `--help` text for all commands
-- Add `--version` flag with build-time version
-
-### Milestone 6: Testing & Release
-- Write unit tests for `internal/context/` (loader, parser)
-- Write unit tests for `internal/drift/` (detector)
-- Write integration tests for CLI commands
-- Create `scripts/build-all.sh` for cross-platform builds
-- Create `.github/workflows/release.yml` for GitHub Actions
-- Create `examples/demo/` with sample `.context/` directory
-- Update README.md with installation and usage instructions
+**Philosophy:** Tasks live in the agent's mind (`.context/TASKS.md`). The orchestrator (`IMPLEMENTATION_PLAN.md`) provides the meta-directive, not the task list
 
 ---
 
@@ -134,10 +101,11 @@ go vet ./...            # No vet errors
 
 ## PHASE 5: UPDATE CONTEXT
 
-1. Mark completed task `[x]` in `IMPLEMENTATION_PLAN.md`
-2. If you made an architectural decision → document in `specs/` or `.context/DECISIONS.md`
-3. If you learned a gotcha → add to `.context/LEARNINGS.md`
-4. If build commands changed → update `AGENTS.md`
+1. Mark completed task `[x]` in `.context/TASKS.md`
+2. Move task to "Completed (Recent)" section with date
+3. If you made an architectural decision → document in `.context/DECISIONS.md`
+4. If you learned a gotcha → add to `.context/LEARNINGS.md`
+5. If build commands changed → update `AGENTS.md`
 
 ---
 
@@ -160,9 +128,9 @@ Complete ONE task, then stop. The loop handles continuation.
 
 ### NO CHAT
 Never ask questions. If blocked:
-1. Add `Blocked: [reason]` to `IMPLEMENTATION_PLAN.md`
-2. Move to next task
-3. If ALL blocked: `<promise>SYSTEM_BLOCKED</promise>`
+1. Move task to "Blocked" section in `.context/TASKS.md` with reason
+2. Move to next task in "Next Up"
+3. If ALL tasks blocked: `<promise>SYSTEM_BLOCKED</promise>`
 
 ### MEMORY IS THE FILESYSTEM
 You will not remember this conversation. Write everything important to files.
@@ -309,12 +277,10 @@ Never assume. If you don't see it in files, you don't know it.
 
 Output `<promise>DONE</promise>` ONLY when ALL of these are true:
 
-1. All commands in `specs/cli.md` are implemented
+1. `.context/TASKS.md` has no unchecked items in "Next Up"
 2. `go build ./...` passes
 3. `go test ./...` passes
-4. `ctx init && ctx status && ctx drift` works end-to-end
-5. `scripts/build-all.sh` produces binaries for linux/darwin/windows
-6. README.md has installation instructions
+4. You have reminded the user about the North Star goals in `IMPLEMENTATION_PLAN.md`
 
 ---
 

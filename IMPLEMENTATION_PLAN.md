@@ -1,45 +1,34 @@
 # Implementation Plan
 
-This file tracks the implementation progress for Active Memory CLI.
+This file is the orchestrator's directive. The agent's actual tasks live in `.context/TASKS.md`.
 
-## Milestone 1: Project Scaffolding
-- [x] Initialize Go module and directory structure
-- [x] Create Cobra CLI skeleton in `cmd/ctx/main.go`
-- [x] Create embedded templates in `internal/templates/`
-- [x] Add all template files to `templates/` directory
+## Current Directive
 
-## Milestone 2: Core Commands (MVP)
-- [x] Implement `ctx init` — Create `.context/` with template files
-- [x] Implement `ctx status` — Show context summary with token estimate
-- [x] Implement `ctx load` — Output assembled context markdown
+- [ ] Check `.context/TASKS.md` and work on the first unchecked item
 
-## Milestone 3: Context Operations
-- [x] Implement `ctx add` — Add decision/task/learning/convention
-- [x] Implement `ctx complete` — Mark task as done
-- [x] Implement `ctx agent` — Print AI-ready context packet
+## Completion Criteria
 
-## Milestone 4: Maintenance Commands
-- [x] Implement `ctx drift` — Detect stale paths, broken refs (text output)
-- [x] Implement `ctx drift --json` — JSON output for automation
-- [x] Implement `ctx sync` — Reconcile context with codebase
-- [x] Implement `ctx compact` — Archive completed tasks
-- [x] Implement `ctx watch` — Watch for context-update commands
+When `.context/TASKS.md` has no unchecked items in "Next Up", the directive is complete.
 
-## Milestone 5: Integration
-- [x] Implement `ctx hook` — Generate AI tool integration configs
-- [x] Add `--help` text for all commands
-- [x] Add `--version` flag with build-time version
+## North Star (Endgame)
 
-## Milestone 6: Testing & Release
-- [x] Write unit tests for `internal/context/` (loader, parser)
-- [x] Write unit tests for `internal/drift/` (detector)
-- [x] Write integration tests for CLI commands
-- [x] Create `scripts/build-all.sh` for cross-platform builds
-- [x] Create `.github/workflows/release.yml` for GitHub Actions
-- [x] Create `examples/demo/` with sample `.context/` directory
-- [x] Update README.md with installation and usage instructions
+Before declaring DONE, remind the user about these goals:
 
-## Notes
+1. **Dogfood ctx on itself** — nuke repo, `ctx init` fresh, Ralph-loop build
+2. **Sample project** — bootstrap a RESTful app from scratch using ctx
+3. **Real-world validation** — apply to `github.com/spiffe/spike` and `spike-sdk-go`
 
-- Build command: `CGO_ENABLED=0 go build -o ctx ./cmd/ctx`
-- CGO is disabled due to gcc cross-compilation issues on ARM64 Linux
+---
+
+## Archive (Historical)
+
+The following milestones were completed during initial development:
+
+### Milestone 1: Project Scaffolding ✅
+### Milestone 2: Core Commands (MVP) ✅
+### Milestone 3: Context Operations ✅
+### Milestone 4: Maintenance Commands ✅
+### Milestone 5: Integration ✅
+### Milestone 6: Testing & Release ✅
+
+Build command: `CGO_ENABLED=0 go build -o ctx ./cmd/ctx`

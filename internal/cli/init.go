@@ -95,10 +95,15 @@ func runInit(cmd *cobra.Command, args []string) error {
 	if initMinimal {
 		templatesToCreate = minimalTemplates
 	} else {
-		var err error
-		templatesToCreate, err = templates.ListTemplates()
+		allTemplates, err := templates.ListTemplates()
 		if err != nil {
 			return fmt.Errorf("failed to list templates: %w", err)
+		}
+		// Filter out IMPLEMENTATION_PLAN.md - it goes in project root, not .context/
+		for _, t := range allTemplates {
+			if t != "IMPLEMENTATION_PLAN.md" {
+				templatesToCreate = append(templatesToCreate, t)
+			}
 		}
 	}
 
@@ -126,6 +131,12 @@ func runInit(cmd *cobra.Command, args []string) error {
 	}
 
 	fmt.Printf("\n%s initialized in %s/\n", green("Active Memory"), contextDir)
+
+	// Create IMPLEMENTATION_PLAN.md in project root (orchestrator directive)
+	if err := createImplementationPlan(initForce); err != nil {
+		// Non-fatal: warn but continue
+		fmt.Printf("  %s IMPLEMENTATION_PLAN.md: %v\n", color.YellowString("⚠"), err)
+	}
 
 	// Create Claude Code hooks
 	fmt.Println("\nSetting up Claude Code integration...")
@@ -247,5 +258,33 @@ func mergeSettingsHooks(projectDir string, force bool) error {
 		fmt.Printf("  %s %s\n", green("✓"), settingsFileName)
 	}
 
+	return nil
+}
+
+// createImplementationPlan creates IMPLEMENTATION_PLAN.md in project root
+// This is the orchestrator directive that points to .context/TASKS.md
+func createImplementationPlan(force bool) error {
+	green := color.New(color.FgGreen).SprintFunc()
+	yellow := color.New(color.FgYellow).SprintFunc()
+
+	const planFileName = "IMPLEMENTATION_PLAN.md"
+
+	// Check if file exists
+	if _, err := os.Stat(planFileName); err == nil && !force {
+		fmt.Printf("  %s %s (exists, skipped)\n", yellow("○"), planFileName)
+		return nil
+	}
+
+	// Get template content
+	content, err := templates.GetTemplate(planFileName)
+	if err != nil {
+		return fmt.Errorf("failed to read template: %w", err)
+	}
+
+	if err := os.WriteFile(planFileName, content, 0644); err != nil {
+		return fmt.Errorf("failed to write file: %w", err)
+	}
+
+	fmt.Printf("  %s %s (orchestrator directive)\n", green("✓"), planFileName)
 	return nil
 }

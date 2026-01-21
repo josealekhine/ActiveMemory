@@ -171,3 +171,30 @@ ctx init    # Creates BOTH .context/ AND .claude/hooks/
 - Only works with Claude Code (other tools need different approach)
 - Requires jq for JSON parsing in hook script
 - Session files are .jsonl format (need tooling to read)
+
+---
+
+## [2025-01-21] Separate Orchestrator Directive from Agent Tasks
+
+**Status**: Accepted
+
+**Context**: Two task systems existed: `IMPLEMENTATION_PLAN.md` (Ralph Loop orchestrator) and `.context/TASKS.md` (ctx's own context). Ralph would find IMPLEMENTATION_PLAN.md complete and exit, ignoring .context/TASKS.md.
+
+**Decision**: Clean separation of concerns:
+- **`.context/TASKS.md`** = Agent's mind. Tasks the agent decided need doing.
+- **`IMPLEMENTATION_PLAN.md`** = Orchestrator's directive. A single meta-task: "Check your tasks."
+
+The orchestrator doesn't maintain a parallel ledger — it just tells the agent to check its own mind.
+
+**Rationale**:
+- Agent autonomy: the agent owns its task list
+- Single source of truth for tasks
+- Orchestrator is minimal, not a micromanager
+- Fresh `ctx init` deployments can have one directive: "Check .context/TASKS.md"
+- Prevents task list drift between two files
+
+**Consequences**:
+- `PROMPT.md` now references `.context/TASKS.md` for task selection
+- `IMPLEMENTATION_PLAN.md` becomes a thin directive layer
+- Historical milestones are archived, not active tasks
+- North Star goals live in IMPLEMENTATION_PLAN.md (meta-level, not tasks)

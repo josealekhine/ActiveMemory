@@ -1,7 +1,0 @@
-# Conventions
-
-## Naming
-
-## Patterns
-
-## Testing

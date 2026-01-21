@@ -1,5 +1,0 @@
-# Glossary
-
-## Domain Terms
-
-## Abbreviations

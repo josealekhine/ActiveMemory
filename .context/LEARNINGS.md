@@ -129,3 +129,35 @@ The `.context/` directory is an ctx convention. Claude won't know about it unles
 CGO_ENABLED=0 go build -o ctx ./cmd/ctx
 CGO_ENABLED=0 go test ./...
 ```
+
+---
+
+## Project Structure
+
+### One Templates Directory, Not Two
+**Discovered**: 2025-01-21
+
+**Context**: Confusion arose about `templates/` (root) vs `internal/templates/` (embedded).
+
+**Lesson**: Only `internal/templates/` matters — it's where Go embeds files into the binary. A root `templates/` directory is spec baggage that serves no purpose.
+
+**The actual flow:**
+```
+internal/templates/  ──[ctx init]──>  .context/
+     (baked into binary)              (agent's working copy)
+```
+
+**Application**: Don't create duplicate template directories. One source of truth.
+
+### Orchestrator vs Agent Tasks
+**Discovered**: 2025-01-21
+
+**Context**: Ralph Loop checked `IMPLEMENTATION_PLAN.md`, found all tasks done, exited — ignoring `.context/TASKS.md`.
+
+**Lesson**: Separate concerns:
+- **`IMPLEMENTATION_PLAN.md`** = Orchestrator directive ("check your tasks")
+- **`.context/TASKS.md`** = Agent's mind (actual task list)
+
+The orchestrator shouldn't maintain a parallel ledger. It just says "check your mind."
+
+**Application**: For new projects, `IMPLEMENTATION_PLAN.md` has ONE task: "Check `.context/TASKS.md`"
