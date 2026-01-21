@@ -43,7 +43,7 @@ func runCompact(cmd *cobra.Command, args []string) error {
 	ctx, err := context.Load("")
 	if err != nil {
 		if _, ok := err.(*context.NotFoundError); ok {
-			return fmt.Errorf("no .context/ directory found. Run 'amem init' first")
+			return fmt.Errorf("no .context/ directory found. Run 'ctx init' first")
 		}
 		return err
 	}

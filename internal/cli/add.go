@@ -42,10 +42,10 @@ Types:
   convention  Add to CONVENTIONS.md
 
 Examples:
-  amem add decision "Use PostgreSQL for primary database"
-  amem add task "Implement user authentication" --priority high
-  amem add learning "Vitest mocks must be hoisted"
-  amem add convention "All API routes must be versioned"`,
+  ctx add decision "Use PostgreSQL for primary database"
+  ctx add task "Implement user authentication" --priority high
+  ctx add learning "Vitest mocks must be hoisted"
+  ctx add convention "All API routes must be versioned"`,
 		Args: cobra.MinimumNArgs(2),
 		RunE: runAdd,
 	}
@@ -69,7 +69,7 @@ func runAdd(cmd *cobra.Command, args []string) error {
 
 	// Check if file exists
 	if _, err := os.Stat(filePath); os.IsNotExist(err) {
-		return fmt.Errorf("context file %s not found. Run 'amem init' first", filePath)
+		return fmt.Errorf("context file %s not found. Run 'ctx init' first", filePath)
 	}
 
 	// Read existing content

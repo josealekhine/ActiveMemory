@@ -54,7 +54,7 @@ type ContextUpdate struct {
 func runWatch(cmd *cobra.Command, args []string) error {
 	// Check if context exists
 	if !context.Exists("") {
-		return fmt.Errorf("no .context/ directory found. Run 'amem init' first")
+		return fmt.Errorf("no .context/ directory found. Run 'ctx init' first")
 	}
 
 	cyan := color.New(color.FgCyan).SprintFunc()

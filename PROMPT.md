@@ -24,7 +24,7 @@ Check if `go.mod` exists.
 1. Run `go mod init github.com/josealekhine/ActiveMemory`
 2. Create directory structure:
    ```
-   cmd/amem/main.go
+   cmd/ctx/main.go
    internal/cli/
    internal/context/
    internal/files/
@@ -35,7 +35,7 @@ Check if `go.mod` exists.
    examples/
    ```
 3. Install dependencies: `go get github.com/spf13/cobra@latest github.com/fatih/color@latest gopkg.in/yaml.v3@latest`
-4. Create minimal `cmd/amem/main.go` with Cobra skeleton
+4. Create minimal `cmd/ctx/main.go` with Cobra skeleton
 5. Create `IMPLEMENTATION_PLAN.md` with task list from Phase breakdown below
 6. **STOP.** Output: `<promise>BOOTSTRAP_COMPLETE</promise>`
 
@@ -65,29 +65,29 @@ The milestones below are for reference only when creating a new plan.
 
 ### Milestone 1: Project Scaffolding
 - Initialize Go module and directory structure
-- Create Cobra CLI skeleton in `cmd/amem/main.go`
+- Create Cobra CLI skeleton in `cmd/ctx/main.go`
 - Create embedded templates in `internal/templates/`
 - Add all template files to `templates/` directory
 
 ### Milestone 2: Core Commands (MVP)
-- Implement `amem init` — Create `.context/` with template files
-- Implement `amem status` — Show context summary with token estimate
-- Implement `amem load` — Output assembled context markdown
+- Implement `ctx init` — Create `.context/` with template files
+- Implement `ctx status` — Show context summary with token estimate
+- Implement `ctx load` — Output assembled context markdown
 
 ### Milestone 3: Context Operations
-- Implement `amem add` — Add decision/task/learning/convention
-- Implement `amem complete` — Mark task as done
-- Implement `amem agent` — Print AI-ready context packet
+- Implement `ctx add` — Add decision/task/learning/convention
+- Implement `ctx complete` — Mark task as done
+- Implement `ctx agent` — Print AI-ready context packet
 
 ### Milestone 4: Maintenance Commands
-- Implement `amem drift` — Detect stale paths, broken refs (text output)
-- Implement `amem drift --json` — JSON output for automation
-- Implement `amem sync` — Reconcile context with codebase
-- Implement `amem compact` — Archive completed tasks
-- Implement `amem watch` — Watch for context-update commands
+- Implement `ctx drift` — Detect stale paths, broken refs (text output)
+- Implement `ctx drift --json` — JSON output for automation
+- Implement `ctx sync` — Reconcile context with codebase
+- Implement `ctx compact` — Archive completed tasks
+- Implement `ctx watch` — Watch for context-update commands
 
 ### Milestone 5: Integration
-- Implement `amem hook` — Generate AI tool integration configs
+- Implement `ctx hook` — Generate AI tool integration configs
 - Add `--help` text for all commands
 - Add `--version` flag with build-time version
 
@@ -177,7 +177,7 @@ You will not remember this conversation. Write everything important to files.
 
 ## TEMPLATE FILES TO CREATE
 
-When implementing `amem init`, embed these templates:
+When implementing `ctx init`, embed these templates:
 
 ### templates/CONSTITUTION.md
 ```markdown
@@ -312,7 +312,7 @@ Output `<promise>DONE</promise>` ONLY when ALL of these are true:
 1. All commands in `specs/cli.md` are implemented
 2. `go build ./...` passes
 3. `go test ./...` passes
-4. `amem init && amem status && amem drift` works end-to-end
+4. `ctx init && ctx status && ctx drift` works end-to-end
 5. `scripts/build-all.sh` produces binaries for linux/darwin/windows
 6. README.md has installation instructions
 
@@ -322,17 +322,17 @@ Output `<promise>DONE</promise>` ONLY when ALL of these are true:
 
 | Command | Description |
 |---------|-------------|
-| `amem init` | Create `.context/` with templates |
-| `amem status` | Show context summary |
-| `amem load` | Output assembled context |
-| `amem agent` | Print AI-ready context packet |
-| `amem add <type> "content"` | Add decision/task/learning |
-| `amem complete <task>` | Mark task done |
-| `amem drift` | Detect stale context |
-| `amem sync` | Reconcile with codebase |
-| `amem compact` | Archive old items |
-| `amem watch` | Watch for update commands |
-| `amem hook <tool>` | Generate tool config |
+| `ctx init` | Create `.context/` with templates |
+| `ctx status` | Show context summary |
+| `ctx load` | Output assembled context |
+| `ctx agent` | Print AI-ready context packet |
+| `ctx add <type> "content"` | Add decision/task/learning |
+| `ctx complete <task>` | Mark task done |
+| `ctx drift` | Detect stale context |
+| `ctx sync` | Reconcile with codebase |
+| `ctx compact` | Archive old items |
+| `ctx watch` | Watch for update commands |
+| `ctx hook <tool>` | Generate tool config |
 
 ---
 
@@ -341,7 +341,7 @@ Output `<promise>DONE</promise>` ONLY when ALL of these are true:
 ```
 active-memory/
 ├── cmd/
-│   └── amem/
+│   └── ctx/
 │       └── main.go           # Entry point, Cobra root command
 ├── internal/
 │   ├── cli/                  # Command implementations

@@ -22,7 +22,7 @@ Load context in this order (most critical first):
 
 ```bash
 # Build the CLI (CGO disabled for cross-platform compatibility)
-CGO_ENABLED=0 go build -o amem ./cmd/amem
+CGO_ENABLED=0 go build -o ctx ./cmd/ctx
 
 # Run tests
 go test ./...
@@ -57,7 +57,7 @@ Run these after implementing to get immediate feedback:
 
 ```
 cmd/
-└── amem/               # CLI entry point (main.go)
+└── ctx/               # CLI entry point (main.go)
 
 internal/
 ├── context/            # Core context engine (loading, parsing, merging)
@@ -66,7 +66,7 @@ internal/
 └── cli/                # CLI command implementations
 
 pkg/
-└── amem/               # Public API (if any)
+└── ctx/               # Public API (if any)
 
 specs/                  # Feature specifications
 examples/               # Example .context/ directories

@@ -4,10 +4,10 @@
 
 **Status**: Accepted
 
-**Context**: `amem` should work with any AI tool, but Claude Code users could benefit from deeper integration (auto-load, auto-save via hooks).
+**Context**: `ctx` should work with any AI tool, but Claude Code users could benefit from deeper integration (auto-load, auto-save via hooks).
 
-**Decision**: Keep `amem` generic as the core tool, but provide optional Claude Code-specific enhancements:
-- `amem hook claude-code` generates Claude-specific configs
+**Decision**: Keep `ctx` generic as the core tool, but provide optional Claude Code-specific enhancements:
+- `ctx hook claude-code` generates Claude-specific configs
 - `.claude/hooks/` contains Claude Code hook scripts
 - Features work without Claude Code, but are enhanced with it
 
@@ -15,7 +15,7 @@
 - Maintains tool-agnostic philosophy from core-architecture.md
 - Doesn't lock users into Claude Code
 - Claude Code users get seamless experience without extra work
-- Other AI tools can be supported similarly (`amem hook cursor`, etc.)
+- Other AI tools can be supported similarly (`ctx hook cursor`, etc.)
 
 **Consequences**:
 - Need to maintain both generic and Claude-specific documentation
@@ -30,9 +30,9 @@
 
 **Context**: Setting up Claude Code hooks manually is error-prone. Considered `--claude` flag but realized it's unnecessary.
 
-**Decision**: `amem init` ALWAYS creates `.claude/hooks/` alongside `.context/`:
+**Decision**: `ctx init` ALWAYS creates `.claude/hooks/` alongside `.context/`:
 ```bash
-amem init    # Creates BOTH .context/ AND .claude/hooks/
+ctx init    # Creates BOTH .context/ AND .claude/hooks/
 ```
 
 **Rationale**:
@@ -43,10 +43,10 @@ amem init    # Creates BOTH .context/ AND .claude/hooks/
 - Simpler UX - no flags to remember
 
 **Consequences**:
-- `amem init` creates both directories always
+- `ctx init` creates both directories always
 - Hook scripts are embedded in binary (like templates)
 - Need to detect platform for binary path in hooks
-- `.claude/` becomes part of amem's standard output
+- `.claude/` becomes part of ctx's standard output
 
 ---
 
@@ -72,7 +72,7 @@ amem init    # Creates BOTH .context/ AND .claude/hooks/
 **Consequences**:
 - Need both manual and automatic ways to populate both tiers
 - Session files grow over time (may need archival strategy)
-- `amem agent` only loads curated tier by default
+- `ctx agent` only loads curated tier by default
 
 ---
 
@@ -103,9 +103,9 @@ amem init    # Creates BOTH .context/ AND .claude/hooks/
 
 **Status**: Accepted (to be implemented)
 
-**Context**: `amem compact` archives old tasks. Information could be lost if not captured.
+**Context**: `ctx compact` archives old tasks. Information could be lost if not captured.
 
-**Decision**: `amem compact` should auto-save a session dump before archiving:
+**Decision**: `ctx compact` should auto-save a session dump before archiving:
 1. Save current state to `.context/sessions/YYYY-MM-DD-HHMM-pre-compact.md`
 2. Then perform the compaction
 
@@ -121,19 +121,19 @@ amem init    # Creates BOTH .context/ AND .claude/hooks/
 
 ---
 
-## [2025-01-20] Handle CLAUDE.md Creation/Merge in amem init
+## [2025-01-20] Handle CLAUDE.md Creation/Merge in ctx init
 
 **Status**: Accepted (to be implemented)
 
-**Context**: Both `claude init` and `amem init` want to create/modify CLAUDE.md. Users of amem will likely want amem's context-aware version, but may already have a CLAUDE.md from `claude init`.
+**Context**: Both `claude init` and `ctx init` want to create/modify CLAUDE.md. Users of ctx will likely want ctx's context-aware version, but may already have a CLAUDE.md from `claude init`.
 
-**Decision**: `amem init` handles CLAUDE.md intelligently:
-- **No CLAUDE.md exists** → Create it with amem's context-loading template
+**Decision**: `ctx init` handles CLAUDE.md intelligently:
+- **No CLAUDE.md exists** → Create it with ctx's context-loading template
 - **CLAUDE.md exists** → Don't overwrite. Instead:
   1. **Backup first** → Copy to `CLAUDE.md.<unix_timestamp>.bak` (e.g., `CLAUDE.md.1737399000.bak`)
-  2. Check if it already has amem content (idempotent check via marker comment)
+  2. Check if it already has ctx content (idempotent check via marker comment)
   3. If not, output the snippet to append and offer to merge
-  4. `amem init --merge` flag to auto-append without prompting
+  4. `ctx init --merge` flag to auto-append without prompting
 
 **Rationale**:
 - Timestamped backups preserve history across multiple runs
@@ -143,10 +143,10 @@ amem init    # Creates BOTH .context/ AND .claude/hooks/
 - Idempotency prevents duplicate content on re-runs
 
 **Consequences**:
-- Need to detect existing amem content (marker comment like `<!-- amem:context -->`)
+- Need to detect existing ctx content (marker comment like `<!-- ctx:context -->`)
 - Backup files accumulate: `CLAUDE.md.<timestamp>.bak` (may want cleanup command later)
 - Init output must clearly show what was created vs what needs manual merge
-- Should work gracefully even if user runs `amem init` multiple times
+- Should work gracefully even if user runs `ctx init` multiple times
 
 ---
 

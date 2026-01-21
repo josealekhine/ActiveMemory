@@ -288,7 +288,7 @@ See: [Ralph Wiggum technique](https://ghuntley.com/ralph/)
 
 ### DRIFT.md
 
-**Purpose**: Define signals that context is stale and needs updating. Used by `amem drift` command.
+**Purpose**: Define signals that context is stale and needs updating. Used by `ctx drift` command.
 
 **Structure**:
 ```markdown
@@ -296,7 +296,7 @@ See: [Ralph Wiggum technique](https://ghuntley.com/ralph/)
 
 ## Automatic Checks
 
-These are checked by `amem drift`:
+These are checked by `ctx drift`:
 
 ### Path References
 - [ ] All paths in ARCHITECTURE.md exist in filesystem
@@ -383,7 +383,7 @@ Load context files in this order (most critical first):
 
 ## Context Update Commands
 
-Emit these to update context (processed by `amem watch`):
+Emit these to update context (processed by `ctx watch`):
 
 \`\`\`xml
 <context-update file="LEARNINGS.md" action="add" section="Testing">

@@ -72,13 +72,13 @@ A module that:
 
 ### 4. CLI Interface
 
-A single Go binary (`amem`) with commands for human operators:
-- `amem init` — Initialize `.context/` with templates
-- `amem status` — Show current context summary
-- `amem sync` — Reconcile context with codebase state
-- `amem compact` — Consolidate and deduplicate context
-- `amem drift` — Detect stale paths, broken refs, constitution violations
-- `amem agent` — Print AI-ready context packet
+A single Go binary (`ctx`) with commands for human operators:
+- `ctx init` — Initialize `.context/` with templates
+- `ctx status` — Show current context summary
+- `ctx sync` — Reconcile context with codebase state
+- `ctx compact` — Consolidate and deduplicate context
+- `ctx drift` — Detect stale paths, broken refs, constitution violations
+- `ctx agent` — Print AI-ready context packet
 
 **Implementation**: Go with minimal dependencies. Single binary, cross-platform.
 

@@ -12,14 +12,14 @@ import (
 var Version = "dev"
 
 var rootCmd = &cobra.Command{
-	Use:   "amem",
+	Use:   "ctx",
 	Short: "Active Memory - persistent context for AI coding assistants",
-	Long: `Active Memory (amem) maintains persistent context files that help
+	Long: `Active Memory (ctx) maintains persistent context files that help
 AI coding assistants understand your project's architecture, conventions,
 decisions, and current tasks.
 
-Use 'amem init' to create a .context/ directory in your project,
-then use 'amem status', 'amem load', and 'amem agent' to work with context.`,
+Use 'ctx init' to create a .context/ directory in your project,
+then use 'ctx status', 'ctx load', and 'ctx agent' to work with context.`,
 	Version: Version,
 }
 

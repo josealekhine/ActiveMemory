@@ -25,8 +25,8 @@ ls .context/sessions/
 
 **Auto-save triggers** (for Claude Code users):
 - **SessionEnd hook** → auto-saves transcript on exit, including Ctrl+C
-- **PreCompact** → saves before `amem compact` archives old tasks
-- **Manual** → `amem session save` (planned feature)
+- **PreCompact** → saves before `ctx compact` archives old tasks
+- **Manual** → `ctx session save` (planned feature)
 
 See `.claude/hooks/auto-save-session.sh` for the implementation.
 

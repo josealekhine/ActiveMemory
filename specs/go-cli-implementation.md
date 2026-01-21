@@ -2,14 +2,14 @@
 
 ## Overview
 
-The `amem` CLI is implemented in Go for single-binary distribution with zero runtime dependencies.
+The `ctx` CLI is implemented in Go for single-binary distribution with zero runtime dependencies.
 
 ## Project Structure
 
 ```
 active-memory/
 ├── cmd/
-│   └── amem/
+│   └── ctx/
 │       └── main.go           # Entry point
 ├── internal/
 │   ├── context/
@@ -30,17 +30,17 @@ active-memory/
 │   │   ├── paths.go          # Path existence checks
 │   │   └── rules.go          # Constitution rule checks
 │   ├── cli/
-│   │   ├── init.go           # amem init
-│   │   ├── status.go         # amem status
-│   │   ├── load.go           # amem load
-│   │   ├── sync.go           # amem sync
-│   │   ├── compact.go        # amem compact
-│   │   ├── drift.go          # amem drift
-│   │   ├── agent.go          # amem agent
-│   │   ├── add.go            # amem add
-│   │   ├── complete.go       # amem complete
-│   │   ├── watch.go          # amem watch
-│   │   └── hook.go           # amem hook
+│   │   ├── init.go           # ctx init
+│   │   ├── status.go         # ctx status
+│   │   ├── load.go           # ctx load
+│   │   ├── sync.go           # ctx sync
+│   │   ├── compact.go        # ctx compact
+│   │   ├── drift.go          # ctx drift
+│   │   ├── agent.go          # ctx agent
+│   │   ├── add.go            # ctx add
+│   │   ├── complete.go       # ctx complete
+│   │   ├── watch.go          # ctx watch
+│   │   └── hook.go           # ctx hook
 │   └── templates/
 │       └── embed.go          # Embedded template files
 ├── templates/
@@ -86,7 +86,7 @@ require (
 
 ```bash
 # Build for current platform
-go build -o amem ./cmd/amem
+go build -o ctx ./cmd/ctx
 
 # Run tests
 go test ./...
@@ -119,14 +119,14 @@ platforms=(
 for platform in "${platforms[@]}"; do
     GOOS=${platform%/*}
     GOARCH=${platform#*/}
-    output="dist/amem-${GOOS}-${GOARCH}"
+    output="dist/ctx-${GOOS}-${GOARCH}"
     
     if [ "$GOOS" = "windows" ]; then
         output+=".exe"
     fi
     
     echo "Building $output..."
-    GOOS=$GOOS GOARCH=$GOARCH go build -ldflags "$LDFLAGS" -o "$output" ./cmd/amem
+    GOOS=$GOOS GOARCH=$GOARCH go build -ldflags "$LDFLAGS" -o "$output" ./cmd/ctx
 done
 
 echo "Done. Binaries in dist/"
@@ -185,7 +185,7 @@ func GetTemplate(name string) ([]byte, error) {
 Using Cobra for command structure:
 
 ```go
-// cmd/amem/main.go
+// cmd/ctx/main.go
 package main
 
 import (
@@ -198,7 +198,7 @@ var Version = "dev"
 
 func main() {
     root := &cobra.Command{
-        Use:     "amem",
+        Use:     "ctx",
         Short:   "Active Memory - persistent context for AI coding assistants",
         Version: Version,
     }
@@ -260,10 +260,10 @@ func TestLoadContext(t *testing.T) {
 
 ## Performance Targets
 
-- `amem status`: < 50ms
-- `amem load`: < 100ms for typical project
-- `amem drift`: < 500ms (filesystem scanning)
-- `amem agent`: < 100ms
+- `ctx status`: < 50ms
+- `ctx load`: < 100ms for typical project
+- `ctx drift`: < 500ms (filesystem scanning)
+- `ctx agent`: < 100ms
 - Binary size: < 10MB
 
 ## Versioning

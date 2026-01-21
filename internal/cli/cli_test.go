@@ -315,8 +315,8 @@ func TestBinaryIntegration(t *testing.T) {
 	defer os.RemoveAll(tmpDir)
 
 	// Build the binary
-	binaryPath := filepath.Join(tmpDir, "amem")
-	buildCmd := exec.Command("go", "build", "-o", binaryPath, "./cmd/amem")
+	binaryPath := filepath.Join(tmpDir, "ctx")
+	buildCmd := exec.Command("go", "build", "-o", binaryPath, "./cmd/ctx")
 	buildCmd.Env = append(os.Environ(), "CGO_ENABLED=0")
 
 	// Get the project root (go up from internal/cli)
@@ -340,7 +340,7 @@ func TestBinaryIntegration(t *testing.T) {
 	initCmd := exec.Command(binaryPath, "init")
 	initCmd.Dir = testDir
 	if output, err := initCmd.CombinedOutput(); err != nil {
-		t.Fatalf("amem init failed: %v\n%s", err, output)
+		t.Fatalf("ctx init failed: %v\n%s", err, output)
 	}
 
 	// Check .context exists
@@ -353,13 +353,13 @@ func TestBinaryIntegration(t *testing.T) {
 	statusCmd := exec.Command(binaryPath, "status")
 	statusCmd.Dir = testDir
 	if output, err := statusCmd.CombinedOutput(); err != nil {
-		t.Fatalf("amem status failed: %v\n%s", err, output)
+		t.Fatalf("ctx status failed: %v\n%s", err, output)
 	}
 
 	// Run drift
 	driftCmd := exec.Command(binaryPath, "drift")
 	driftCmd.Dir = testDir
 	if output, err := driftCmd.CombinedOutput(); err != nil {
-		t.Fatalf("amem drift failed: %v\n%s", err, output)
+		t.Fatalf("ctx drift failed: %v\n%s", err, output)
 	}
 }

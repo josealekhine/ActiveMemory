@@ -20,9 +20,9 @@ func CompleteCmd() *cobra.Command {
 		Long: `Mark a task as completed in TASKS.md.
 
 You can specify a task by:
-  - Task number (e.g., "amem complete 3")
-  - Partial text match (e.g., "amem complete auth")
-  - Full task text (e.g., "amem complete 'Implement user authentication'")
+  - Task number (e.g., "ctx complete 3")
+  - Partial text match (e.g., "ctx complete auth")
+  - Full task text (e.g., "ctx complete 'Implement user authentication'")
 
 The task will be marked with [x] and optionally moved to the Completed section.`,
 		Args: cobra.ExactArgs(1),
@@ -39,7 +39,7 @@ func runComplete(cmd *cobra.Command, args []string) error {
 
 	// Check if file exists
 	if _, err := os.Stat(filePath); os.IsNotExist(err) {
-		return fmt.Errorf("TASKS.md not found. Run 'amem init' first")
+		return fmt.Errorf("TASKS.md not found. Run 'ctx init' first")
 	}
 
 	// Read existing content
@@ -90,9 +90,9 @@ func runComplete(cmd *cobra.Command, args []string) error {
 
 	if matchedLine == -1 {
 		if isNumber {
-			return fmt.Errorf("task #%d not found. Use 'amem status' to see tasks", taskNumber)
+			return fmt.Errorf("task #%d not found. Use 'ctx status' to see tasks", taskNumber)
 		}
-		return fmt.Errorf("no task matching %q found. Use 'amem status' to see tasks", query)
+		return fmt.Errorf("no task matching %q found. Use 'ctx status' to see tasks", query)
 	}
 
 	// Mark the task as complete

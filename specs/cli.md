@@ -17,47 +17,47 @@ The Active Memory CLI provides commands for initializing, managing, and inspecti
 # From: https://github.com/josealekhine/ActiveMemory/releases
 
 # Linux (amd64)
-curl -LO https://github.com/josealekhine/ActiveMemory/releases/latest/download/amem-linux-amd64
-chmod +x amem-linux-amd64
-sudo mv amem-linux-amd64 /usr/local/bin/amem
+curl -LO https://github.com/josealekhine/ActiveMemory/releases/latest/download/ctx-linux-amd64
+chmod +x ctx-linux-amd64
+sudo mv ctx-linux-amd64 /usr/local/bin/ctx
 
 # Linux (arm64)
-curl -LO https://github.com/josealekhine/ActiveMemory/releases/latest/download/amem-linux-arm64
-chmod +x amem-linux-arm64
-sudo mv amem-linux-arm64 /usr/local/bin/amem
+curl -LO https://github.com/josealekhine/ActiveMemory/releases/latest/download/ctx-linux-arm64
+chmod +x ctx-linux-arm64
+sudo mv ctx-linux-arm64 /usr/local/bin/ctx
 
 # macOS (Apple Silicon)
-curl -LO https://github.com/josealekhine/ActiveMemory/releases/latest/download/amem-darwin-arm64
-chmod +x amem-darwin-arm64
-sudo mv amem-darwin-arm64 /usr/local/bin/amem
+curl -LO https://github.com/josealekhine/ActiveMemory/releases/latest/download/ctx-darwin-arm64
+chmod +x ctx-darwin-arm64
+sudo mv ctx-darwin-arm64 /usr/local/bin/ctx
 
 # macOS (Intel)
-curl -LO https://github.com/josealekhine/ActiveMemory/releases/latest/download/amem-darwin-amd64
-chmod +x amem-darwin-amd64
-sudo mv amem-darwin-amd64 /usr/local/bin/amem
+curl -LO https://github.com/josealekhine/ActiveMemory/releases/latest/download/ctx-darwin-amd64
+chmod +x ctx-darwin-amd64
+sudo mv ctx-darwin-amd64 /usr/local/bin/ctx
 
 # Windows (PowerShell)
-# Download amem-windows-amd64.exe from releases page
+# Download ctx-windows-amd64.exe from releases page
 # Add to PATH or move to a directory in PATH
 
 # Verify installation
-amem --version
+ctx --version
 ```
 
 ## Usage
 
 ```bash
-amem <command> [options]
+ctx <command> [options]
 ```
 
 ## Commands
 
-### `amem init`
+### `ctx init`
 
 Initialize a new `.context/` directory with template files.
 
 ```bash
-amem init [--force] [--minimal]
+ctx init [--force] [--minimal]
 ```
 
 **Behavior**:
@@ -75,12 +75,12 @@ amem init [--force] [--minimal]
 
 ---
 
-### `amem status`
+### `ctx status`
 
 Show current context summary.
 
 ```bash
-amem status [--json] [--verbose]
+ctx status [--json] [--verbose]
 ```
 
 **Output**:
@@ -107,7 +107,7 @@ Recent Activity:
   - TASKS.md modified 2 hours ago
   - DECISIONS.md modified 1 day ago
 
-Drift Status: ⚠️ 2 warnings (run 'amem drift' for details)
+Drift Status: ⚠️ 2 warnings (run 'ctx drift' for details)
 ```
 
 **Options**:
@@ -116,12 +116,12 @@ Drift Status: ⚠️ 2 warnings (run 'amem drift' for details)
 
 ---
 
-### `amem agent`
+### `ctx agent`
 
 Print a concise "agent context packet" for AI consumption.
 
 ```bash
-amem agent [--budget <tokens>] [--format md|json]
+ctx agent [--budget <tokens>] [--format md|json]
 ```
 
 **Behavior**:
@@ -165,12 +165,12 @@ Generated: 2025-01-19T10:30:00Z | Budget: 8000 tokens | Used: 3850
 
 ---
 
-### `amem load`
+### `ctx load`
 
 Load and display assembled context (what AI sees).
 
 ```bash
-amem load [--budget <tokens>] [--raw]
+ctx load [--budget <tokens>] [--raw]
 ```
 
 **Output**: The assembled markdown context as it would be provided to an AI.
@@ -181,12 +181,12 @@ amem load [--budget <tokens>] [--raw]
 
 ---
 
-### `amem sync`
+### `ctx sync`
 
 Reconcile context with current codebase state.
 
 ```bash
-amem sync [--dry-run]
+ctx sync [--dry-run]
 ```
 
 **Behavior**:
@@ -201,12 +201,12 @@ amem sync [--dry-run]
 
 ---
 
-### `amem compact`
+### `ctx compact`
 
 Consolidate and clean up context files.
 
 ```bash
-amem compact [--archive]
+ctx compact [--archive]
 ```
 
 **Behavior**:
@@ -220,12 +220,12 @@ amem compact [--archive]
 
 ---
 
-### `amem drift`
+### `ctx drift`
 
 Detect stale or invalid context (drift detection).
 
 ```bash
-amem drift [--json] [--fix]
+ctx drift [--json] [--fix]
 ```
 
 **Behavior**:
@@ -282,15 +282,15 @@ Drift Detection Report
 
 ---
 
-### `amem add`
+### `ctx add`
 
 Add a new item to a context file.
 
 ```bash
-amem add <file> <content>
-amem add decision "Use PostgreSQL for primary database"
-amem add task "Implement user authentication" --priority high
-amem add learning "Vitest mocks must be hoisted"
+ctx add <file> <content>
+ctx add decision "Use PostgreSQL for primary database"
+ctx add task "Implement user authentication" --priority high
+ctx add learning "Vitest mocks must be hoisted"
 ```
 
 **Arguments**:
@@ -304,24 +304,24 @@ amem add learning "Vitest mocks must be hoisted"
 
 ---
 
-### `amem complete`
+### `ctx complete`
 
 Mark a task as completed.
 
 ```bash
-amem complete <task-id-or-text>
-amem complete "Implement user authentication"
-amem complete 3  # By task number
+ctx complete <task-id-or-text>
+ctx complete "Implement user authentication"
+ctx complete 3  # By task number
 ```
 
 ---
 
-### `amem watch`
+### `ctx watch`
 
 Watch for AI output and auto-apply context updates.
 
 ```bash
-amem watch [--log <file>] [--dry-run]
+ctx watch [--log <file>] [--dry-run]
 ```
 
 **Behavior**:
@@ -336,15 +336,15 @@ amem watch [--log <file>] [--dry-run]
 
 ---
 
-### `amem hook`
+### `ctx hook`
 
 Generate AI tool integration hooks.
 
 ```bash
-amem hook <tool>
-amem hook claude-code
-amem hook cursor
-amem hook aider
+ctx hook <tool>
+ctx hook claude-code
+ctx hook cursor
+ctx hook aider
 ```
 
 **Output**: Instructions and configuration for integrating with specified AI tool.

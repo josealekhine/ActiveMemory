@@ -86,7 +86,7 @@ Future building iterations depend entirely on what you write now.
 
 Build "Active Memory" — a lightweight, file-based system that lets AI coding assistants persist project knowledge across sessions.
 
-**Implementation**: Go CLI (`amem`) distributed as single binary via GitHub Releases.
+**Implementation**: Go CLI (`ctx`) distributed as single binary via GitHub Releases.
 
 **Repository**: https://github.com/josealekhine/ActiveMemory
 

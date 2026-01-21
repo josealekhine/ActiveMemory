@@ -25,35 +25,35 @@ Download pre-built binaries from the [releases page](https://github.com/josealek
 
 **Linux (x86_64):**
 ```bash
-curl -LO https://github.com/josealekhine/ActiveMemory/releases/latest/download/amem-linux-amd64
-chmod +x amem-linux-amd64
-sudo mv amem-linux-amd64 /usr/local/bin/amem
+curl -LO https://github.com/josealekhine/ActiveMemory/releases/latest/download/ctx-linux-amd64
+chmod +x ctx-linux-amd64
+sudo mv ctx-linux-amd64 /usr/local/bin/ctx
 ```
 
 **Linux (ARM64):**
 ```bash
-curl -LO https://github.com/josealekhine/ActiveMemory/releases/latest/download/amem-linux-arm64
-chmod +x amem-linux-arm64
-sudo mv amem-linux-arm64 /usr/local/bin/amem
+curl -LO https://github.com/josealekhine/ActiveMemory/releases/latest/download/ctx-linux-arm64
+chmod +x ctx-linux-arm64
+sudo mv ctx-linux-arm64 /usr/local/bin/ctx
 ```
 
 **macOS (Intel):**
 ```bash
-curl -LO https://github.com/josealekhine/ActiveMemory/releases/latest/download/amem-darwin-amd64
-chmod +x amem-darwin-amd64
-sudo mv amem-darwin-amd64 /usr/local/bin/amem
+curl -LO https://github.com/josealekhine/ActiveMemory/releases/latest/download/ctx-darwin-amd64
+chmod +x ctx-darwin-amd64
+sudo mv ctx-darwin-amd64 /usr/local/bin/ctx
 ```
 
 **macOS (Apple Silicon):**
 ```bash
-curl -LO https://github.com/josealekhine/ActiveMemory/releases/latest/download/amem-darwin-arm64
-chmod +x amem-darwin-arm64
-sudo mv amem-darwin-arm64 /usr/local/bin/amem
+curl -LO https://github.com/josealekhine/ActiveMemory/releases/latest/download/ctx-darwin-arm64
+chmod +x ctx-darwin-arm64
+sudo mv ctx-darwin-arm64 /usr/local/bin/ctx
 ```
 
 **Windows:**
 
-Download `amem-windows-amd64.exe` from the releases page and add it to your PATH.
+Download `ctx-windows-amd64.exe` from the releases page and add it to your PATH.
 
 ### Build from Source
 
@@ -62,65 +62,65 @@ Requires Go 1.22+:
 ```bash
 git clone https://github.com/josealekhine/ActiveMemory.git
 cd ActiveMemory
-CGO_ENABLED=0 go build -o amem ./cmd/amem
-sudo mv amem /usr/local/bin/
+CGO_ENABLED=0 go build -o ctx ./cmd/ctx
+sudo mv ctx /usr/local/bin/
 ```
 
 ## Quick Start
 
 ```bash
 # Initialize context directory in your project
-amem init
+ctx init
 
 # Check context status
-amem status
+ctx status
 
 # Load full context (what AI sees)
-amem load
+ctx load
 
 # Get AI-ready context packet (optimized for LLMs)
-amem agent
+ctx agent
 
 # Detect stale context
-amem drift
+ctx drift
 ```
 
 ## Command Reference
 
 | Command | Description |
 |---------|-------------|
-| `amem init` | Create `.context/` directory with template files |
-| `amem status` | Show context summary with token estimate |
-| `amem load` | Output assembled context markdown |
-| `amem agent [--budget N]` | Print AI-ready context packet (default 4000 tokens) |
-| `amem add <type> <content>` | Add decision/task/learning/convention |
-| `amem complete <query>` | Mark matching task as done |
-| `amem drift [--json]` | Detect stale paths, broken refs |
-| `amem sync [--auto]` | Reconcile context with codebase |
-| `amem compact` | Archive completed tasks |
-| `amem watch [--log FILE]` | Watch for context-update commands |
-| `amem hook <tool>` | Generate AI tool integration config |
+| `ctx init` | Create `.context/` directory with template files |
+| `ctx status` | Show context summary with token estimate |
+| `ctx load` | Output assembled context markdown |
+| `ctx agent [--budget N]` | Print AI-ready context packet (default 4000 tokens) |
+| `ctx add <type> <content>` | Add decision/task/learning/convention |
+| `ctx complete <query>` | Mark matching task as done |
+| `ctx drift [--json]` | Detect stale paths, broken refs |
+| `ctx sync [--auto]` | Reconcile context with codebase |
+| `ctx compact` | Archive completed tasks |
+| `ctx watch [--log FILE]` | Watch for context-update commands |
+| `ctx hook <tool>` | Generate AI tool integration config |
 
 ### Examples
 
 ```bash
 # Add a new task
-amem add task "Implement user authentication"
+ctx add task "Implement user authentication"
 
 # Record a decision
-amem add decision "Use PostgreSQL for primary database"
+ctx add decision "Use PostgreSQL for primary database"
 
 # Note a learning
-amem add learning "Mock functions must be hoisted in Jest"
+ctx add learning "Mock functions must be hoisted in Jest"
 
 # Mark a task complete
-amem complete "user auth"
+ctx complete "user auth"
 
 # Get context with custom token budget
-amem agent --budget 8000
+ctx agent --budget 8000
 
 # Check for stale references (JSON output for automation)
-amem drift --json
+ctx drift --json
 ```
 
 ## Context Files
@@ -144,11 +144,11 @@ amem drift --json
 Active Memory works with any AI tool that can read files. Generate tool-specific configs:
 
 ```bash
-amem hook claude-code  # Claude Code CLI
-amem hook cursor       # Cursor IDE
-amem hook aider        # Aider
-amem hook copilot      # GitHub Copilot
-amem hook windsurf     # Windsurf IDE
+ctx hook claude-code  # Claude Code CLI
+ctx hook cursor       # Cursor IDE
+ctx hook aider        # Aider
+ctx hook copilot      # GitHub Copilot
+ctx hook windsurf     # Windsurf IDE
 ```
 
 ### Claude Code
@@ -172,22 +172,22 @@ When you make changes:
 - Add learnings: <context-update type="learning">What you learned</context-update>
 - Complete tasks: <context-update type="complete">task description</context-update>
 
-Run 'amem agent' for a quick context summary.
+Run 'ctx agent' for a quick context summary.
 ```
 
 ### Automated Context Updates
 
-Use `amem watch` to automatically process context-update commands from AI output:
+Use `ctx watch` to automatically process context-update commands from AI output:
 
 ```bash
 # Watch stdin (pipe AI output through this)
-ai-tool | amem watch
+ai-tool | ctx watch
 
 # Watch a log file
-amem watch --log /path/to/ai-output.log
+ctx watch --log /path/to/ai-output.log
 
 # Dry run (preview without making changes)
-amem watch --dry-run
+ctx watch --dry-run
 ```
 
 ## Design Philosophy

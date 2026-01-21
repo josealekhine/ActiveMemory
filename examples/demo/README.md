@@ -14,19 +14,19 @@ This is a sample project demonstrating Active Memory context structure.
 2. Run Active Memory commands:
    ```bash
    # View context status
-   amem status
+   ctx status
 
    # Get AI-ready context packet
-   amem agent
+   ctx agent
 
    # Add a new task
-   amem add task "Implement feature X"
+   ctx add task "Implement feature X"
 
    # Mark a task complete
-   amem complete "feature X"
+   ctx complete "feature X"
 
    # Check for stale context
-   amem drift
+   ctx drift
    ```
 
 ## Context Structure

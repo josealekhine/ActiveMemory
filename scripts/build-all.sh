@@ -11,8 +11,8 @@ set -e
 
 VERSION="${1:-dev}"
 OUTPUT_DIR="dist"
-BINARY_NAME="amem"
-MODULE_PATH="./cmd/amem"
+BINARY_NAME="ctx"
+MODULE_PATH="./cmd/ctx"
 
 # Build targets: OS/ARCH pairs
 TARGETS=(
@@ -58,9 +58,9 @@ echo ""
 echo "Creating checksums..."
 cd "${OUTPUT_DIR}"
 if command -v sha256sum &> /dev/null; then
-    sha256sum amem-* > checksums.txt
+    sha256sum ctx-* > checksums.txt
 elif command -v shasum &> /dev/null; then
-    shasum -a 256 amem-* > checksums.txt
+    shasum -a 256 ctx-* > checksums.txt
 fi
 cd ..
 

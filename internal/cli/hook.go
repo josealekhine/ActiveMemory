@@ -23,7 +23,7 @@ Supported tools:
   windsurf     - Windsurf IDE
 
 Example:
-  amem hook claude-code`,
+  ctx hook claude-code`,
 		Args: cobra.ExactArgs(1),
 		RunE: runHook,
 	}
@@ -61,7 +61,7 @@ When you make changes:
 - Add learnings: <context-update type="learning">What you learned</context-update>
 - Complete tasks: <context-update type="complete">task description</context-update>
 
-Run 'amem agent' for a quick context summary.
+Run 'ctx agent' for a quick context summary.
 `)
 		fmt.Println(green("```"))
 		fmt.Println()
@@ -70,7 +70,7 @@ Run 'amem agent' for a quick context summary.
 		fmt.Println(green("```json"))
 		fmt.Println(`{
   "hooks": {
-    "preToolCall": "amem agent --budget 4000"
+    "preToolCall": "ctx agent --budget 4000"
   }
 }`)
 		fmt.Println(green("```"))
@@ -90,8 +90,8 @@ Always read these files before making changes:
 - .context/CONVENTIONS.md (how we write code)
 - .context/ARCHITECTURE.md (system structure)
 
-Run 'amem agent' for a context summary.
-Run 'amem drift' to check for stale context.
+Run 'ctx agent' for a context summary.
+Run 'ctx drift' to check for stale context.
 `)
 		fmt.Println(green("```"))
 
@@ -113,7 +113,7 @@ Run 'amem drift' to check for stale context.
 		fmt.Println("Or pass context via command line:")
 		fmt.Println()
 		fmt.Println(green("```bash"))
-		fmt.Println(`amem agent | aider --message "$(cat -)"`)
+		fmt.Println(`ctx agent | aider --message "$(cat -)"`)
 		fmt.Println(green("```"))
 
 	case "copilot":
@@ -151,7 +151,7 @@ Read order for context:
 4. .context/ARCHITECTURE.md
 5. .context/DECISIONS.md
 
-Run 'amem agent' for AI-ready context packet.
+Run 'ctx agent' for AI-ready context packet.
 `)
 		fmt.Println(green("```"))
 
