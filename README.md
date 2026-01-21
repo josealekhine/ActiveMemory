@@ -301,6 +301,84 @@ The loop automatically detects and stops on these signals:
 | `specs/*.md` | Feature specifications |
 | `loop.sh` | The Ralph loop script |
 
+## Dogfooding: Using ctx on ctx
+
+This project uses ctx to manage its own development. Here's how it works:
+
+### Project Structure
+
+```
+ActiveMemory/
+├── .context/                    # ctx manages this
+│   ├── TASKS.md                 # Current work items
+│   ├── DECISIONS.md             # Architecture decisions
+│   ├── LEARNINGS.md             # Gotchas discovered
+│   └── sessions/                # Session history
+├── .claude/                     # Claude Code hooks
+│   ├── hooks/auto-save-session.sh
+│   └── settings.local.json
+├── CLAUDE.md                    # Bootstrap for Claude
+├── PROMPT.md                    # Ralph Loop instructions
+└── IMPLEMENTATION_PLAN.md       # Orchestrator directive
+```
+
+### Development Workflow
+
+```bash
+# 1. Start a Claude Code session
+claude
+
+# 2. Claude automatically:
+#    - Reads CLAUDE.md (bootstrap)
+#    - Runs `ctx agent` via PreToolUse hook (context loads)
+#    - Checks .context/sessions/ for history
+
+# 3. Work on tasks from .context/TASKS.md
+
+# 4. Session ends:
+#    - SessionEnd hook saves snapshot to .context/sessions/
+#    - Context persists for next session
+```
+
+### Manual Operations
+
+```bash
+# Check current context
+./dist/ctx-linux-arm64 status
+
+# Get AI-ready packet
+./dist/ctx-linux-arm64 agent --budget 4000
+
+# Save session manually
+./dist/ctx-linux-arm64 session save "feature-name"
+
+# List previous sessions
+./dist/ctx-linux-arm64 session list
+
+# Clean up completed tasks
+./dist/ctx-linux-arm64 compact
+```
+
+### Key Files for Dogfooding
+
+| File | Role |
+|------|------|
+| `.context/TASKS.md` | Where Claude finds work items |
+| `.context/DECISIONS.md` | Records why things are built this way |
+| `.context/LEARNINGS.md` | Captures gotchas (e.g., "use --no-gpg-sign") |
+| `.context/sessions/` | Full conversation dumps for context |
+| `CLAUDE.md` | Tells Claude about ctx on first read |
+
+### The Feedback Loop
+
+1. **Use ctx** to build ctx
+2. **Discover friction** (missing features, unclear docs)
+3. **Add tasks** to `.context/TASKS.md`
+4. **Implement fixes** using ctx for context
+5. **Repeat**
+
+This is how ctx validates itself — every improvement comes from using it.
+
 ## Specifications
 
 See `specs/` for detailed specifications:

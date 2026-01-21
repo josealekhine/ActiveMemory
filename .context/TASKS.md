@@ -9,7 +9,7 @@
 
 ### Documentation `#priority:medium` `#area:docs`
 - [x] Document Claude Code integration in README — 2026-01-21
-- [ ] Add "Dogfooding Guide" — how to use ctx on ctx itself
+- [x] Add "Dogfooding Guide" — how to use ctx on ctx itself — 2026-01-21
 - [ ] Document session auto-save setup for new users
 
 ## Completed (Recent)
