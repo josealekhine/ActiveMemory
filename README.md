@@ -42,9 +42,11 @@ that maintains continuity over time.
 
 ## The Problem
 
-Most LLM-driven development fail not because models are weak: They fail because
-*context is ephemeral*. Every new session starts near zero. Architectural
-decisions, conventions, and lessons learned decay:
+Most LLM-driven development fail not because models are weak: 
+* They fail because *context is ephemeral*.
+* Every new session starts near zero.
+
+Architectural decisions, conventions, and lessons learned decay:
 * The user re-explains;
 * The AI repeats mistakes;
 * Progress feels far less cumulative than it should.
