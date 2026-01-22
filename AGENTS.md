@@ -40,7 +40,7 @@ golangci-lint run
 go fmt ./...
 
 # Build for all platforms (release)
-./scripts/build-all.sh
+./hack/build-all.sh
 ```
 
 ## Validation
@@ -70,7 +70,7 @@ pkg/
 
 specs/                  # Feature specifications
 examples/               # Example .context/ directories
-scripts/
+hack/
 └── build-all.sh        # Cross-platform build script
 ```
 

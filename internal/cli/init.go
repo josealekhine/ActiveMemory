@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"strings"
 	"time"
@@ -71,6 +72,11 @@ Use --minimal to only create essential files (TASKS.md, DECISIONS.md, CONSTITUTI
 }
 
 func runInit(cmd *cobra.Command, args []string) error {
+	// Check if ctx is in PATH (required for hooks to work)
+	if err := checkCtxInPath(); err != nil {
+		return err
+	}
+
 	contextDir := contextDirName
 
 	// Check if .context/ already exists
@@ -187,7 +193,7 @@ func createClaudeHooks(force bool) error {
 	if _, err := os.Stat(scriptPath); err == nil && !force {
 		fmt.Printf("  %s %s (exists, skipped)\n", yellow("○"), scriptPath)
 	} else {
-		scriptContent, err := claude.GetAutoSaveScript(cwd)
+		scriptContent, err := claude.GetAutoSaveScript()
 		if err != nil {
 			return fmt.Errorf("failed to get auto-save script: %w", err)
 		}
@@ -420,5 +426,39 @@ func updateCtxSection(existing string, newTemplate []byte, green func(...interfa
 	}
 	fmt.Printf("  %s %s (updated ctx section)\n", green("✓"), claudeMdFileName)
 
+	return nil
+}
+
+// checkCtxInPath verifies that ctx is available in PATH.
+// The hooks use "ctx" expecting it to be in PATH, so init should fail
+// if the user hasn't installed ctx globally yet.
+//
+// Set CTX_SKIP_PATH_CHECK=1 to skip this check (used in tests).
+func checkCtxInPath() error {
+	// Allow skipping for tests
+	if os.Getenv("CTX_SKIP_PATH_CHECK") == "1" {
+		return nil
+	}
+
+	_, err := exec.LookPath("ctx")
+	if err != nil {
+		red := color.New(color.FgRed).SprintFunc()
+		yellow := color.New(color.FgYellow).SprintFunc()
+
+		fmt.Printf("%s ctx is not in your PATH\n\n", red("Error:"))
+		fmt.Println("The hooks created by 'ctx init' require ctx to be in your PATH.")
+		fmt.Println("Without this, Claude Code hooks will fail silently.")
+		fmt.Println()
+		fmt.Printf("%s\n", yellow("To fix this:"))
+		fmt.Println("  1. Build:   make build")
+		fmt.Println("  2. Install: sudo make install")
+		fmt.Println()
+		fmt.Println("Or manually:")
+		fmt.Println("  sudo cp ./ctx /usr/local/bin/")
+		fmt.Println()
+		fmt.Println("Then run 'ctx init' again.")
+
+		return fmt.Errorf("ctx not found in PATH")
+	}
 	return nil
 }

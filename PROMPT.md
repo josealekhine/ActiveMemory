@@ -31,7 +31,7 @@ Check if `go.mod` exists.
    internal/drift/
    internal/templates/
    templates/
-   scripts/
+   hack/
    examples/
    ```
 3. Install dependencies: `go get github.com/spf13/cobra@latest github.com/fatih/color@latest gopkg.in/yaml.v3@latest`
@@ -337,7 +337,7 @@ active-memory/
 │   ├── CONSTITUTION.md
 │   ├── TASKS.md
 │   └── ... (all template files)
-├── scripts/
+├── hack/
 │   └── build-all.sh
 ├── examples/
 │   └── demo/

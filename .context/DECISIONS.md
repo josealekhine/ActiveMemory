@@ -150,6 +150,33 @@ ctx init    # Creates BOTH .context/ AND .claude/hooks/
 
 ---
 
+## [2026-01-21] Hooks Use ctx from PATH, Not Hardcoded Paths
+
+**Status**: Accepted (implemented)
+
+**Context**: Original implementation hardcoded absolute paths in hooks (e.g., `/home/parallels/WORKSPACE/ActiveMemory/dist/ctx-linux-arm64`). This breaks when:
+- Sharing configs with other developers
+- Moving projects
+- Dogfooding in separate directories
+
+**Decision**:
+1. Hooks use `ctx` from PATH (e.g., `ctx agent --budget 4000`)
+2. `ctx init` checks if `ctx` is in PATH before proceeding
+3. If not in PATH, init fails with clear instructions to install
+
+**Rationale**:
+- Standard Unix practice — tools should be in PATH
+- Portable across machines/users
+- Dogfooding becomes realistic (tests the real user experience)
+- No manual path editing required
+
+**Consequences**:
+- Users must run `sudo make install` or equivalent before `ctx init`
+- Tests need `CTX_SKIP_PATH_CHECK=1` env var to bypass check
+- README must document PATH installation requirement
+
+---
+
 ## [2025-01-20] Use SessionEnd Hook for Auto-Save
 
 **Status**: Accepted (implemented)

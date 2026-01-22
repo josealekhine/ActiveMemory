@@ -2,7 +2,7 @@
 #
 # Build Context CLI for multiple platforms
 #
-# Usage: ./scripts/build-all.sh [version]
+# Usage: ./hack/build-all.sh [version]
 #   version: The version string to embed (default: dev)
 #
 # Output: Binaries are placed in ./dist/

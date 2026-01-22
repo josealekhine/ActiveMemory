@@ -45,7 +45,7 @@ This project uses Context (ctx) for context persistence across sessions.
 ```bash
 CGO_ENABLED=0 go build -o ctx ./cmd/ctx    # Build CLI
 CGO_ENABLED=0 go test ./...                   # Run tests
-./scripts/build-all.sh                        # Cross-platform build
+./hack/build-all.sh                        # Cross-platform build
 ```
 
 ## This Project

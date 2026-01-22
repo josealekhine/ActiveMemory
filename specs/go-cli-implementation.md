@@ -53,7 +53,7 @@ active-memory/
 │   ├── GLOSSARY.md
 │   ├── DRIFT.md
 │   └── AGENT_PLAYBOOK.md
-├── scripts/
+├── hack/
 │   └── build-all.sh          # Cross-platform build script
 ├── examples/
 │   └── demo/                 # Example project with .context/
@@ -101,7 +101,7 @@ golangci-lint run
 ### Release Build
 
 ```bash
-# scripts/build-all.sh
+# hack/build-all.sh
 #!/bin/bash
 set -e
 
@@ -154,7 +154,7 @@ jobs:
           go-version: '1.22'
       
       - name: Build binaries
-        run: ./scripts/build-all.sh ${{ github.ref_name }}
+        run: ./hack/build-all.sh ${{ github.ref_name }}
       
       - name: Create Release
         uses: softprops/action-gh-release@v1

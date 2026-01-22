@@ -31,7 +31,7 @@ jobs:
         run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
 
       - name: Build all platforms
-        run: ./scripts/build-all.sh ${{ steps.version.outputs.VERSION }}
+        run: ./hack/build-all.sh ${{ steps.version.outputs.VERSION }}
 
       - name: Create Release
         uses: softprops/action-gh-release@v2

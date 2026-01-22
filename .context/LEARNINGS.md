@@ -22,14 +22,23 @@
 
 ## Claude Code Integration
 
-### Binary Path Must Be Absolute
-**Discovered**: 2025-01-20
+### Hooks Should Use PATH, Not Hardcoded Paths
+**Discovered**: 2026-01-21
 
-**Context**: Set up PreToolUse hook but referenced wrong binary path.
+**Context**: Original hooks used hardcoded absolute paths like `/home/user/project/dist/ctx-linux-arm64`. This caused issues when dogfooding or sharing configs.
 
-**Lesson**: The built binary is in `dist/ctx-linux-arm64`, not at project root. Use full path in hooks.
+**Lesson**: Hooks should assume `ctx` is in the user's PATH:
+- More portable across machines/users
+- Standard Unix practice
+- `ctx init` now checks if `ctx` is in PATH before proceeding
+- Hooks use `ctx agent` instead of `/full/path/to/ctx-linux-arm64 agent`
 
-**Application**: Always verify binary location with `ls dist/` before configuring hooks. For this project: `./dist/ctx-linux-arm64`
+**Application**:
+1. Users must install ctx to PATH: `sudo make install` or `sudo cp ./ctx /usr/local/bin/`
+2. `ctx init` will fail with clear instructions if ctx is not in PATH
+3. Tests can skip this check with `CTX_SKIP_PATH_CHECK=1`
+
+**Supersedes**: Previous learning "Binary Path Must Be Absolute" (2025-01-20)
 
 ### `.context/` Is NOT a Claude Code Primitive
 **Discovered**: 2025-01-20
@@ -161,3 +170,25 @@ internal/templates/  ──[ctx init]──>  .context/
 The orchestrator shouldn't maintain a parallel ledger. It just says "check your mind."
 
 **Application**: For new projects, `IMPLEMENTATION_PLAN.md` has ONE task: "Check `.context/TASKS.md`"
+
+---
+
+## Ralph Loop & Dogfooding
+
+### Exit Criteria Must Include Verification, Not Just Task Completion
+**Discovered**: 2026-01-21
+
+**Context**: Dogfooding experiment had another Claude rebuild `ctx` from specs. All tasks were marked complete, Ralph Loop exited successfully. But the built binary didn't work — commands just printed help text instead of executing.
+
+**Lesson**: "All tasks checked off" ≠ "Implementation works." This applies to US too, not just the dogfooding clone. Our own verification is based on manual testing, not automated proof. Blind spots exist in both projects.
+
+Exit criteria must include:
+- **Integration tests**: Binary executes commands correctly (not just unit tests)
+- **Coverage targets**: Quantifiable proof that code paths are tested
+- **Smoke tests**: Basic "does it run" verification in CI
+
+**Application**:
+1. Add integration test suite that invokes the actual binary
+2. Set coverage targets (e.g., 70% for core packages)
+3. Add verification tasks to TASKS.md — we have the same blind spot
+4. Being proud of our achievement doesn't prove its validity
