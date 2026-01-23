@@ -2,7 +2,7 @@
 #
 # Common targets for Go developers
 
-.PHONY: build test vet fmt lint clean all release dogfood help test-coverage
+.PHONY: build test vet fmt lint clean all release dogfood help test-coverage smoke
 
 # Default binary name and output
 BINARY := ctx
@@ -46,6 +46,29 @@ test-coverage:
 	fi; \
 	echo "Coverage check passed (internal/context >= 70%)"; \
 	rm -f /tmp/ctx-coverage.txt
+
+## smoke: Build and run basic commands to verify binary works
+smoke: build
+	@echo "Running smoke tests..."
+	@TMPDIR=$$(mktemp -d) && \
+	cd $$TMPDIR && \
+	echo "  Testing: ctx --help" && \
+	$(CURDIR)/$(BINARY) --help > /dev/null && \
+	echo "  Testing: ctx init" && \
+	CTX_SKIP_PATH_CHECK=1 $(CURDIR)/$(BINARY) init > /dev/null && \
+	echo "  Testing: ctx status" && \
+	$(CURDIR)/$(BINARY) status > /dev/null && \
+	echo "  Testing: ctx agent" && \
+	$(CURDIR)/$(BINARY) agent > /dev/null && \
+	echo "  Testing: ctx drift" && \
+	$(CURDIR)/$(BINARY) drift > /dev/null && \
+	echo "  Testing: ctx add task 'smoke test task'" && \
+	$(CURDIR)/$(BINARY) add task "smoke test task" > /dev/null && \
+	echo "  Testing: ctx session save" && \
+	$(CURDIR)/$(BINARY) session save > /dev/null && \
+	rm -rf $$TMPDIR && \
+	echo "" && \
+	echo "Smoke tests passed!"
 
 ## vet: Run go vet
 vet:
