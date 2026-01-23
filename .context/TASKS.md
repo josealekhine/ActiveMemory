@@ -42,13 +42,13 @@
 - [x] Document session persistence in AGENT_PLAYBOOK.md
 
 ### Phase 7: Testing & Verification `#priority:high` `#area:quality`
-- [ ] Add headers to all files
-- [ ] Add integration tests — invoke actual binary, verify output
-  - [ ] `ctx init` creates expected files
-  - [ ] `ctx status` returns valid status (not just help text)
-  - [ ] `ctx add learning "test"` modifies LEARNINGS.md
-  - [ ] `ctx session save` creates session file
-  - [ ] `ctx agent` returns context packet
+- [x] Add headers to all files
+- [x] Add integration tests — invoke actual binary, verify output
+  - [x] `ctx init` creates expected files
+  - [x] `ctx status` returns valid status (not just help text)
+  - [x] `ctx add learning "test"` modifies LEARNINGS.md
+  - [x] `ctx session save` creates session file
+  - [x] `ctx agent` returns context packet
 - [ ] Set unit test coverage target (70% for internal/cli, internal/context)
 - [ ] Add coverage reporting to `make test`
 - [ ] Add smoke test to CI/Makefile: build binary, run basic commands

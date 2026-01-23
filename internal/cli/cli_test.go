@@ -342,30 +342,121 @@ func TestBinaryIntegration(t *testing.T) {
 		t.Fatalf("failed to create test dir: %v", err)
 	}
 
-	// Run init
-	initCmd := exec.Command(binaryPath, "init")
-	initCmd.Dir = testDir
-	if output, err := initCmd.CombinedOutput(); err != nil {
-		t.Fatalf("ctx init failed: %v\n%s", err, output)
-	}
+	// Subtest: ctx init creates expected files
+	t.Run("init creates expected files", func(t *testing.T) {
+		initCmd := exec.Command(binaryPath, "init")
+		initCmd.Dir = testDir
+		if output, err := initCmd.CombinedOutput(); err != nil {
+			t.Fatalf("ctx init failed: %v\n%s", err, output)
+		}
 
-	// Check .context exists
-	ctxDir := filepath.Join(testDir, ".context")
-	if _, err := os.Stat(ctxDir); os.IsNotExist(err) {
-		t.Fatal(".context directory was not created")
-	}
+		// Check .context directory exists
+		ctxDir := filepath.Join(testDir, ".context")
+		if _, err := os.Stat(ctxDir); os.IsNotExist(err) {
+			t.Fatal(".context directory was not created")
+		}
 
-	// Run status
-	statusCmd := exec.Command(binaryPath, "status")
-	statusCmd.Dir = testDir
-	if output, err := statusCmd.CombinedOutput(); err != nil {
-		t.Fatalf("ctx status failed: %v\n%s", err, output)
-	}
+		// Check required files exist
+		requiredFiles := []string{
+			"CONSTITUTION.md",
+			"TASKS.md",
+			"DECISIONS.md",
+			"LEARNINGS.md",
+			"CONVENTIONS.md",
+			"ARCHITECTURE.md",
+		}
+		for _, name := range requiredFiles {
+			path := filepath.Join(ctxDir, name)
+			if _, err := os.Stat(path); os.IsNotExist(err) {
+				t.Errorf("required file %s was not created", name)
+			}
+		}
+	})
 
-	// Run drift
-	driftCmd := exec.Command(binaryPath, "drift")
-	driftCmd.Dir = testDir
-	if output, err := driftCmd.CombinedOutput(); err != nil {
-		t.Fatalf("ctx drift failed: %v\n%s", err, output)
-	}
+	// Subtest: ctx status returns valid status (not just help text)
+	t.Run("status returns valid status", func(t *testing.T) {
+		statusCmd := exec.Command(binaryPath, "status")
+		statusCmd.Dir = testDir
+		output, err := statusCmd.CombinedOutput()
+		if err != nil {
+			t.Fatalf("ctx status failed: %v\n%s", err, output)
+		}
+
+		outputStr := string(output)
+		// Verify it's actual status output, not help text
+		if strings.Contains(outputStr, "Usage:") || strings.Contains(outputStr, "Available Commands:") {
+			t.Error("ctx status returned help text instead of status")
+		}
+		// Check for expected status output markers
+		if !strings.Contains(outputStr, "Context Status") && !strings.Contains(outputStr, "Context Directory") {
+			t.Errorf("ctx status did not return expected status output, got:\n%s", outputStr)
+		}
+	})
+
+	// Subtest: ctx add learning modifies LEARNINGS.md
+	t.Run("add learning modifies LEARNINGS.md", func(t *testing.T) {
+		addCmd := exec.Command(binaryPath, "add", "learning", "Test learning from integration test")
+		addCmd.Dir = testDir
+		if output, err := addCmd.CombinedOutput(); err != nil {
+			t.Fatalf("ctx add learning failed: %v\n%s", err, output)
+		}
+
+		// Verify learning was added
+		learningsPath := filepath.Join(testDir, ".context", "LEARNINGS.md")
+		content, err := os.ReadFile(learningsPath)
+		if err != nil {
+			t.Fatalf("failed to read LEARNINGS.md: %v", err)
+		}
+		if !strings.Contains(string(content), "Test learning from integration test") {
+			t.Error("learning was not added to LEARNINGS.md")
+		}
+	})
+
+	// Subtest: ctx session save creates session file
+	t.Run("session save creates session file", func(t *testing.T) {
+		saveCmd := exec.Command(binaryPath, "session", "save")
+		saveCmd.Dir = testDir
+		if output, err := saveCmd.CombinedOutput(); err != nil {
+			t.Fatalf("ctx session save failed: %v\n%s", err, output)
+		}
+
+		// Check that sessions directory exists and has at least one file
+		sessionsDir := filepath.Join(testDir, ".context", "sessions")
+		entries, err := os.ReadDir(sessionsDir)
+		if err != nil {
+			t.Fatalf("failed to read sessions directory: %v", err)
+		}
+		if len(entries) == 0 {
+			t.Error("no session file was created")
+		}
+	})
+
+	// Subtest: ctx agent returns context packet
+	t.Run("agent returns context packet", func(t *testing.T) {
+		agentCmd := exec.Command(binaryPath, "agent")
+		agentCmd.Dir = testDir
+		output, err := agentCmd.CombinedOutput()
+		if err != nil {
+			t.Fatalf("ctx agent failed: %v\n%s", err, output)
+		}
+
+		outputStr := string(output)
+		// Verify it's actual agent output, not help text
+		if strings.Contains(outputStr, "Usage:") || strings.Contains(outputStr, "Available Commands:") {
+			t.Error("ctx agent returned help text instead of context packet")
+		}
+		// Check for expected context packet markers
+		if !strings.Contains(outputStr, "CONSTITUTION") && !strings.Contains(outputStr, "TASKS") {
+			t.Errorf("ctx agent did not return expected context packet, got:\n%s", outputStr)
+		}
+	})
+
+	// Subtest: ctx drift runs without error
+	t.Run("drift runs without error", func(t *testing.T) {
+		driftCmd := exec.Command(binaryPath, "drift")
+		driftCmd.Dir = testDir
+		if output, err := driftCmd.CombinedOutput(); err != nil {
+			t.Fatalf("ctx drift failed: %v\n%s", err, output)
+		}
+	})
 }
