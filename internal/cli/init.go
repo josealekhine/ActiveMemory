@@ -24,14 +24,15 @@ import (
 )
 
 const (
-	contextDirName     = ".context"
-	claudeDirName      = ".claude"
-	claudeHooksDirName = ".claude/hooks"
-	settingsFileName   = ".claude/settings.local.json"
-	autoSaveScriptName = "auto-save-session.sh"
-	claudeMdFileName   = "CLAUDE.md"
-	ctxMarkerStart     = "<!-- ctx:context -->"
-	ctxMarkerEnd       = "<!-- ctx:end -->"
+	contextDirName         = ".context"
+	claudeDirName          = ".claude"
+	claudeHooksDirName     = ".claude/hooks"
+	settingsFileName       = ".claude/settings.local.json"
+	autoSaveScriptName     = "auto-save-session.sh"
+	blockNonPathScriptName = "block-non-path-ctx.sh"
+	claudeMdFileName       = "CLAUDE.md"
+	ctxMarkerStart         = "<!-- ctx:context -->"
+	ctxMarkerEnd           = "<!-- ctx:end -->"
 )
 
 var (
@@ -207,6 +208,21 @@ func createClaudeHooks(cmd *cobra.Command, force bool) error {
 			return fmt.Errorf("failed to write %s: %w", scriptPath, err)
 		}
 		cmd.Printf("  %s %s\n", green("✓"), scriptPath)
+	}
+
+	// Create block-non-path-ctx.sh script (enforces CONSTITUTION.md ctx invocation rules)
+	blockScriptPath := filepath.Join(claudeHooksDirName, blockNonPathScriptName)
+	if _, err := os.Stat(blockScriptPath); err == nil && !force {
+		cmd.Printf("  %s %s (exists, skipped)\n", yellow("○"), blockScriptPath)
+	} else {
+		blockScriptContent, err := claude.GetBlockNonPathCtxScript()
+		if err != nil {
+			return fmt.Errorf("failed to get block-non-path-ctx script: %w", err)
+		}
+		if err := os.WriteFile(blockScriptPath, blockScriptContent, 0755); err != nil {
+			return fmt.Errorf("failed to write %s: %w", blockScriptPath, err)
+		}
+		cmd.Printf("  %s %s\n", green("✓"), blockScriptPath)
 	}
 
 	// Handle settings.local.json - merge rather than overwrite

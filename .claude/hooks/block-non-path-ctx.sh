@@ -1,0 +1,62 @@
+#!/bin/bash
+
+#   /    Context:                     https://ctx.ist
+# ,'`./    do you remember?
+# `.,'\
+#   \    Copyright 2025-present Context contributors.
+#                 SPDX-License-Identifier: Apache-2.0
+
+# Block non-PATH ctx invocations
+# This enforces the CONSTITUTION.md rule: "ALWAYS use ctx from PATH"
+#
+# BLOCKED PATTERNS:
+# - ./ctx, ./dist/ctx, ./dist/ctx-*  (relative paths)
+# - go run ./cmd/ctx                  (build-and-run)
+# - /absolute/path/to/ctx             (hardcoded absolute paths)
+#
+# ALLOWED:
+# - ctx status, ctx agent, etc.       (PATH-based invocation)
+
+# Read hook input from stdin (JSON)
+HOOK_INPUT=$(cat)
+
+# Extract the command being run
+COMMAND=$(echo "$HOOK_INPUT" | jq -r '.tool_input.command // empty')
+
+# If no command, allow (not a Bash call we care about)
+if [ -z "$COMMAND" ]; then
+    exit 0
+fi
+
+# Check for forbidden patterns
+BLOCKED_REASON=""
+
+# Pattern 1: ./ctx or ./dist/ctx or ./dist/ctx-*
+if echo "$COMMAND" | grep -qE '(\./ctx|\./dist/ctx)'; then
+    BLOCKED_REASON="Use 'ctx' from PATH, not './ctx' or './dist/ctx'. Install with: sudo make install"
+fi
+
+# Pattern 2: go run ./cmd/ctx
+if echo "$COMMAND" | grep -qE 'go run \./cmd/ctx'; then
+    BLOCKED_REASON="Use 'ctx' from PATH, not 'go run ./cmd/ctx'. Install with: sudo make install"
+fi
+
+# Pattern 3: Absolute paths to ctx binary (but not just 'ctx' or paths in /usr/local/bin, /usr/bin)
+# Match things like /home/user/project/ctx or /tmp/ctx-test but allow /usr/local/bin/ctx
+if echo "$COMMAND" | grep -qE '(/home/|/tmp/|/var/)[^ ]*ctx[^ ]* '; then
+    # Exception: allow /tmp/ctx-test for integration tests
+    if ! echo "$COMMAND" | grep -qE '/tmp/ctx-test'; then
+        BLOCKED_REASON="Use 'ctx' from PATH, not absolute paths. Install with: sudo make install"
+    fi
+fi
+
+# If blocked, output JSON that tells Claude Code to reject
+if [ -n "$BLOCKED_REASON" ]; then
+    cat << EOF
+{"decision": "block", "reason": "$BLOCKED_REASON\n\nSee CONSTITUTION.md: ctx Invocation Invariants"}
+EOF
+    exit 0
+fi
+
+# Allow the command
+exit 0

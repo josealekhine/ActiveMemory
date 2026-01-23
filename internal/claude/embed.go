@@ -12,7 +12,7 @@ import (
 	"fmt"
 )
 
-//go:embed tpl/auto-save-session.sh
+//go:embed tpl/auto-save-session.sh tpl/block-non-path-ctx.sh
 var FS embed.FS
 
 // GetAutoSaveScript returns the auto-save session script.
@@ -20,6 +20,15 @@ func GetAutoSaveScript() ([]byte, error) {
 	content, err := FS.ReadFile("tpl/auto-save-session.sh")
 	if err != nil {
 		return nil, fmt.Errorf("failed to read auto-save-session.sh: %w", err)
+	}
+	return content, nil
+}
+
+// GetBlockNonPathCtxScript returns the script that blocks non-PATH ctx invocations.
+func GetBlockNonPathCtxScript() ([]byte, error) {
+	content, err := FS.ReadFile("tpl/block-non-path-ctx.sh")
+	if err != nil {
+		return nil, fmt.Errorf("failed to read block-non-path-ctx.sh: %w", err)
 	}
 	return content, nil
 }
@@ -59,6 +68,17 @@ func CreateDefaultHooks(projectDir string) SettingsHooks {
 	return SettingsHooks{
 		PreToolUse: []HookMatcher{
 			{
+				// Block non-PATH ctx invocations (./ctx, ./dist/ctx, go run ./cmd/ctx)
+				Matcher: "Bash",
+				Hooks: []Hook{
+					{
+						Type:    "command",
+						Command: fmt.Sprintf("%s/block-non-path-ctx.sh", hooksDir),
+					},
+				},
+			},
+			{
+				// Auto-load context on every tool use
 				Matcher: ".*",
 				Hooks: []Hook{
 					{
