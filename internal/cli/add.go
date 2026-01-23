@@ -7,6 +7,7 @@
 package cli
 
 import (
+	"bufio"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -18,8 +19,9 @@ import (
 )
 
 var (
-	addPriority string
-	addSection  string
+	addPriority  string
+	addSection   string
+	addFromFile  string
 )
 
 // fileTypeMap maps short names to actual file names
@@ -37,7 +39,7 @@ var fileTypeMap = map[string]string{
 // AddCmd returns the add command.
 func AddCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "add <type> <content>",
+		Use:   "add <type> [content]",
 		Short: "Add a new item to a context file",
 		Long: `Add a new decision, task, learning, or convention to the appropriate context file.
 
@@ -47,24 +49,64 @@ Types:
   learning    Add to LEARNINGS.md
   convention  Add to CONVENTIONS.md
 
+Content can be provided as:
+  - Command argument: ctx add learning "text here"
+  - File: ctx add learning --file /path/to/content.md
+  - Stdin: echo "text" | ctx add learning
+
 Examples:
   ctx add decision "Use PostgreSQL for primary database"
   ctx add task "Implement user authentication" --priority high
   ctx add learning "Vitest mocks must be hoisted"
-  ctx add convention "All API routes must be versioned"`,
-		Args: cobra.MinimumNArgs(2),
+  ctx add learning --file learning-template.md
+  cat notes.md | ctx add decision`,
+		Args: cobra.MinimumNArgs(1),
 		RunE: runAdd,
 	}
 
 	cmd.Flags().StringVarP(&addPriority, "priority", "p", "", "Priority level for tasks (high, medium, low)")
 	cmd.Flags().StringVarP(&addSection, "section", "s", "", "Target section within file")
+	cmd.Flags().StringVarP(&addFromFile, "file", "f", "", "Read content from file instead of argument")
 
 	return cmd
 }
 
 func runAdd(cmd *cobra.Command, args []string) error {
 	fileType := strings.ToLower(args[0])
-	content := strings.Join(args[1:], " ")
+
+	// Determine content source: args, --file, or stdin
+	var content string
+
+	if addFromFile != "" {
+		// Read from file
+		fileContent, err := os.ReadFile(addFromFile)
+		if err != nil {
+			return fmt.Errorf("failed to read file %s: %w", addFromFile, err)
+		}
+		content = strings.TrimSpace(string(fileContent))
+	} else if len(args) > 1 {
+		// Content from arguments
+		content = strings.Join(args[1:], " ")
+	} else {
+		// Try reading from stdin (check if it's a pipe)
+		stat, _ := os.Stdin.Stat()
+		if (stat.Mode() & os.ModeCharDevice) == 0 {
+			// stdin is a pipe, read from it
+			scanner := bufio.NewScanner(os.Stdin)
+			var lines []string
+			for scanner.Scan() {
+				lines = append(lines, scanner.Text())
+			}
+			if err := scanner.Err(); err != nil {
+				return fmt.Errorf("failed to read from stdin: %w", err)
+			}
+			content = strings.TrimSpace(strings.Join(lines, "\n"))
+		}
+	}
+
+	if content == "" {
+		return fmt.Errorf("no content provided. Use argument, --file, or pipe from stdin")
+	}
 
 	fileName, ok := fileTypeMap[fileType]
 	if !ok {
