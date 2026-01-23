@@ -52,7 +52,7 @@
 - [x] Set unit test coverage target (70% for internal/cli, internal/context)
 - [x] Add coverage reporting to `make test`
 - [x] Add smoke test to CI/Makefile: build binary, run basic commands
-- [ ] Verify built binary executes subcommands (not silently falling through to root help)
+- [x] Verify built binary executes subcommands (not silently falling through to root help)
 
 ### Phase 8: Task Archival & Snapshots `#priority:medium` `#area:cli`
 - [ ] Implement `ctx tasks archive` — move completed tasks to timestamped archive file

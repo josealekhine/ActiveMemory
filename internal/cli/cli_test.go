@@ -459,4 +459,41 @@ func TestBinaryIntegration(t *testing.T) {
 			t.Fatalf("ctx drift failed: %v\n%s", err, output)
 		}
 	})
+
+	// Subtest: verify all subcommands execute (not falling through to root help)
+	t.Run("subcommands execute without falling through to root help", func(t *testing.T) {
+		// Commands that should produce output without "Available Commands:"
+		// (which would indicate they fell through to root help)
+		subcommands := []struct {
+			args     []string
+			checkFor string // expected output marker
+		}{
+			{[]string{"status"}, "Context"},
+			{[]string{"agent"}, "Context Packet"},
+			{[]string{"drift"}, "Drift"},
+			{[]string{"load"}, ""},       // load outputs context, varies by content
+			{[]string{"hook", "cursor"}, "Cursor"}, // hook outputs integration instructions
+		}
+
+		for _, tc := range subcommands {
+			t.Run(strings.Join(tc.args, "_"), func(t *testing.T) {
+				cmd := exec.Command(binaryPath, tc.args...)
+				cmd.Dir = testDir
+				output, err := cmd.CombinedOutput()
+				if err != nil {
+					t.Fatalf("ctx %s failed: %v\n%s", strings.Join(tc.args, " "), err, output)
+				}
+
+				outputStr := string(output)
+				// Critical check: should NOT contain root help indicators
+				if strings.Contains(outputStr, "Available Commands:") {
+					t.Errorf("ctx %s fell through to root help:\n%s", strings.Join(tc.args, " "), outputStr)
+				}
+				// If we have an expected marker, check for it
+				if tc.checkFor != "" && !strings.Contains(outputStr, tc.checkFor) {
+					t.Errorf("ctx %s missing expected output %q:\n%s", strings.Join(tc.args, " "), tc.checkFor, outputStr)
+				}
+			})
+		}
+	})
 }
