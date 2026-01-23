@@ -90,7 +90,7 @@
   - [x] Update all import paths in Go files
   - [x] Update CLAUDE.md references
   - [x] Keep `ctx` as binary name (short for context)
-- [ ] Handle GitHub repo rename (manual step)
+- [x] Handle GitHub repo rename (manual step)
 
 ### Phase 11: Documentation `#priority:low` `#area:docs`
 - [x] Document Claude Code integration in README
@@ -102,15 +102,15 @@
   - [x] Context file format reference
   - [x] Integration guides (Claude Code, Cursor, Aider, etc.)
   - [x] Ralph Loop pairing guide
-- [ ] Set up Cloudflare Pages to serve docs at ctx.ist
-- [ ] Review docs/ and README.md for accuracy and completeness `#human-in-the-loop`
+- [x] Set up Cloudflare Pages to serve docs at ctx.ist
+- [x] Review docs/ and README.md for accuracy and completeness `#human-in-the-loop`
   - Verify CLI examples work as documented
   - Check for inconsistencies between README.md and docs/
   - Requires human confirmation before marking complete
-- [ ] Simplify `docs/index.md` to avoid README.md duplication `#blocked-by:ctx.ist-live`
-  - Keep minimal intro + installation
+- [x] Simplify README.md to direct users to ctx.ist
+  - Keep minimal intro + installation + quick start
   - Link to full docs at ctx.ist for details
-  - Reduces drift between README.md and docs/
+  - Reduced from ~620 lines to ~110 lines
 
 ## Blocked
 
