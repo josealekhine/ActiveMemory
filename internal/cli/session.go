@@ -49,10 +49,7 @@ Subcommands:
 	return cmd
 }
 
-var (
-	sessionTopic string
-	sessionType  string
-)
+var sessionType string
 
 // sessionSaveCmd returns the session save subcommand.
 func sessionSaveCmd() *cobra.Command {
