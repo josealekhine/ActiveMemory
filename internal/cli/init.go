@@ -77,9 +77,9 @@ Use --minimal to only create essential files (TASKS.md, DECISIONS.md, CONSTITUTI
 	return cmd
 }
 
-func runInit(cmd *cobra.Command, args []string) error {
+func runInit(cmd *cobra.Command, _ []string) error {
 	// Check if ctx is in PATH (required for hooks to work)
-	if err := checkCtxInPath(); err != nil {
+	if err := checkCtxInPath(cmd); err != nil {
 		return err
 	}
 
@@ -440,7 +440,7 @@ func updateCtxSection(cmd *cobra.Command, existing string, newTemplate []byte, g
 // if the user hasn't installed ctx globally yet.
 //
 // Set CTX_SKIP_PATH_CHECK=1 to skip this check (used in tests).
-func checkCtxInPath() error {
+func checkCtxInPath(cmd *cobra.Command) error {
 	// Allow skipping for tests
 	if os.Getenv("CTX_SKIP_PATH_CHECK") == "1" {
 		return nil
@@ -448,23 +448,21 @@ func checkCtxInPath() error {
 
 	_, err := exec.LookPath("ctx")
 	if err != nil {
-		// Use os.Stderr for error messages since we don't have cmd here
-		// This function is called before we know if we'll proceed
 		red := color.New(color.FgRed).SprintFunc()
 		yellow := color.New(color.FgYellow).SprintFunc()
 
-		fmt.Fprintf(os.Stderr, "%s ctx is not in your PATH\n\n", red("Error:"))
-		fmt.Fprintln(os.Stderr, "The hooks created by 'ctx init' require ctx to be in your PATH.")
-		fmt.Fprintln(os.Stderr, "Without this, Claude Code hooks will fail silently.")
-		fmt.Fprintln(os.Stderr)
-		fmt.Fprintf(os.Stderr, "%s\n", yellow("To fix this:"))
-		fmt.Fprintln(os.Stderr, "  1. Build:   make build")
-		fmt.Fprintln(os.Stderr, "  2. Install: sudo make install")
-		fmt.Fprintln(os.Stderr)
-		fmt.Fprintln(os.Stderr, "Or manually:")
-		fmt.Fprintln(os.Stderr, "  sudo cp ./ctx /usr/local/bin/")
-		fmt.Fprintln(os.Stderr)
-		fmt.Fprintln(os.Stderr, "Then run 'ctx init' again.")
+		cmd.PrintErrf("%s ctx is not in your PATH\n\n", red("Error:"))
+		cmd.PrintErrln("The hooks created by 'ctx init' require ctx to be in your PATH.")
+		cmd.PrintErrln("Without this, Claude Code hooks will fail silently.")
+		cmd.PrintErrln()
+		cmd.PrintErrf("%s\n", yellow("To fix this:"))
+		cmd.PrintErrln("  1. Build:   make build")
+		cmd.PrintErrln("  2. Install: sudo make install")
+		cmd.PrintErrln()
+		cmd.PrintErrln("Or manually:")
+		cmd.PrintErrln("  sudo cp ./ctx /usr/local/bin/")
+		cmd.PrintErrln()
+		cmd.PrintErrln("Then run 'ctx init' again.")
 
 		return fmt.Errorf("ctx not found in PATH")
 	}
