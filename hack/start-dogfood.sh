@@ -42,29 +42,29 @@ INIT_GIT=true
 TARGET_DIR=""
 
 while [[ $# -gt 0 ]]; do
-    case $1 in
-        --no-git)
-            INIT_GIT=false
-            shift
-            ;;
-        -*)
-            echo -e "${RED}Error: Unknown option $1${NC}"
-            exit 1
-            ;;
-        *)
-            TARGET_DIR="$1"
-            shift
-            ;;
-    esac
+  case $1 in
+    --no-git)
+      INIT_GIT=false
+      shift
+      ;;
+    -*)
+      echo -e "${RED}Error: Unknown option $1${NC}"
+      exit 1
+      ;;
+    *)
+      TARGET_DIR="$1"
+      shift
+      ;;
+  esac
 done
 
 if [ -z "$TARGET_DIR" ]; then
-    echo -e "${RED}Error: Target folder required${NC}"
-    echo ""
-    echo "Usage: $0 [--no-git] <target-folder>"
-    echo "  Example: $0 ~/WORKSPACE/ctx-dogfood"
-    echo "  Example: $0 --no-git ~/WORKSPACE/ctx-dogfood"
-    exit 1
+  echo -e "${RED}Error: Target folder required${NC}"
+  echo ""
+  echo "Usage: $0 [--no-git] <target-folder>"
+  echo "  Example: $0 ~/WORKSPACE/ctx-dogfood"
+  echo "  Example: $0 --no-git ~/WORKSPACE/ctx-dogfood"
+  exit 1
 fi
 
 # Expand ~ to home directory
@@ -77,19 +77,19 @@ echo ""
 
 # Step 1: Verify ctx is in PATH
 if ! command -v ctx &> /dev/null; then
-    echo -e "${RED}Error: ctx is not in your PATH${NC}"
-    echo ""
-    echo "Dogfooding requires ctx to be installed globally, just like a real user would have it."
-    echo ""
-    echo "To install ctx:"
-    echo "  1. Build:   make build"
-    echo "  2. Install: sudo make install"
-    echo ""
-    echo "Or manually:"
-    echo "  sudo cp ./ctx /usr/local/bin/"
-    echo ""
-    echo "Then try again."
-    exit 1
+  echo -e "${RED}Error: ctx is not in your PATH${NC}"
+  echo ""
+  echo "Dogfooding requires ctx to be installed globally, just like a real user would have it."
+  echo ""
+  echo "To install ctx:"
+  echo "  1. Build:   make build"
+  echo "  2. Install: sudo make install"
+  echo ""
+  echo "Or manually:"
+  echo "  sudo cp ./ctx /usr/local/bin/"
+  echo ""
+  echo "Then try again."
+  exit 1
 fi
 
 CTX_VERSION=$(ctx --version 2>/dev/null || echo "unknown")
@@ -102,16 +102,16 @@ echo ""
 
 # Step 2: Create target folder
 if [ -d "$TARGET_DIR" ]; then
-    echo -e "${YELLOW}Warning: Target folder already exists${NC}"
-    read -p "Continue and reinitialize? (y/N) " -n 1 -r
-    echo ""
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-        echo "Aborted."
-        exit 0
-    fi
+  echo -e "${YELLOW}Warning: Target folder already exists${NC}"
+  read -p "Continue and reinitialize? (y/N) " -n 1 -r
+  echo ""
+  if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    echo "Aborted."
+    exit 0
+  fi
 else
-    echo "Creating target folder..."
-    mkdir -p "$TARGET_DIR"
+  echo "Creating target folder..."
+  mkdir -p "$TARGET_DIR"
 fi
 
 # Step 3: Change to target folder
@@ -121,12 +121,12 @@ echo ""
 
 # Step 4: Initialize git repo if not already (unless --no-git)
 if [ "$INIT_GIT" = true ] && [ ! -d ".git" ]; then
-    echo "Initializing git repository..."
-    git init -b main
-    echo ""
+  echo "Initializing git repository..."
+  git init -b main
+  echo ""
 elif [ "$INIT_GIT" = false ]; then
-    echo -e "${YELLOW}Skipping git init (--no-git)${NC}"
-    echo ""
+  echo -e "${YELLOW}Skipping git init (--no-git)${NC}"
+  echo ""
 fi
 
 # Step 5: Run ctx init
@@ -136,26 +136,26 @@ echo ""
 
 # Step 6: Copy specs/ for reference
 if [ -d "${SOURCE_DIR}/specs" ]; then
-    echo "Copying specs/ for reference..."
-    cp -r "${SOURCE_DIR}/specs" "./specs"
-    echo -e "${GREEN}Installed:${NC} specs/ ($(ls specs/*.md 2>/dev/null | wc -l) spec files)"
-    echo ""
+  echo "Copying specs/ for reference..."
+  cp -r "${SOURCE_DIR}/specs" "./specs"
+  echo -e "${GREEN}Installed:${NC} specs/ ($(find specs -maxdepth 1 -name "*.md" 2>/dev/null | wc -l) spec files)"
+  echo ""
 fi
 
 # Step 7: Copy TASKS_DOGFOOD.md with rebuild goals
 if [ -f "${SCRIPT_DIR}/TASKS_DOGFOOD.md" ]; then
-    echo "Setting up dogfood tasks..."
-    cp "${SCRIPT_DIR}/TASKS_DOGFOOD.md" ".context/TASKS.md"
-    echo -e "${GREEN}Installed:${NC} .context/TASKS.md (ctx rebuild goals)"
-    echo ""
+  echo "Setting up dogfood tasks..."
+  cp "${SCRIPT_DIR}/TASKS_DOGFOOD.md" ".context/TASKS.md"
+  echo -e "${GREEN}Installed:${NC} .context/TASKS.md (ctx rebuild goals)"
+  echo ""
 fi
 
 # Step 8: Copy PROMPT.md for Ralph Loop
 if [ -f "${SOURCE_DIR}/PROMPT.md" ]; then
-    echo "Copying PROMPT.md for Ralph Loop..."
-    cp "${SOURCE_DIR}/PROMPT.md" "./PROMPT.md"
-    echo -e "${YELLOW}Note: You may want to customize PROMPT.md for your project${NC}"
-    echo ""
+  echo "Copying PROMPT.md for Ralph Loop..."
+  cp "${SOURCE_DIR}/PROMPT.md" "./PROMPT.md"
+  echo -e "${YELLOW}Note: You may want to customize PROMPT.md for your project${NC}"
+  echo ""
 fi
 
 # Done
