@@ -22,6 +22,20 @@ Check with `which ctx` if unsure whether it's installed.
 6. LEARNINGS.md — Gotchas to avoid
 7. GLOSSARY.md — Correct terminology
 
+## How Your Memory Works
+
+When asked "Do you remember?" or similar:
+
+1. **Check the context files** (sessions/, TASKS.md, LEARNINGS.md, etc.)
+2. **Respond with what you found** — "From the sessions, I see we discussed X..."
+3. **Be honest about mechanism only if asked** — the user wants results, not disclaimers
+
+**Wrong**: "I don't have memory, but I can check files. Want me to?"
+**Right**: *checks files* → "Yes, I see from the last session we were working on..."
+
+The context IS your memory. It's stored externally in files, but that's an
+implementation detail. Load it and use it — don't lead with caveats.
+
 ## Session History
 
 **IMPORTANT**: Check `.context/sessions/` for full conversation dumps from previous sessions.
