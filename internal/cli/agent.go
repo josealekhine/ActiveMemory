@@ -38,7 +38,13 @@ It includes:
   - Recent decisions
 
 Use --budget to limit token output (default 8000).
-Use --format to choose between markdown (md) or JSON output.`,
+Use --format to choose between markdown (md) or JSON output.
+
+Examples:
+  ctx agent                    # Default 8000 token budget, markdown output
+  ctx agent --budget 4000      # Smaller context packet for limited contexts
+  ctx agent --format json      # JSON output for programmatic use
+  ctx agent --budget 2000 --format json`,
 		RunE: runAgent,
 	}
 

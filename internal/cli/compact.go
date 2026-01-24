@@ -38,12 +38,27 @@ Actions performed:
   - Remove empty sections from context files
   - Report on potential duplicates
 
-Use --archive to create .context/archive/ for old content.`,
+Use --archive to create .context/archive/ for old content.
+
+Examples:
+  ctx compact                  # Clean up context, move completed tasks
+  ctx compact --archive        # Also archive old tasks to .context/archive/
+  ctx compact --no-auto-save   # Skip pre-compact session snapshot`,
 		RunE: runCompact,
 	}
 
-	cmd.Flags().BoolVar(&compactArchive, "archive", false, "Create .context/archive/ for old content")
-	cmd.Flags().BoolVar(&compactNoAutoSave, "no-auto-save", false, "Skip auto-saving session before compact")
+	cmd.Flags().BoolVar(
+		&compactArchive,
+		"archive",
+		false,
+		"Create .context/archive/ for old content",
+	)
+	cmd.Flags().BoolVar(
+		&compactNoAutoSave,
+		"no-auto-save",
+		false,
+		"Skip auto-saving session before compact",
+	)
 
 	return cmd
 }
@@ -106,7 +121,9 @@ func runCompact(cmd *cobra.Command, _ []string) error {
 	return nil
 }
 
-func compactTasks(cmd *cobra.Command, ctx *context.Context, archive bool) (int, error) {
+func compactTasks(
+		cmd *cobra.Command, ctx *context.Context, archive bool,
+) (int, error) {
 	var tasksFile *context.FileInfo
 	for i := range ctx.Files {
 		if ctx.Files[i].Name == "TASKS.md" {
@@ -147,7 +164,10 @@ func compactTasks(cmd *cobra.Command, ctx *context.Context, archive bool) (int, 
 			matches := completedPattern.FindStringSubmatch(line)
 			if len(matches) > 1 {
 				completedTasks = append(completedTasks, matches[1])
-				cmd.Printf("%s Moving completed task: %s\n", green("✓"), truncateString(matches[1], 50))
+				cmd.Printf(
+					"%s Moving completed task: %s\n", green("✓"),
+					truncateString(matches[1], 50),
+				)
 				changes++
 				continue // Don't add to newLines
 			}
@@ -163,7 +183,8 @@ func compactTasks(cmd *cobra.Command, ctx *context.Context, archive bool) (int, 
 			if strings.HasPrefix(line, "## Completed") {
 				// Find the next line that's either empty or another section
 				insertIdx := i + 1
-				for insertIdx < len(newLines) && newLines[insertIdx] != "" && !strings.HasPrefix(newLines[insertIdx], "## ") {
+				for insertIdx < len(newLines) && newLines[insertIdx] != "" &&
+						!strings.HasPrefix(newLines[insertIdx], "## ") {
 					insertIdx++
 				}
 
