@@ -14,6 +14,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 
+	"github.com/ActiveMemory/ctx/internal/config"
 	"github.com/ActiveMemory/ctx/internal/context"
 )
 
@@ -47,7 +48,9 @@ func runCompact(cmd *cobra.Command, archive, noAutoSave bool) error {
 	// Auto-save session before compact
 	if !noAutoSave {
 		if err := preCompactAutoSave(cmd); err != nil {
-			cmd.Printf("%s Auto-save failed: %v (continuing anyway)\n", yellow("⚠"), err)
+			cmd.Printf(
+				"%s Auto-save failed: %v (continuing anyway)\n", yellow("⚠"), err,
+			)
 		}
 	}
 
@@ -67,7 +70,7 @@ func runCompact(cmd *cobra.Command, archive, noAutoSave bool) error {
 
 	// Process other files for empty sections
 	for _, f := range ctx.Files {
-		if f.Name == "TASKS.md" {
+		if f.Name == config.FilenameTask {
 			continue
 		}
 		cleaned, count := removeEmptySections(string(f.Content))

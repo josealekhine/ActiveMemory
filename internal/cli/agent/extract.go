@@ -10,6 +10,7 @@ import (
 	"regexp"
 	"strings"
 
+	"github.com/ActiveMemory/ctx/internal/config"
 	"github.com/ActiveMemory/ctx/internal/context"
 )
 
@@ -22,7 +23,7 @@ import (
 //   - []string: List of constitution rules; nil if the file is not found
 func extractConstitutionRules(ctx *context.Context) []string {
 	for _, f := range ctx.Files {
-		if f.Name == "CONSTITUTION.md" {
+		if f.Name == config.FilenameConstitution {
 			return extractCheckboxItems(string(f.Content))
 		}
 	}
@@ -39,7 +40,7 @@ func extractConstitutionRules(ctx *context.Context) []string {
 //     the file is not found
 func extractActiveTasks(ctx *context.Context) []string {
 	for _, f := range ctx.Files {
-		if f.Name == "TASKS.md" {
+		if f.Name == config.FilenameTask {
 			return extractUncheckedTasks(string(f.Content))
 		}
 	}
@@ -55,7 +56,7 @@ func extractActiveTasks(ctx *context.Context) []string {
 //   - []string: Up to 5 convention items; nil if the file is not found
 func extractConventions(ctx *context.Context) []string {
 	for _, f := range ctx.Files {
-		if f.Name == "CONVENTIONS.md" {
+		if f.Name == config.FilenameConvention {
 			return extractBulletItems(string(f.Content), 5)
 		}
 	}
@@ -76,7 +77,7 @@ func extractRecentDecisions(
 	ctx *context.Context, limit int,
 ) []string {
 	for _, f := range ctx.Files {
-		if f.Name == "DECISIONS.md" {
+		if f.Name == config.FilenameDecision {
 			return extractDecisionTitles(string(f.Content), limit)
 		}
 	}

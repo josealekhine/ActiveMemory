@@ -8,7 +8,7 @@ package add
 
 import "strings"
 
-// appendEntry inserts a formatted entry into existing file content.
+// AppendEntry inserts a formatted entry into existing file content.
 //
 // For task entries, the function locates the target section header and inserts
 // the entry immediately after it. For all other entry types, the entry is
@@ -23,7 +23,7 @@ import "strings"
 //
 // Returns:
 //   - []byte: Modified file content with the entry inserted
-func appendEntry(
+func AppendEntry(
 	existing []byte, entry string, fileType string, section string,
 ) []byte {
 	existingStr := string(existing)

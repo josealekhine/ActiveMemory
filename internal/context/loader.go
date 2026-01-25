@@ -4,18 +4,15 @@
 //   \    Copyright 2026-present Context contributors.
 //                 SPDX-License-Identifier: Apache-2.0
 
-// Package context provides functionality for loading and managing .context/ files.
+// Packages context provides functionality for loading and managing .context/ files.
 package context
 
 import (
 	"os"
 	"path/filepath"
 	"time"
-)
 
-const (
-	// DefaultContextDir is the default name for the context directory.
-	DefaultContextDir = ".context"
+	"github.com/ActiveMemory/ctx/internal/config"
 )
 
 // FileInfo represents metadata about a context file.
@@ -42,7 +39,7 @@ type Context struct {
 // If `dir` is empty, it uses the default ".context" directory.
 func Load(dir string) (*Context, error) {
 	if dir == "" {
-		dir = DefaultContextDir
+		dir = config.DirContext
 	}
 
 	// Check if the directory exists
@@ -112,7 +109,7 @@ func Load(dir string) (*Context, error) {
 // Exists checks if a context directory exists.
 func Exists(dir string) bool {
 	if dir == "" {
-		dir = DefaultContextDir
+		dir = config.DirContext
 	}
 	info, err := os.Stat(dir)
 	return err == nil && info.IsDir()

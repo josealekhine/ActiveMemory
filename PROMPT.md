@@ -1,74 +1,65 @@
-# PROMPT.md — Context Go CLI Implementation
+# PROMPT.md — ctx recall Implementation
 
 ## CORE PRINCIPLE
 
 You have NO conversational memory. Your memory IS the file system.
-Your goal: advance the project by exactly ONE task, update context, commit, 
+Your goal: advance the project by exactly ONE task, update context, commit,
 and exit.
 
 ---
 
 ## PROJECT CONTEXT
 
-**Project**: Context — persistent context for AI coding assistants
-**Repository**: https://github.com/ActiveMemory/ctx
-**Language**: Go 1.25+
-**Distribution**: Single binary via GitHub Releases
+**Feature**: ctx recall — browse and search session history
+**Parent Project**: https://github.com/ActiveMemory/ctx
+**Language**: Go 1.26+
+**Scope**: Tier 1 only (Browsable Sessions)
 
 ---
 
-## PHASE 0: BOOTSTRAP (If Project Not Initialized)
+## PHASE 0: BOOTSTRAP (If Not Initialized)
 
-Check if `go.mod` exists.
+Check if `internal/recall/` exists.
 
 **IF NOT:**
-1. Run `go mod init github.com/ActiveMemory/ctx`
-2. Create directory structure:
+1. Create directory structure:
    ```
-   cmd/ctx/main.go
-   internal/cli/
-   internal/context/
-   internal/files/
-   internal/drift/
-   internal/templates/
-   templates/
-   hack/
-   examples/
+   internal/recall/
+   ├── parser/
+   ├── renderer/
+   │   └── templates/
+   ├── server/
+   │   └── static/
+   └── search/
    ```
-3. Install dependencies: `go get github.com/spf13/cobra@latest github.com/fatih/color@latest gopkg.in/yaml.v3@latest`
-4. Create minimal `cmd/ctx/main.go` with Cobra skeleton
-5. Create `IMPLEMENTATION_PLAN.md` with task list from Phase breakdown below
-6. **STOP.** Output: `<promise>BOOTSTRAP_COMPLETE</promise>`
+2. Create `cmd/ctx/recall.go` with Cobra subcommand skeleton
+3. Add to root command in `cmd/ctx/main.go`
+4. **STOP.** Output: `<promise>BOOTSTRAP_COMPLETE</promise>`
 
 ---
 
 ## PHASE 1: ORIENT
 
-1. Read `specs/core-architecture.md` — Overall design philosophy
-2. Read `specs/go-cli-implementation.md` — Go project structure and patterns
-3. Read `specs/cli.md` — All CLI commands and their behavior
-4. Read `specs/context-file-formats.md` — File format specifications
-5. Read `specs/context-loader.md` — Loading and parsing logic
-6. Read `specs/context-updater.md` — Update command handling
-7. Read `IMPLEMENTATION_PLAN.md` — Current task list
-8. Read `AGENTS.md` — Build/test commands
+1. Read `specs/IMPLEMENTATION_PLAN.md` — Feature overview and tier breakdown
+2. Read `specs/session-schema.md` — Input format specification
+3. Read `specs/browsable.md` — Tier 1 detailed spec
+4. Read `.context/TASKS.md` — Current task list
+5. Read `AGENTS.md` — Build/test commands
 
 ---
 
 ## PHASE 2: SELECT TASK
 
-1. Read `IMPLEMENTATION_PLAN.md` for the current directive
-2. Follow the directive — typically: "Check `.context/TASKS.md`"
-3. Read `.context/TASKS.md` and pick the **first unchecked item** in "Next Up"
+1. Read `.context/TASKS.md`
+2. Find the **first unchecked item** (line starting with `- [ ]`)
+3. That is your ONE task for this iteration
 
-**IF NO UNCHECKED ITEMS in `.context/TASKS.md`:**
-1. Check `IMPLEMENTATION_PLAN.md` for North Star goals
-2. Remind user about Endgame goals before exiting
-3. Output `<promise>DONE</promise>`
+**IF NO UNCHECKED ITEMS:**
+1. Run validation: `go build ./...`, `go test ./internal/recall/...`
+2. If all pass, output `<promise>TIER1_COMPLETE</promise>`
+3. If any fail, add fix task and continue
 
-**Philosophy:** Tasks live in the agent's mind (`.context/TASKS.md`). 
-The orchestrator (`IMPLEMENTATION_PLAN.md`) provides the meta-directive, 
-not the task list
+**Philosophy:** ONE task. Complete it. Exit. The loop handles continuation.
 
 ---
 
@@ -77,7 +68,30 @@ not the task list
 1. **Search first** — Don't assume code doesn't exist. Search the codebase.
 2. **Implement ONE task** — Complete it fully. No placeholders. No stubs.
 3. **Follow Go conventions** — `gofmt`, proper error handling, idiomatic code.
-4. **Use internal packages** — Put reusable code in `internal/`, not `cmd/`.
+4. **Use internal packages** — All recall code goes in `internal/recall/`.
+
+### Key Implementation Patterns
+
+**Parser** (T1.1.x):
+- Stream JSONL lines, don't load entire file
+- Return errors for malformed lines, don't panic
+- Group messages by `sessionId`, sort by `timestamp`
+
+**Renderer** (T1.2.x):
+- Use `//go:embed` for templates and static assets
+- Use `goldmark` for markdown → HTML
+- Use `chroma` for syntax highlighting
+- Thinking blocks: `<details>` elements, collapsed by default
+
+**Server** (T1.3.x):
+- Standard library `net/http` only
+- Graceful shutdown on SIGINT/SIGTERM
+- Embed static assets in binary
+
+**Search** (T1.4.x):
+- In-memory inverted index
+- Tokenize: lowercase, split on whitespace, remove punctuation
+- AND semantics for multi-term queries
 
 ---
 
@@ -86,13 +100,13 @@ not the task list
 After implementing, run:
 
 ```bash
-go build ./...          # Must compile
-go test ./...           # Tests must pass
-go vet ./...            # No vet errors
+go build ./...                      # Must compile
+go test ./internal/recall/...       # Tests must pass
+go vet ./internal/recall/...        # No vet errors
 ```
 
 **IF BUILD FAILS:**
-1. Uncheck the task
+1. Uncheck the task in `.context/TASKS.md`
 2. Add task: "Fix build: [error description]"
 3. Attempt to fix in this iteration
 
@@ -105,22 +119,13 @@ go vet ./...            # No vet errors
 ## PHASE 5: UPDATE CONTEXT
 
 1. Mark completed task `[x]` in `.context/TASKS.md`
-2. Move task to "Completed (Recent)" section with date
-3. If you made an architectural decision → run `ctx add decision "description"`
-4. If you learned a gotcha → run `ctx add learning "description"`
-5. If build commands changed → update `AGENTS.md`
-
----
-
-## PHASE 6: COMMIT & EXIT
-
-```bash
-git add -A
-git commit -m "feat(cli): implement [command/feature]"  # or fix/docs/test/chore
-git push origin main
-```
+2. If you made an architectural decision → add to `.context/DECISIONS.md`
+3. If you learned a gotcha → add to `.context/LEARNINGS.md`
+4. If build commands changed → update `AGENTS.md`
 
 **EXIT.** Do not continue to next task. The loop will restart you.
+
+Output: `<promise>TASK_COMPLETE</promise>`
 
 ---
 
@@ -131,9 +136,9 @@ Complete ONE task, then stop. The loop handles continuation.
 
 ### NO CHAT
 Never ask questions. If blocked:
-1. Move task to "Blocked" section in `.context/TASKS.md` with reason
-2. Move to next task in "Next Up"
-3. If ALL tasks blocked: `<promise>SYSTEM_BLOCKED</promise>`
+1. Add reason to task in `.context/TASKS.md`
+2. Move to next task
+3. If ALL tasks blocked: `<promise>BLOCKED</promise>`
 
 ### MEMORY IS THE FILESYSTEM
 You will not remember this conversation. Write everything important to files.
@@ -141,216 +146,123 @@ You will not remember this conversation. Write everything important to files.
 ### GO IDIOMS
 - Error handling: `if err != nil { return err }`
 - No panics in library code
-- Use `internal/` for non-exported packages
-- Embed templates with `//go:embed`
+- Use `internal/recall/` for all recall code
+- Embed assets with `//go:embed`
+- Use `goldmark` for markdown, `chroma` for syntax highlighting
 
----
-
-## TEMPLATE FILES TO CREATE
-
-When implementing `ctx init`, embed these templates:
-
-### templates/CONSTITUTION.md
-```markdown
-# Constitution
-
-These rules are INVIOLABLE. If a task requires violating these, 
-the task is wrong.
-
-## Security Invariants
-
-- [ ] Never commit secrets, tokens, API keys, or credentials
-- [ ] Never store customer/user data in context files
-
-## Quality Invariants
-
-- [ ] All code must pass tests before commit
-- [ ] No TODO comments in main branch (move to TASKS.md)
-
-## Process Invariants
-
-- [ ] All architectural changes require a decision record
-```
-
-### templates/TASKS.md
-```markdown
-# Tasks
-
-## In Progress
-
-## Next Up
-
-## Completed (Recent)
-
-## Blocked
-```
-
-### templates/DECISIONS.md
-```markdown
-# Decisions
-
-<!-- Use this format for each decision:
-
-## [YYYY-MM-DD] Decision Title
-
-**Status**: Accepted | Superseded | Deprecated
-
-**Context**: What situation prompted this decision?
-
-**Decision**: What was decided?
-
-**Rationale**: Why was this the right choice?
-
-**Consequences**: What are the implications?
--->
-```
-
-### templates/LEARNINGS.md
-```markdown
-# Learnings
-
-<!-- Add gotchas, tips, and lessons learned here -->
-```
-
-### templates/CONVENTIONS.md
-```markdown
-# Conventions
-
-## Naming
-
-## Patterns
-
-## Testing
-```
-
-### templates/ARCHITECTURE.md
-```markdown
-# Architecture
-
-## Overview
-
-## Components
-
-## Data Flow
-```
-
-### templates/GLOSSARY.md
-```markdown
-# Glossary
-
-## Domain Terms
-
-## Abbreviations
-```
-
-### templates/DRIFT.md
-```markdown
-# Drift Detection
-
-## Automatic Checks
-
-## Manual Review Triggers
-
-## Staleness Indicators
-```
-
-### templates/AGENT_PLAYBOOK.md
-```markdown
-# Agent Playbook
-
-## Read Order
-
-1. CONSTITUTION.md
-2. TASKS.md
-3. CONVENTIONS.md
-4. ARCHITECTURE.md
-5. DECISIONS.md
-6. LEARNINGS.md
-7. GLOSSARY.md
-
-## When to Update Memory
-
-## How to Avoid Hallucinating Memory
-
-Never assume. If you don't see it in files, you don't know it.
-```
+### SCOPE CONSTRAINTS
+- Go only. No external databases. No npm/node.
+- Single binary output.
+- Embed static assets (CSS/JS) in binary.
+- Dark mode by default.
+- Works offline.
+- **Tier 1 ONLY** — No import pipeline, no RAG, no thinking mining.
 
 ---
 
 ## EXIT CONDITIONS
 
-Output `<promise>DONE</promise>` ONLY when ALL of these are true:
+### Per Task
+Output `<promise>TASK_COMPLETE</promise>` after completing ONE task.
 
-1. `.context/TASKS.md` has no unchecked items in "Next Up"
+### Phase Complete
+Output `<promise>TIER1_COMPLETE</promise>` when ALL of these are true:
+1. `.context/TASKS.md` has no unchecked items
 2. `go build ./...` passes
-3. `go test ./...` passes
-4. You have reminded the user about the North Star goals in `IMPLEMENTATION_PLAN.md`
+3. `go test ./internal/recall/...` passes
+4. `ctx recall serve ./testdata` starts and serves pages
 
 ---
 
-## REFERENCE: CLI COMMANDS
+## REFERENCE: SESSION SCHEMA
 
-| Command                    | Description                       |
-|----------------------------|-----------------------------------|
-| `ctx init`                 | Create `.context/` with templates |
-| `ctx status`               | Show context summary              |
-| `ctx load`                 | Output assembled context          |
-| `ctx agent`                | Print AI-ready context packet     |
-| `ctx add <type> "content"` | Add decision/task/learning        |
-| `ctx complete <task>`      | Mark task done                    |
-| `ctx drift`                | Detect stale context              |
-| `ctx sync`                 | Reconcile with codebase           |
-| `ctx compact`              | Archive old items                 |
-| `ctx watch`                | Watch for update commands         |
-| `ctx hook <tool>`          | Generate tool config              |
+Input files are JSONL. Each line is a message:
+
+```json
+{
+  "sessionId": "af7cba21-...",
+  "timestamp": "2026-01-21T07:51:32.271Z",
+  "cwd": "/home/user/project",
+  "gitBranch": "main",
+  "slug": "async-roaming-allen",
+  "type": "assistant",
+  "message": {
+    "model": "claude-opus-4-5-20251101",
+    "role": "assistant",
+    "content": [
+      {"type": "thinking", "thinking": "Let me analyze..."},
+      {"type": "text", "text": "I see the issue..."}
+    ],
+    "usage": {
+      "input_tokens": 1500,
+      "output_tokens": 300
+    }
+  }
+}
+```
+
+See `specs/session-schema.md` for full specification.
 
 ---
 
 ## REFERENCE: PROJECT STRUCTURE
 
 ```
-active-memory/
-├── cmd/
-│   └── ctx/
-│       └── main.go           # Entry point, Cobra root command
-├── internal/
-│   ├── cli/                  # Command implementations
-│   │   ├── init.go
-│   │   ├── status.go
-│   │   ├── load.go
-│   │   ├── agent.go
-│   │   ├── add.go
-│   │   ├── complete.go
-│   │   ├── drift.go
-│   │   ├── sync.go
-│   │   ├── compact.go
-│   │   ├── watch.go
-│   │   └── hook.go
-│   ├── context/              # Core context logic
-│   │   ├── loader.go
-│   │   ├── parser.go
-│   │   └── token.go
-│   ├── files/                # File type handlers
-│   │   └── handlers.go
-│   ├── drift/                # Drift detection
-│   │   ├── detector.go
-│   │   └── rules.go
-│   └── templates/            # Embedded templates
-│       └── embed.go
-├── templates/                # Template source files
-│   ├── CONSTITUTION.md
-│   ├── TASKS.md
-│   └── ... (all template files)
-├── hack/
-│   └── build-all.sh
-├── examples/
-│   └── demo/
-├── specs/                    # Specifications (read-only reference)
-├── go.mod
-├── go.sum
-├── Makefile
-└── README.md
+cmd/ctx/
+├── main.go
+├── recall.go              # Subcommand: ctx recall
+
+internal/recall/
+├── parser/
+│   ├── types.go           # SessionMessage, Session, ContentBlock
+│   ├── parser.go          # ParseLine, ParseFile, ScanDirectory
+│   └── parser_test.go
+├── renderer/
+│   ├── renderer.go        # RenderSession, RenderIndex
+│   ├── markdown.go        # RenderMarkdown with goldmark+chroma
+│   ├── templates/
+│   │   ├── embed.go       # //go:embed directive
+│   │   ├── layout.html
+│   │   ├── index.html
+│   │   └── session.html
+│   └── renderer_test.go
+├── server/
+│   ├── server.go          # HTTP server, routes
+│   ├── static/
+│   │   ├── embed.go       # //go:embed directive
+│   │   ├── style.css
+│   │   └── main.js
+│   └── server_test.go
+└── search/
+    ├── index.go           # Build, Search
+    └── index_test.go
 ```
+
+---
+
+## REFERENCE: CLI COMMANDS (Tier 1)
+
+| Command                               | Description                         |
+|---------------------------------------|-------------------------------------|
+| `ctx recall serve <path>`             | Start HTTP server browsing sessions |
+| `ctx recall serve <path> --port 9000` | Custom port                         |
+| `ctx recall serve <path> --open`      | Open browser automatically          |
+
+---
+
+## REFERENCE: SUCCESS CRITERIA
+
+Before Tier 1 is complete, verify:
+
+- [ ] `ctx recall serve ./sessions` starts HTTP server on :8080
+- [ ] Index page lists sessions with: slug, project, date, turns, tokens
+- [ ] Sessions filterable by project and date range
+- [ ] Session detail renders conversation with syntax-highlighted code
+- [ ] Thinking blocks collapsed by default, expandable on click
+- [ ] Full-text search returns matching sessions
+- [ ] Handles malformed JSONL gracefully (skip + log)
+- [ ] Parses 100 sessions in < 2 seconds
+- [ ] `go test ./internal/recall/...` passes with > 80% coverage
 
 ---
 

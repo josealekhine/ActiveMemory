@@ -10,7 +10,7 @@ icon: lucide/plug
 
 ![ctx](images/ctx-banner.png)
 
-# AI Tool Integrations
+## AI Tool Integrations
 
 Context works with any AI tool that can read files. This guide covers setup 
 for popular AI coding assistants.
@@ -91,7 +91,7 @@ graph LR
 
 Edit the PreToolUse command to change the token budget:
 
-```json
+```text
 "command": "ctx agent --budget 8000 2>/dev/null || true"
 ```
 
@@ -100,9 +100,9 @@ Edit the PreToolUse command to change the token budget:
 1. Start a new Claude Code session
 2. Ask: **"Do you remember?"**
 3. Claude should cite specific context:
-   - Current tasks from `.context/TASKS.md`
-   - Recent decisions or learnings
-   - Previous session topics from `.context/sessions/`
+   * Current tasks from `.context/TASKS.md`
+   * Recent decisions or learnings
+   * Previous session topics from `.context/sessions/`
 
 ### Troubleshooting
 
@@ -146,9 +146,12 @@ ctx init --minimal
 
 Add to Cursor settings (`.cursor/settings.json`):
 
-```json
+```text
+// split to multiple lines for readability
 {
-  "ai.systemPrompt": "Read .context/TASKS.md and .context/CONVENTIONS.md before responding. Follow rules in .context/CONSTITUTION.md.",
+  "ai.systemPrompt": "Read .context/TASKS.md and 
+  .context/CONVENTIONS.md before responding. 
+  Follow rules in .context/CONSTITUTION.md.",
 }
 ```
 
@@ -283,9 +286,12 @@ ctx init
 
 Add to Windsurf settings:
 
-```json
+```text
+// Split to multiple lines for readability
 {
-  "ai.customInstructions": "Always read .context/CONSTITUTION.md first. Check .context/TASKS.md for current work. Follow patterns in .context/CONVENTIONS.md."
+  "ai.customInstructions": "Always read .context/CONSTITUTION.md first. 
+  Check .context/TASKS.md for current work. 
+  Follow patterns in .context/CONVENTIONS.md."
 }
 ```
 
@@ -293,8 +299,8 @@ Add to Windsurf settings:
 
 Context files appear in the file tree. Reference them when chatting:
 
-- "What's in our task list?" → AI reads `.context/TASKS.md`
-- "What convention do we use for naming?" → AI reads `.context/CONVENTIONS.md`
+* "What's in our task list?" → AI reads `.context/TASKS.md`
+* "What convention do we use for naming?" → AI reads `.context/CONVENTIONS.md`
 
 ---
 
@@ -369,25 +375,25 @@ The `ctx watch` command parses update commands from AI output. Use this format:
 
 ### Examples
 
-**Add a task:**
+**Add a task**:
 
 ```xml
 <context-update type="task">Implement rate limiting</context-update>
 ```
 
-**Record a decision:**
+**Record a decision**:
 
 ```xml
 <context-update type="decision">Use PostgreSQL for primary database</context-update>
 ```
 
-**Note a learning:**
+**Note a "*learning*"**:
 
 ```xml
 <context-update type="learning">Mock functions must be hoisted in Vitest</context-update>
 ```
 
-**Complete a task (by partial match):**
+**Complete a task (*by partial match*)**:
 
 ```xml
 <context-update type="complete">rate limiting</context-update>

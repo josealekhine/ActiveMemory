@@ -91,7 +91,7 @@ Examples:
 		)
 	}
 
-	filePath := filepath.Join(config.ContextDirName, fName)
+	filePath := filepath.Join(config.DirContext, fName)
 
 	// Check if the file exists
 	if _, err := os.Stat(filePath); os.IsNotExist(err) {
@@ -109,18 +109,18 @@ Examples:
 	// Format the new entry based on type
 	var entry string
 	switch fType {
-	case "decision", "decisions":
-		entry = formatDecision(content)
-	case "task", "tasks":
-		entry = formatTask(content, priority)
-	case "learning", "learnings":
-		entry = formatLearning(content)
-	case "convention", "conventions":
-		entry = formatConvention(content)
+	case config.UpdateTypeDecision, config.UpdateTypeDecisions:
+		entry = FormatDecision(content)
+	case config.UpdateTypeTask, config.UpdateTypeTasks:
+		entry = FormatTask(content, priority)
+	case config.UpdateTypeLearning, config.UpdateTypeLearnings:
+		entry = FormatLearning(content)
+	case config.UpdateTypeConvention, config.UpdateTypeConventions:
+		entry = FormatConvention(content)
 	}
 
 	// Append to file
-	newContent := appendEntry(existing, entry, fType, section)
+	newContent := AppendEntry(existing, entry, fType, section)
 
 	if err := os.WriteFile(filePath, newContent, 0644); err != nil {
 		return fmt.Errorf("failed to write %s: %w", filePath, err)

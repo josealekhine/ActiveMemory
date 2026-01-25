@@ -11,18 +11,20 @@ import (
 	"fmt"
 	"regexp"
 	"strings"
+
+	"github.com/ActiveMemory/ctx/internal/config"
 )
 
 // generateSummary creates a brief summary for a context file based on its name and content.
 func generateSummary(name string, content []byte) string {
 	switch name {
-	case "CONSTITUTION.md":
+	case config.FilenameConstitution:
 		return summarizeConstitution(content)
-	case "TASKS.md":
+	case config.FilenameTask:
 		return summarizeTasks(content)
-	case "DECISIONS.md":
+	case config.FilenameDecision:
 		return summarizeDecisions(content)
-	case "GLOSSARY.md":
+	case config.FilenameGlossary:
 		return summarizeGlossary(content)
 	default:
 		if len(content) == 0 || isEffectivelyEmpty(content) {

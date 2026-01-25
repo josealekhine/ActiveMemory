@@ -11,7 +11,7 @@ import "strings"
 // removeEmptySections removes Markdown sections that contain no content.
 //
 // A section is considered empty if it has a "## " header followed only by
-// blank lines until the next section or end of file.
+// blank lines until the next section or end of the file.
 //
 // Parameters:
 //   - content: Markdown content to process

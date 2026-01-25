@@ -33,7 +33,7 @@ func preCompactAutoSave(cmd *cobra.Command) error {
 	green := color.New(color.FgGreen).SprintFunc()
 
 	// Ensure sessions directory exists
-	sessionsDir := filepath.Join(config.ContextDirName, "sessions")
+	sessionsDir := filepath.Join(config.DirContext, "sessions")
 	if err := os.MkdirAll(sessionsDir, 0755); err != nil {
 		return fmt.Errorf("failed to create sessions directory: %w", err)
 	}
@@ -51,7 +51,9 @@ func preCompactAutoSave(cmd *cobra.Command) error {
 		return fmt.Errorf("failed to write session file: %w", err)
 	}
 
-	cmd.Printf("%s Auto-saved pre-compact snapshot to %s\n\n", green("✓"), filePath)
+	cmd.Printf(
+		"%s Auto-saved pre-compact snapshot to %s\n\n", green("✓"), filePath,
+	)
 	return nil
 }
 
@@ -75,12 +77,16 @@ func buildPreCompactSession(timestamp time.Time) string {
 	sb.WriteString("---\n\n")
 
 	sb.WriteString("## Purpose\n\n")
-	sb.WriteString("This snapshot was automatically created before running `ctx compact`.\n")
-	sb.WriteString("It preserves the state of context files before any cleanup operations.\n\n")
+	sb.WriteString(
+		"This snapshot was automatically created before running `ctx compact`.\n",
+	)
+	sb.WriteString(
+		"It preserves the state of context files before any cleanup operations.\n\n",
+	)
 	sb.WriteString("---\n\n")
 
 	// Read and include current TASKS.md content
-	tasksPath := filepath.Join(config.ContextDirName, "TASKS.md")
+	tasksPath := filepath.Join(config.DirContext, config.FilenameTask)
 	if tasksContent, err := os.ReadFile(tasksPath); err == nil {
 		sb.WriteString("## Tasks (Before Compact)\n\n")
 		sb.WriteString("```markdown\n")

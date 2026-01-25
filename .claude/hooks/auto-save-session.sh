@@ -35,7 +35,7 @@ PROJECT_DIR=$(echo "$HOOK_INPUT" | jq -r '.cwd // "."')
 
 # Only proceed if we have a transcript path
 if [ -z "$TRANSCRIPT_PATH" ] || [ ! -f "$TRANSCRIPT_PATH" ]; then
-    exit 0
+  exit 0
 fi
 
 # Create sessions directory if it doesn't exist

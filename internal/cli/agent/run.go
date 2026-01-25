@@ -10,8 +10,9 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/ActiveMemory/ctx/internal/context"
 	"github.com/spf13/cobra"
+
+	"github.com/ActiveMemory/ctx/internal/context"
 )
 
 // runAgent executes the agent command logic.

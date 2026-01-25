@@ -16,13 +16,15 @@
 package bootstrap
 
 import (
+	"github.com/spf13/cobra"
+
 	"github.com/ActiveMemory/ctx/internal/cli/add"
 	"github.com/ActiveMemory/ctx/internal/cli/agent"
 	"github.com/ActiveMemory/ctx/internal/cli/compact"
 	"github.com/ActiveMemory/ctx/internal/cli/complete"
 	"github.com/ActiveMemory/ctx/internal/cli/drift"
 	"github.com/ActiveMemory/ctx/internal/cli/hook"
-	"github.com/ActiveMemory/ctx/internal/cli/init"
+	"github.com/ActiveMemory/ctx/internal/cli/initialize"
 	"github.com/ActiveMemory/ctx/internal/cli/load"
 	"github.com/ActiveMemory/ctx/internal/cli/loop"
 	"github.com/ActiveMemory/ctx/internal/cli/session"
@@ -30,7 +32,6 @@ import (
 	"github.com/ActiveMemory/ctx/internal/cli/sync"
 	"github.com/ActiveMemory/ctx/internal/cli/task"
 	"github.com/ActiveMemory/ctx/internal/cli/watch"
-	"github.com/spf13/cobra"
 )
 
 // version is set at build time via ldflags
@@ -69,20 +70,20 @@ func RootCmd() *cobra.Command {
 // Returns:
 //   - *cobra.Command: The same command with all subcommands registered
 func Initialize(cmd *cobra.Command) *cobra.Command {
-	cmd.AddCommand(init.InitCmd())
-	cmd.AddCommand(status.StatusCmd())
-	cmd.AddCommand(load.LoadCmd())
+	cmd.AddCommand(initialize.Cmd())
+	cmd.AddCommand(status.Cmd())
+	cmd.AddCommand(load.Cmd())
 	cmd.AddCommand(add.Cmd())
-	cmd.AddCommand(complete.CompleteCmd())
+	cmd.AddCommand(complete.Cmd())
 	cmd.AddCommand(agent.Cmd())
-	cmd.AddCommand(drift.DriftCmd())
-	cmd.AddCommand(sync.SyncCmd())
+	cmd.AddCommand(drift.Cmd())
+	cmd.AddCommand(sync.Cmd())
 	cmd.AddCommand(compact.Cmd())
-	cmd.AddCommand(watch.WatchCmd())
-	cmd.AddCommand(hook.HookCmd())
-	cmd.AddCommand(session.SessionCmd())
-	cmd.AddCommand(task.TasksCmd())
-	cmd.AddCommand(loop.LoopCmd())
+	cmd.AddCommand(watch.Cmd())
+	cmd.AddCommand(hook.Cmd())
+	cmd.AddCommand(session.Cmd())
+	cmd.AddCommand(task.Cmd())
+	cmd.AddCommand(loop.Cmd())
 
 	return cmd
 }

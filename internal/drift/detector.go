@@ -4,7 +4,7 @@
 //   \    Copyright 2026-present Context contributors.
 //                 SPDX-License-Identifier: Apache-2.0
 
-// Package drift provides functionality for detecting stale or invalid context.
+// Packages drift provides functionality for detecting stale or invalid context.
 package drift
 
 import (
@@ -12,6 +12,7 @@ import (
 	"regexp"
 	"strings"
 
+	"github.com/ActiveMemory/ctx/internal/config"
 	"github.com/ActiveMemory/ctx/internal/context"
 )
 
@@ -73,7 +74,7 @@ func checkPathReferences(ctx *context.Context, report *Report) {
 	foundDeadPaths := false
 
 	for _, f := range ctx.Files {
-		if f.Name != "ARCHITECTURE.md" && f.Name != "CONVENTIONS.md" {
+		if f.Name != config.FilenameArchitecture && f.Name != config.FilenameConvention {
 			continue
 		}
 
@@ -114,7 +115,7 @@ func checkStaleness(ctx *context.Context, report *Report) {
 	staleness := false
 
 	for _, f := range ctx.Files {
-		if f.Name == "TASKS.md" {
+		if f.Name == config.FilenameTask {
 			// Count completed tasks
 			completedCount := strings.Count(string(f.Content), "- [x]")
 			if completedCount > 10 {
@@ -185,7 +186,6 @@ func checkConstitution(_ *context.Context, report *Report) {
 }
 
 func checkRequiredFiles(ctx *context.Context, report *Report) {
-	required := []string{"CONSTITUTION.md", "TASKS.md", "DECISIONS.md"}
 	allPresent := true
 
 	existingFiles := make(map[string]bool)
@@ -193,7 +193,7 @@ func checkRequiredFiles(ctx *context.Context, report *Report) {
 		existingFiles[f.Name] = true
 	}
 
-	for _, name := range required {
+	for _, name := range config.RequiredFiles {
 		if !existingFiles[name] {
 			report.Warnings = append(report.Warnings, Issue{
 				File:    name,

@@ -33,7 +33,8 @@ func Cmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "add <type> [content]",
 		Short: "Add a new item to a context file",
-		Long: `Add a new decision, task, learning, or convention to the appropriate context file.
+		Long: `Add a new decision, task, learning, or convention 
+to the appropriate context file.
 
 Types:
   decision    Add to DECISIONS.md

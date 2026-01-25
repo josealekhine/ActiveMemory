@@ -10,14 +10,35 @@ icon: lucide/rocket
 
 ![ctx](images/ctx-banner.png)
 
-# Getting Started with `ctx`
+## `ctx`
 
 `ctx` (*Context*) is a file-based system that enables AI coding assistants to
 persist project knowledge across sessions. Instead of re-explaining your
 codebase every time, context files let AI tools remember decisions,
-conventions, and learnings.
+conventions, and learnings:
 
-## Why `ctx`?
+* A session is interactive.
+* `ctx` enables **cognitive continuity**.
+* **Cognitive continuity** enables durable, *symbiotic-like* human–AI workflows.
+
+## Community
+
+**Open source is better together**.
+
+> ⭐️ **If the idea behind `ctx` resonates, a star helps it reach engineers  
+> who run into context drift every day.**
+> 
+> → https://github.com/ActiveMemory/ctx
+
+Join the community to ask questions, share feedback, and connect with
+other users:
+
+- [:fontawesome-brands-discord: **Discord**](https://discord.gg/kampus):
+  Chat, get help, share your workflows
+- [:fontawesome-brands-github: **GitHub**](https://github.com/ActiveMemory/ctx):
+  Star the repo, report issues, contribute
+
+## Why?
 
 Most AI-driven development fails not because models are weak—they fail because 
 **context is ephemeral**. Every new session starts near zero:
@@ -74,7 +95,7 @@ Download pre-built binaries from the
 
 ### Build from Source
 
-Requires [Go 1.22+](https://go.dev/):
+Requires [Go 1.26+](https://go.dev/):
 
 ```bash
 git clone https://github.com/ActiveMemory/ctx.git
@@ -131,11 +152,10 @@ or previous session topics.
 .context/
 ├── CONSTITUTION.md     # Hard rules — NEVER violate these
 ├── TASKS.md            # Current and planned work
-├── DECISIONS.md        # Architectural decisions with rationale
-├── LEARNINGS.md        # Lessons learned, gotchas, tips
 ├── CONVENTIONS.md      # Project patterns and standards
 ├── ARCHITECTURE.md     # System overview
-├── DEPENDENCIES.md     # Key dependencies and why chosen
+├── DECISIONS.md        # Architectural decisions with rationale
+├── LEARNINGS.md        # Lessons learned, gotchas, tips
 ├── GLOSSARY.md         # Domain terms and abbreviations
 ├── DRIFT.md            # Staleness signals
 ├── AGENT_PLAYBOOK.md   # How AI agents should use this
@@ -175,15 +195,6 @@ ctx complete "user auth"
 ```bash
 ctx drift
 ```
-
-## Community
-
-Join the community to ask questions, share feedback, and connect with other users:
-
-- [:fontawesome-brands-discord: **Discord**](https://discord.gg/kampus) — Chat, get help, share your workflows
-- [:fontawesome-brands-github: **GitHub**](https://github.com/ActiveMemory/ctx) — Star the repo, report issues, contribute
-
-If `ctx` helps you, consider starring the repo — it helps others discover the project.
 
 ## Next Steps
 

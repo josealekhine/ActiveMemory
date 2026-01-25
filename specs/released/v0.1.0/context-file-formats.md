@@ -369,14 +369,14 @@ Load context files in this order (most critical first):
 
 ## When to Update Memory
 
-| Event | Update |
-|-------|--------|
-| Made architectural decision | Add to DECISIONS.md |
-| Discovered gotcha/bug | Add to LEARNINGS.md |
-| Established new pattern | Add to CONVENTIONS.md |
-| Completed task | Mark [x] in TASKS.md |
-| Added dependency | Add to DEPENDENCIES.md |
-| Introduced new term | Add to GLOSSARY.md |
+| Event                       | Update                 |
+|-----------------------------|------------------------|
+| Made architectural decision | Add to DECISIONS.md    |
+| Discovered gotcha/bug       | Add to LEARNINGS.md    |
+| Established new pattern     | Add to CONVENTIONS.md  |
+| Completed task              | Mark [x] in TASKS.md   |
+| Added dependency            | Add to DEPENDENCIES.md |
+| Introduced new term         | Add to GLOSSARY.md     |
 
 ## How to Propose a Decision (ADR)
 

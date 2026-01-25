@@ -6,6 +6,8 @@
 
 package add
 
+import "github.com/ActiveMemory/ctx/internal/config"
+
 // getExamplesForType returns example usage strings for a given entry type.
 //
 // The examples are displayed in error messages when content is missing,
@@ -19,16 +21,16 @@ package add
 //     unrecognized types
 func getExamplesForType(fileType string) string {
 	switch fileType {
-	case "decision", "decisions":
+	case config.UpdateTypeDecision, config.UpdateTypeDecisions:
 		return `  ctx add decision "Use PostgreSQL for primary database"
   ctx add decision "Adopt Go 1.22 for range-over-func support"`
-	case "task", "tasks":
+	case config.UpdateTypeTask, config.UpdateTypeTasks:
 		return `  ctx add task "Implement user authentication"
   ctx add task "Fix login bug" --priority high`
-	case "learning", "learnings":
+	case config.UpdateTypeLearning, config.UpdateTypeLearnings:
 		return `  ctx add learning "Vitest mocks must be hoisted above imports"
   ctx add learning "Go embed requires files in same package directory"`
-	case "convention", "conventions":
+	case config.UpdateTypeConvention, config.UpdateTypeConventions:
 		return `  ctx add convention "Use camelCase for function names"
   ctx add convention "All API responses use JSON"`
 	default:

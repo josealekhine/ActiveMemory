@@ -11,7 +11,7 @@ import (
 	"time"
 )
 
-// formatTask formats a task entry as a markdown checkbox item.
+// FormatTask formats a task entry as a markdown checkbox item.
 //
 // The output includes a timestamp tag for session correlation and an optional
 // priority tag. Format: "- [ ] content #priority:level #added:YYYY-MM-DD-HHMM"
@@ -22,7 +22,7 @@ import (
 //
 // Returns:
 //   - string: Formatted task line with trailing newline
-func formatTask(content string, priority string) string {
+func FormatTask(content string, priority string) string {
 	// Use YYYY-MM-DD-HHMM timestamp for session correlation
 	timestamp := time.Now().Format("2006-01-02-1504")
 	var priorityTag string
@@ -32,7 +32,7 @@ func formatTask(content string, priority string) string {
 	return fmt.Sprintf("- [ ] %s%s #added:%s\n", content, priorityTag, timestamp)
 }
 
-// formatLearning formats a learning entry as a timestamped markdown list item.
+// FormatLearning formats a learning entry as a timestamped markdown list item.
 //
 // Format: "- **[YYYY-MM-DD-HHMM]** content"
 //
@@ -41,12 +41,12 @@ func formatTask(content string, priority string) string {
 //
 // Returns:
 //   - string: Formatted learning line with trailing newline
-func formatLearning(content string) string {
+func FormatLearning(content string) string {
 	timestamp := time.Now().Format("2006-01-02-1504")
 	return fmt.Sprintf("- **[%s]** %s\n", timestamp, content)
 }
 
-// formatConvention formats a convention entry as a simple markdown list item.
+// FormatConvention formats a convention entry as a simple markdown list item.
 //
 // Format: "- content"
 //
@@ -55,11 +55,11 @@ func formatLearning(content string) string {
 //
 // Returns:
 //   - string: Formatted convention line with trailing newline
-func formatConvention(content string) string {
+func FormatConvention(content string) string {
 	return fmt.Sprintf("- %s\n", content)
 }
 
-// formatDecision formats a decision entry as a structured Markdown section.
+// FormatDecision formats a decision entry as a structured Markdown section.
 //
 // The output includes a timestamped heading, status, and placeholder sections
 // for context, rationale, and consequences of the ADR format.
@@ -69,7 +69,7 @@ func formatConvention(content string) string {
 //
 // Returns:
 //   - string: Formatted decision section with placeholders for details
-func formatDecision(content string) string {
+func FormatDecision(content string) string {
 	timestamp := time.Now().Format("2006-01-02-1504")
 	return fmt.Sprintf(`## [%s] %s
 

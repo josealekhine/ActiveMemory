@@ -10,7 +10,7 @@ icon: lucide/files
 
 ![ctx](images/ctx-banner.png)
 
-## Context Files Reference
+## Context Files
 
 Each context file in `.context/` serves a specific purpose. Files are designed 
 to be human-readable, AI-parseable, and token-efficient.
@@ -21,21 +21,51 @@ to be human-readable, AI-parseable, and token-efficient.
 |-------------------|----------------------------------------|-------------|
 | CONSTITUTION.md   | Hard rules that must NEVER be violated | 1 (highest) |
 | TASKS.md          | Current and planned work               | 2           |
-| DECISIONS.md      | Architectural decisions with rationale | 3           |
-| CONVENTIONS.md    | Project patterns and standards         | 4           |
-| ARCHITECTURE.md   | System overview and components         | 5           |
-| GLOSSARY.md       | Domain terms and abbreviations         | 6           |
-| LEARNINGS.md      | Lessons learned, gotchas, tips         | 7           |
-| DEPENDENCIES.md   | Key dependencies and why chosen        | 8           |
-| DRIFT.md          | Staleness signals and update triggers  | 9           |
-| AGENT_PLAYBOOK.md | Instructions for AI agents             | 10          |
+| CONVENTIONS.md    | Project patterns and standards         | 3           |
+| ARCHITECTURE.md   | System overview and components         | 4           |
+| DECISIONS.md      | Architectural decisions with rationale | 5           |
+| LEARNINGS.md      | Lessons learned, gotchas, tips         | 6           |
+| GLOSSARY.md       | Domain terms and abbreviations         | 7           |
+| DRIFT.md          | Staleness signals and update triggers  | 8           |
+| AGENT_PLAYBOOK.md | Instructions for AI agents             | 9 (lowest)  |
+
+## Read Order Rationale
+
+The priority order follows a logical progression for AI agents:
+
+1. **CONSTITUTION** — Inviolable rules first. The agent must know what it
+   *cannot* do before attempting anything.
+
+2. **TASKS** — Current work items. What the agent should focus on.
+
+3. **CONVENTIONS** — How to write code. Patterns and standards to follow
+   when implementing tasks.
+
+4. **ARCHITECTURE** — System structure. Understanding of components and
+   boundaries before making changes.
+
+5. **DECISIONS** — Historical context. Why things are the way they are,
+   to avoid re-debating settled decisions.
+
+6. **LEARNINGS** — Gotchas and tips. Lessons from past work that inform
+   current implementation.
+
+7. **GLOSSARY** — Reference material. Domain terms and abbreviations for
+   lookup as needed.
+
+8. **DRIFT** — Staleness indicators. Lower priority since it's primarily
+   for maintenance workflows, not active development.
+
+9. **AGENT_PLAYBOOK** — Meta instructions last. How to use this context
+   system itself. Loaded last because the agent should understand the
+   *content* (rules, tasks, patterns) before the *operating manual*.
 
 ---
 
 ## CONSTITUTION.md
 
-**Purpose:** Define hard invariants—rules that must NEVER be violated, 
-regardless of task.
+**Purpose:** Define hard invariants—rules that must **NEVER** be violated, 
+regardless of the task.
 
 AI agents read this first and should refuse tasks that violate these rules.
 
@@ -68,10 +98,10 @@ is wrong.
 
 ### Guidelines
 
-- Keep rules minimal and absolute
-- Each rule should be enforceable (can verify compliance)
-- Use checkbox format for clarity
-- Never compromise on these rules
+* Keep rules minimal and absolute
+* Each rule should be enforceable (can verify compliance)
+* Use checkbox format for clarity
+* Never compromise on these rules
 
 ---
 
@@ -184,11 +214,11 @@ third-party libraries need type assertions.
 
 ### Status Values
 
-| Status | Meaning |
-|--------|---------|
-| Accepted | Current, active decision |
+| Status     | Meaning                                 |
+|------------|-----------------------------------------|
+| Accepted   | Current, active decision                |
 | Superseded | Replaced by newer decision (link to it) |
-| Deprecated | No longer relevant |
+| Deprecated | No longer relevant                      |
 
 ---
 
@@ -248,7 +278,7 @@ Organize learnings by topic:
 
 ## CONVENTIONS.md
 
-**Purpose:** Document project patterns, naming conventions, and standards.
+**Purpose**: Document project patterns, naming conventions, and standards.
 
 ### Structure
 
@@ -269,24 +299,23 @@ Organize learnings by topic:
 **When to use**: Situation description
 
 **Implementation**:
-```code
+// in triple backticks
 // Example code
-```
 
 **Why**: Rationale for this pattern
 ```
 
 ### Guidelines
 
-- Include concrete examples
-- Explain the "why" not just the "what"
-- Keep patterns minimal—only document what's non-obvious
+* Include concrete examples
+* Explain the "why" not just the "what"
+* Keep patterns minimal—only document what's non-obvious
 
 ---
 
 ## ARCHITECTURE.md
 
-**Purpose:** Provide system overview and component relationships.
+**Purpose**: Provide system overview and component relationships.
 
 ### Structure
 
@@ -308,7 +337,7 @@ Brief description of what the system does and how it's organized.
 **Dependents**: What depends on it
 
 **Key Files**:
-- `path/to/file.ts` — Description
+- path/to/file.ts — Description
 
 ## Data Flow
 
@@ -321,53 +350,15 @@ What's in scope vs out of scope for this codebase.
 
 ### Guidelines
 
-- Keep diagrams simple (Mermaid works well)
-- Focus on boundaries and interfaces
-- Update when major structural changes occur
-
----
-
-## DEPENDENCIES.md
-
-**Purpose:** Document key dependencies and why they were chosen.
-
-### Structure
-
-```markdown
-# Dependencies
-
-## Runtime
-
-### dependency-name
-
-**Version**: ^X.Y.Z
-
-**Purpose**: What we use it for
-
-**Why this one**: Why chosen over alternatives
-
-**Concerns**: Any known issues or limitations
-
-## Development
-
-### dev-dependency-name
-
-**Version**: ^X.Y.Z
-
-**Purpose**: What we use it for
-```
-
-### Guidelines
-
-- Only document significant dependencies
-- Explain why this library over alternatives
-- Note any concerns or limitations
+* Keep diagrams simple (Mermaid works well)
+* Focus on boundaries and interfaces
+* Update when major structural changes occur
 
 ---
 
 ## GLOSSARY.md
 
-**Purpose:** Define domain terms, abbreviations, and project vocabulary.
+**Purpose**: Define domain terms, abbreviations, and project vocabulary.
 
 ### Structure
 
@@ -394,15 +385,15 @@ What's in scope vs out of scope for this codebase.
 
 ### Guidelines
 
-- Define project-specific meanings
-- Clarify potentially ambiguous terms
-- Include abbreviations used in code or docs
+* Define project-specific meanings
+* Clarify potentially ambiguous terms
+* Include abbreviations used in code or docs
 
 ---
 
 ## DRIFT.md
 
-**Purpose:** Define signals that context is stale and needs updating.
+**Purpose**: Define signals that the context is stale and needs updating.
 
 Used by `ctx drift` command to detect staleness.
 
@@ -435,30 +426,30 @@ These are checked by `ctx drift`:
 Update context when:
 
 - [ ] New team member joins (review CONVENTIONS.md)
-- [ ] Major dependency upgraded (review DEPENDENCIES.md)
+- [ ] Major dependency upgraded (review ARCHITECTURE.md)
 - [ ] Sprint/milestone completed (archive old tasks)
 
 ## Staleness Indicators
 
-| File | Stale If | Action |
-|-----------------|----------|--------|
-| ARCHITECTURE.md | >30 days old | Review component list |
-| TASKS.md        | >50% completed | Archive and refresh |
-| LEARNINGS.md    | >20 items | Consolidate or archive |
+| File            | Stale If       | Action                 |
+|-----------------|----------------|------------------------|
+| ARCHITECTURE.md | >30 days old   | Review component list  |
+| TASKS.md        | >50% completed | Archive and refresh    |
+| LEARNINGS.md    | >20 items      | Consolidate or archive |
 ```
 
 ---
 
 ## AGENT_PLAYBOOK.md
 
-**Purpose:** Explicit instructions for how AI agents should read, apply, 
+**Purpose**: Explicit instructions for how AI agents should read, apply, 
 and update context.
 
 ### Key Sections
 
-**Read Order:** Priority order for loading context files
+**Read Order**: Priority order for loading context files
 
-**When to Update:** Events that trigger context updates
+**When to Update**: Events that trigger context updates
 
 **How to Avoid Hallucinating Memory:** Critical rules:
 

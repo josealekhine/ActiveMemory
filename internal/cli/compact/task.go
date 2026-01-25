@@ -40,7 +40,7 @@ func compactTasks(
 ) (int, error) {
 	var tasksFile *context.FileInfo
 	for i := range ctx.Files {
-		if ctx.Files[i].Name == "TASKS.md" {
+		if ctx.Files[i].Name == config.FilenameTask {
 			tasksFile = &ctx.Files[i]
 			break
 		}
@@ -121,7 +121,7 @@ func compactTasks(
 
 	// Archive old content if requested
 	if archive && len(completedTasks) > 0 {
-		archiveDir := filepath.Join(config.ContextDirName, "archive")
+		archiveDir := filepath.Join(config.DirContext, "archive")
 		if err := os.MkdirAll(archiveDir, 0755); err == nil {
 			archiveFile := filepath.Join(
 				archiveDir,

@@ -10,9 +10,9 @@ icon: lucide/terminal
 
 ![ctx](images/ctx-banner.png)
 
-## CLI Reference
+## `ctx` CLI
 
-Complete reference for all `ctx` commands.
+This is a complete reference for all `ctx` commands.
 
 ## Global Options
 
@@ -28,7 +28,7 @@ All commands support these flags:
 
 ## Commands
 
-### ctx init
+### `ctx init`
 
 Initialize a new `.context/` directory with template files.
 
@@ -36,7 +36,7 @@ Initialize a new `.context/` directory with template files.
 ctx init [flags]
 ```
 
-**Flags:**
+**Flags**:
 
 | Flag        | Short | Description                                                           |
 |-------------|-------|-----------------------------------------------------------------------|
@@ -44,14 +44,14 @@ ctx init [flags]
 | `--minimal` | `-m`  | Only create essential files (TASKS.md, DECISIONS.md, CONSTITUTION.md) |
 | `--merge`   |       | Auto-merge ctx content into existing CLAUDE.md                        |
 
-**What it creates:**
+**Creates**:
 
 - `.context/` directory with all template files
 - `.claude/hooks/` with auto-save script (for Claude Code)
 - `.claude/settings.local.json` with hook configuration
 - `CLAUDE.md` with bootstrap instructions (or merges into existing)
 
-**Example:**
+**Example**:
 
 ```bash
 # Standard initialization
@@ -69,7 +69,7 @@ ctx init --merge
 
 ---
 
-### ctx status
+### `ctx status`
 
 Show the current context summary.
 
@@ -77,22 +77,22 @@ Show the current context summary.
 ctx status [flags]
 ```
 
-**Flags:**
+**Flags**:
 
 | Flag        | Short | Description                   |
 |-------------|-------|-------------------------------|
 | `--json`    |       | Output as JSON                |
 | `--verbose` | `-v`  | Include file contents summary |
 
-**Output includes:**
+**Output**:
 
 - Context directory path
 - Total files and token estimate
-- Status of each file (loaded, empty, missing)
-- Recent activity (modification times)
+- Status of each file (*loaded, empty, missing*)
+- Recent activity (*modification times*)
 - Drift warnings if any
 
-**Example:**
+**Example**:
 
 ```bash
 ctx status
@@ -102,7 +102,7 @@ ctx status --verbose
 
 ---
 
-### ctx agent
+### `ctx agent`
 
 Print an AI-ready context packet optimized for LLM consumption.
 
@@ -110,14 +110,14 @@ Print an AI-ready context packet optimized for LLM consumption.
 ctx agent [flags]
 ```
 
-**Flags:**
+**Flags**:
 
 | Flag                | Description                  |
 |---------------------|------------------------------|
 | `--budget <tokens>` | Token budget (default: 8000) |
 | `--format md\|json` | Output format (default: md)  |
 
-**Output includes:**
+**Output**:
 
 - Read order for context files
 - Constitution rules (never truncated)
@@ -125,7 +125,7 @@ ctx agent [flags]
 - Key conventions
 - Recent decisions
 
-**Example:**
+**Example**:
 
 ```bash
 # Default (8000 tokens, markdown)
@@ -138,11 +138,11 @@ ctx agent --budget 4000
 ctx agent --format json
 ```
 
-**Use case:** Copy-paste into AI chat, pipe to system prompt, or use in hooks.
+**Use case**: Copy-paste into AI chat, pipe to system prompt, or use in hooks.
 
 ---
 
-### ctx load
+### `ctx load`
 
 Load and display assembled context as AI would see it.
 
@@ -150,14 +150,14 @@ Load and display assembled context as AI would see it.
 ctx load [flags]
 ```
 
-**Flags:**
+**Flags**:
 
 | Flag                | Description                               |
 |---------------------|-------------------------------------------|
 | `--budget <tokens>` | Token budget for assembly (default: 8000) |
 | `--raw`             | Output raw file contents without assembly |
 
-**Example:**
+**Example**:
 
 ```bash
 ctx load
@@ -167,7 +167,7 @@ ctx load --raw
 
 ---
 
-### ctx add
+### `ctx add`
 
 Add a new item to a context file.
 
@@ -175,7 +175,7 @@ Add a new item to a context file.
 ctx add <type> <content> [flags]
 ```
 
-**Types:**
+**Types**:
 
 | Type         | Target File    |
 |--------------|----------------|
@@ -184,7 +184,7 @@ ctx add <type> <content> [flags]
 | `learning`   | LEARNINGS.md   |
 | `convention` | CONVENTIONS.md |
 
-**Flags:**
+**Flags**:
 
 | Flag                 | Description                                 |
 |----------------------|---------------------------------------------|
@@ -192,7 +192,7 @@ ctx add <type> <content> [flags]
 | `--section <name>`   | Target section within file                  |
 | `--edit`             | Open editor for full entry                  |
 
-**Examples:**
+**Examples**:
 
 ```bash
 # Add a task
@@ -211,7 +211,7 @@ ctx add learning "Always use --no-gpg-sign" --section "Git"
 
 ---
 
-### ctx complete
+### `ctx complete`
 
 Mark a task as completed.
 
@@ -219,11 +219,11 @@ Mark a task as completed.
 ctx complete <task-id-or-text>
 ```
 
-**Arguments:**
+**Arguments**:
 
 - `task-id-or-text`: Task number or partial text match
 
-**Examples:**
+**Examples**:
 
 ```bash
 # By text (partial match)
@@ -235,7 +235,7 @@ ctx complete 3
 
 ---
 
-### ctx drift
+### `ctx drift`
 
 Detect stale or invalid context.
 
@@ -243,21 +243,21 @@ Detect stale or invalid context.
 ctx drift [flags]
 ```
 
-**Flags:**
+**Flags**:
 
 | Flag     | Description                  |
 |----------|------------------------------|
 | `--json` | Output machine-readable JSON |
 | `--fix`  | Auto-fix simple issues       |
 
-**Checks performed:**
+**Checks**:
 
 - Path references in ARCHITECTURE.md and CONVENTIONS.md exist
 - Task references are valid
-- Constitution rules aren't violated (heuristic)
-- Staleness indicators (old files, many completed tasks)
+- Constitution rules aren't violated (*heuristic*)
+- Staleness indicators (*old files, many completed tasks*)
 
-**Example:**
+**Example**:
 
 ```bash
 ctx drift
@@ -265,7 +265,7 @@ ctx drift --json
 ctx drift --fix
 ```
 
-**Exit codes:**
+**Exit codes**:
 
 | Code | Meaning           |
 |------|-------------------|
@@ -275,15 +275,15 @@ ctx drift --fix
 
 ---
 
-### ctx sync
+### `ctx sync`
 
-Reconcile context with current codebase state.
+Reconcile context with the current codebase state.
 
 ```bash
 ctx sync [flags]
 ```
 
-**Flags:**
+**Flags**:
 
 | Flag        | Description                              |
 |-------------|------------------------------------------|
@@ -291,12 +291,12 @@ ctx sync [flags]
 
 **What it does:**
 
-- Scans codebase for structural changes
-- Compares with ARCHITECTURE.md
-- Checks DEPENDENCIES.md against package.json/go.mod
-- Identifies stale or outdated context
+* Scans codebase for structural changes
+* Compares with ARCHITECTURE.md
+* Suggests documenting dependencies if package files exist
+* Identifies stale or outdated context
 
-**Example:**
+**Example**:
 
 ```bash
 ctx sync
@@ -305,27 +305,25 @@ ctx sync --dry-run
 
 ---
 
-### ctx compact
+### `ctx compact`
 
 Consolidate and clean up context files.
+
+* Moves completed tasks older than 7 days to the archive
+* Deduplicates the "*learning*"s with similar content
+* Removes empty sections
 
 ```bash
 ctx compact [flags]
 ```
 
-**Flags:**
+**Flags**:
 
 | Flag        | Description                                |
 |-------------|--------------------------------------------|
 | `--archive` | Create `.context/archive/` for old content |
 
-**What it does:**
-
-- Moves completed tasks older than 7 days to archive
-- Deduplicates learnings with similar content
-- Removes empty sections
-
-**Example:**
+**Example**:
 
 ```bash
 ctx compact
@@ -334,15 +332,18 @@ ctx compact --archive
 
 ---
 
-### ctx watch
+### `ctx watch`
 
 Watch for AI output and auto-apply context updates.
+
+Parses `<context-update>` XML commands from AI output and applies
+them to context files.
 
 ```bash
 ctx watch [flags]
 ```
 
-**Flags:**
+**Flags**:
 
 | Flag           | Description                         |
 |----------------|-------------------------------------|
@@ -350,11 +351,7 @@ ctx watch [flags]
 | `--dry-run`    | Preview updates without applying    |
 | `--auto-save`  | Periodically save session snapshots |
 
-**What it does:**
-
-Parses `<context-update>` XML commands from AI output and applies them to context files.
-
-**Example:**
+**Example**:
 
 ```bash
 # Watch stdin
@@ -369,7 +366,7 @@ ctx watch --dry-run
 
 ---
 
-### ctx hook
+### `ctx hook`
 
 Generate AI tool integration configuration.
 
@@ -377,7 +374,7 @@ Generate AI tool integration configuration.
 ctx hook <tool>
 ```
 
-**Supported tools:**
+**Supported tools**:
 
 | Tool          | Description     |
 |---------------|-----------------|
@@ -387,7 +384,7 @@ ctx hook <tool>
 | `copilot`     | GitHub Copilot  |
 | `windsurf`    | Windsurf IDE    |
 
-**Example:**
+**Example**:
 
 ```bash
 ctx hook claude-code
@@ -397,25 +394,25 @@ ctx hook aider
 
 ---
 
-### ctx session
+### `ctx session`
 
 Manage session snapshots.
 
 #### ctx session save
 
-Save current context snapshot.
+Save the current context snapshot.
 
 ```bash
 ctx session save [topic] [flags]
 ```
 
-**Flags:**
+**Flags**:
 
 | Flag            | Description                                              |
 |-----------------|----------------------------------------------------------|
 | `--type <type>` | Session type: `feature`, `bugfix`, `refactor`, `session` |
 
-**Example:**
+**Example**:
 
 ```bash
 ctx session save
@@ -423,7 +420,7 @@ ctx session save "feature-auth"
 ctx session save "bugfix" --type bugfix
 ```
 
-#### ctx session list
+#### `ctx session list`
 
 List saved sessions.
 
@@ -431,9 +428,9 @@ List saved sessions.
 ctx session list
 ```
 
-**Output:** Table of sessions with index, date, topic, and type.
+**Output**: Table of sessions with index, date, topic, and type.
 
-#### ctx session load
+#### `ctx session load`
 
 Load and display a previous session.
 
@@ -441,11 +438,11 @@ Load and display a previous session.
 ctx session load <index|date|topic>
 ```
 
-**Arguments:**
+**Arguments**:
 
-- `index`: Numeric index from `session list`
-- `date`: Date pattern (e.g., `2026-01-21`)
-- `topic`: Topic keyword match
+* `index`: Numeric index from `session list`
+* `date`: Date pattern (e.g., `2026-01-21`)
+* `topic`: Topic keyword match
 
 **Example:**
 
@@ -455,7 +452,7 @@ ctx session load 2026-01-21  # by date
 ctx session load auth        # by topic
 ```
 
-#### ctx session parse
+#### `ctx session parse`
 
 Parse JSONL transcript to readable markdown.
 
@@ -469,7 +466,7 @@ ctx session parse <file> [flags]
 |-------------|-------------------------------------------------|
 | `--extract` | Extract decisions and learnings from transcript |
 
-**Example:**
+**Example**:
 
 ```bash
 ctx session parse ~/.claude/projects/.../transcript.jsonl
@@ -501,14 +498,14 @@ Optional `.contextrc` or `context.config.js` at project root:
 
 ```javascript
 module.exports = {
-  contextDir: '.context',      // Context directory name
-  tokenBudget: 8000,           // Default token budget
-  priorityOrder: [             // File loading priority
+  contextDir: '.context', // Context directory name
+  tokenBudget: 8000,      // Default token budget
+  priorityOrder: [        // File loading priority
     'TASKS.md',
     'DECISIONS.md',
     'CONVENTIONS.md',
   ],
-  autoArchive: true,           // Auto-archive old items
-  archiveAfterDays: 7,         // Days before archiving
+  autoArchive: true,   // Auto-archive old items
+  archiveAfterDays: 7, // Days before archiving
 };
 ```

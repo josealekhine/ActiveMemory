@@ -10,7 +10,9 @@ icon: lucide/repeat
 
 ![ctx](images/ctx-banner.png)
 
-# Ralph Loop Integration
+## Ralph + Context
+
+*Like peanut butter and jelly: better together.*
 
 The [Ralph Wiggum technique](https://ghuntley.com/ralph/) is an iterative AI development workflow where 
 an agent works autonomously on tasks until completion. Context (`ctx`) and 
@@ -295,7 +297,7 @@ The loop will work through these systematically, marking each complete.
 
 ## Troubleshooting
 
-### Loop runs forever
+### Loop Runs Forever
 
 **Cause:** AI not emitting completion signals
 
@@ -306,22 +308,22 @@ End EVERY response with one of:
 - SYSTEM_BLOCKED (if stuck)
 ```
 
-### Context not persisting
+### Context Not Persisting
 
-**Cause:** AI not updating context files
+**Cause**: AI not updating context files
 
-**Fix:** Add explicit instructions to PROMPT.md:
+**Fix**: Add explicit instructions to PROMPT.md:
 ```markdown
 After completing a task, you MUST:
 1. Run: ctx complete "<task>"
 2. Add learnings: ctx add learning "..."
 ```
 
-### Tasks getting repeated
+### Tasks Getting Repeated
 
-**Cause:** Task not marked complete before next iteration
+**Cause**: Task not marked complete before next iteration
 
-**Fix:** Ensure commit happens after context update:
+**Fix**: Ensure commit happens after context update:
 ```markdown
 Order of operations:
 1. Complete coding work
@@ -330,11 +332,11 @@ Order of operations:
 4. Then signal status
 ```
 
-### AI violating Constitution
+### AI Violating Constitution
 
-**Cause:** Constitution not read first
+**Cause**: Constitution not read first
 
-**Fix:** Make constitution check explicit in PROMPT.md:
+**Fix**: Make constitution check explicit in PROMPT.md:
 ```markdown
 BEFORE any work:
 1. Read .context/CONSTITUTION.md

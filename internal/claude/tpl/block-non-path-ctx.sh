@@ -44,8 +44,9 @@ if echo "$COMMAND" | grep -qE 'go run \./cmd/ctx'; then
 fi
 
 # Pattern 3: Absolute paths to ctx binary (but not just 'ctx' or paths in /usr/local/bin, /usr/bin)
-# Match things like /home/user/project/ctx or /tmp/ctx-test but allow /usr/local/bin/ctx
-if echo "$COMMAND" | grep -qE '(/home/|/tmp/|/var/)[^ ]*ctx[^ ]* '; then
+# Match things like /home/user/project/ctx or /tmp/ctx but allow /usr/local/bin/ctx
+# Only match when ctx is the binary (end of path), not a directory in the middle of a path
+if echo "$COMMAND" | grep -qE '(/home/|/tmp/|/var/)[^ ]*/ctx( |$)'; then
     # Exception: allow /tmp/ctx-test for integration tests
     if ! echo "$COMMAND" | grep -qE '/tmp/ctx-test'; then
         BLOCKED_REASON="Use 'ctx' from PATH, not absolute paths. Install with: sudo make install"
