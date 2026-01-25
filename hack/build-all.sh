@@ -34,9 +34,15 @@ TARGETS=(
 echo "Building Context CLI v${VERSION}"
 echo "========================================="
 
-# Clean and create output directory
+# Clean and create output directory (preserve RELEASE_NOTES.md if it exists)
+if [ -f "${OUTPUT_DIR}/RELEASE_NOTES.md" ]; then
+  mv "${OUTPUT_DIR}/RELEASE_NOTES.md" /tmp/RELEASE_NOTES.md.bak
+fi
 rm -rf "${OUTPUT_DIR}"
 mkdir -p "${OUTPUT_DIR}"
+if [ -f /tmp/RELEASE_NOTES.md.bak ]; then
+  mv /tmp/RELEASE_NOTES.md.bak "${OUTPUT_DIR}/RELEASE_NOTES.md"
+fi
 
 # Build for each target
 for target in "${TARGETS[@]}"; do

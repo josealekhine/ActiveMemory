@@ -87,9 +87,9 @@ clean:
 	rm -f $(BINARY)
 	rm -rf dist/
 
-## release: Build for all platforms
+## release: Build for all platforms (reads VERSION file)
 release:
-	./hack/build-all.sh
+	./hack/build-all.sh $$(cat VERSION | tr -d '[:space:]')
 
 ## release-version: Build for all platforms with version
 release-version:
@@ -99,6 +99,18 @@ release-version:
 ## release-tag: Full release process (build, notes, signed tag)
 release-tag:
 	./hack/release.sh
+
+## tag: Create signed git tag from VERSION file
+tag:
+	./hack/tag.sh
+
+## release-notes: Generate release notes (use Claude Code slash command)
+release-notes:
+	@echo "To generate release notes, run in Claude Code:"
+	@echo ""
+	@echo "  /release-notes"
+	@echo ""
+	@echo "This will analyze commits since the last tag and write to dist/RELEASE_NOTES.md"
 
 ## dogfood: Start dogfooding in a target folder
 dogfood:
