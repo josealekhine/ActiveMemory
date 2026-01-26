@@ -135,6 +135,7 @@ Agent frameworks answer:
 > “What should the agent remember?”
 
 Without persistent context, agents tend to:
+
 * rediscover decisions
 * repeat mistakes
 * lose architectural intent
@@ -160,11 +161,13 @@ Some SDKs expose "context" objects that exist:
 These are extremely useful and completely different.
 
 SDK context objects:
+
 * are in-memory
 * disappear when the process ends
 * are not shared across sessions
 
 `ctx`:
+
 * survives process restarts
 * survives new chats
 * survives new days
@@ -183,6 +186,7 @@ Enterprise platforms often provide:
 * organizational knowledge layers
 
 These tools are designed for:
+
 * teams
 * governance
 * compliance
@@ -197,6 +201,7 @@ These tools are designed for:
 * developer-controlled
 
 It does not require:
+
 * a server
 * a database
 * an account

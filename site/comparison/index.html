@@ -874,10 +874,12 @@ Instead, it defines a persistent context layer that RAG can optionally augment.<
 <blockquote>
 <p>“What should the agent remember?”</p>
 </blockquote>
-<p>Without persistent context, agents tend to:
-* rediscover decisions
-* repeat mistakes
-* lose architectural intent</p>
+<p>Without persistent context, agents tend to:</p>
+<ul>
+<li>rediscover decisions</li>
+<li>repeat mistakes</li>
+<li>lose architectural intent</li>
+</ul>
 <p>This is why <code>ctx</code> pairs well with loop-based workflows such as the
 <a href="https://ghuntley.com/ralph/">Ralph Wiggum technique</a>:</p>
 <ul>
@@ -894,14 +896,18 @@ Instead, it defines a persistent context layer that RAG can optionally augment.<
 <li>for the lifetime of a call chain</li>
 </ul>
 <p>These are extremely useful and completely different.</p>
-<p>SDK context objects:
-* are in-memory
-* disappear when the process ends
-* are not shared across sessions</p>
-<p><code>ctx</code>:
-* survives process restarts
-* survives new chats
-* survives new days</p>
+<p>SDK context objects:</p>
+<ul>
+<li>are in-memory</li>
+<li>disappear when the process ends</li>
+<li>are not shared across sessions</li>
+</ul>
+<p><code>ctx</code>:</p>
+<ul>
+<li>survives process restarts</li>
+<li>survives new chats</li>
+<li>survives new days</li>
+</ul>
 <p>They share a name, not a purpose.</p>
 <hr />
 <h2 id="enterprise-context-platforms">Enterprise Context Platforms<a class="headerlink" href="#enterprise-context-platforms" title="Permanent link">&para;</a></h2>
@@ -912,11 +918,13 @@ Instead, it defines a persistent context layer that RAG can optionally augment.<
 <li>access control</li>
 <li>organizational knowledge layers</li>
 </ul>
-<p>These tools are designed for:
-* teams
-* governance
-* compliance
-* managed environments</p>
+<p>These tools are designed for:</p>
+<ul>
+<li>teams</li>
+<li>governance</li>
+<li>compliance</li>
+<li>managed environments</li>
+</ul>
 <p><code>ctx</code> is intentionally:</p>
 <ul>
 <li>local-first</li>
@@ -925,11 +933,13 @@ Instead, it defines a persistent context layer that RAG can optionally augment.<
 <li>CLI-driven</li>
 <li>developer-controlled</li>
 </ul>
-<p>It does not require:
-* a server
-* a database
-* an account
-* a SaaS backend</p>
+<p>It does not require:</p>
+<ul>
+<li>a server</li>
+<li>a database</li>
+<li>an account</li>
+<li>a SaaS backend</li>
+</ul>
 <p><code>ctx</code> optimizes for <em>individual and small-team workflows</em> where context should
 live next to code; <strong>not</strong> behind a service boundary.</p>
 <hr />
