@@ -156,8 +156,8 @@ Without persistent context, agents tend to:
 This is why `ctx` pairs well with loop-based workflows such as the
 [Ralph Wiggum technique](https://ghuntley.com/ralph/):
 
-* **Ralph** provides iteration
-* **ctx** provides continuity
+* `ralph` provides iteration
+* `ctx` provides continuity
 
 Together, loops become cumulative instead of forgetful.
 
