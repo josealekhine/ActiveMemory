@@ -5,12 +5,13 @@
 #   \    Copyright 2026-present Context contributors.
 #                 SPDX-License-Identifier: Apache-2.0
 
+title: Context Files
 icon: lucide/files
 ---
 
 ![ctx](images/ctx-banner.png)
 
-## Context Files
+## `./context`
 
 Each context file in `.context/` serves a specific purpose. Files are designed 
 to be human-readable, AI-parseable, and token-efficient.
