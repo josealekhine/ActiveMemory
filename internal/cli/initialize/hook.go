@@ -7,6 +7,7 @@
 package initialize
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"os"
@@ -163,13 +164,16 @@ func mergeSettingsHooks(
 		return fmt.Errorf("failed to create %s: %w", config.DirClaude, err)
 	}
 
-	// Write settings with pretty formatting
-	output, err := json.MarshalIndent(settings, "", "  ")
-	if err != nil {
+	// Write settings with pretty formatting (disable HTML escaping to avoid \u003e for >)
+	var buf bytes.Buffer
+	encoder := json.NewEncoder(&buf)
+	encoder.SetEscapeHTML(false)
+	encoder.SetIndent("", "  ")
+	if err := encoder.Encode(settings); err != nil {
 		return fmt.Errorf("failed to marshal settings: %w", err)
 	}
 
-	if err := os.WriteFile(config.FileSettings, output, 0644); err != nil {
+	if err := os.WriteFile(config.FileSettings, buf.Bytes(), 0644); err != nil {
 		return fmt.Errorf("failed to write %s: %w", config.FileSettings, err)
 	}
 
