@@ -5,16 +5,21 @@
 ### Infer Intent on "Do You Remember?" Questions
 **Discovered**: 2026-01-23
 
-**Context**: User asked "Do you remember?" at session start. Agent asked for clarification instead of proactively checking context files.
+**Context**: User asked "Do you remember?" at session start. Agent asked for 
+clarification instead of proactively checking context files.
 
-**Lesson**: In a ctx-enabled project, "do you remember?" has an obvious meaning: check the `.context/` files and report what you know from previous sessions. Don't ask for clarification - just do it.
+**Lesson**: In a ctx-enabled project, "do you remember?" has an obvious meaning: 
+check the `.context/` files and report what you know from previous sessions. 
+Don't ask for clarification - just do it.
 
-**Application**: When user asks memory-related questions ("do you remember?", "what were we working on?", "where did we leave off?"), immediately:
+**Application**: When user asks memory-related questions ("do you remember?", 
+"what were we working on?", "where did we leave off?"), immediately:
 1. Read `.context/TASKS.md`, `DECISIONS.md`, `LEARNINGS.md`
 2. Check `.context/sessions/` for recent session files
 3. Summarize what you find
 
-Don't ask "would you like me to check the context files?" - that's the obvious intent.
+Don't ask "would you like me to check the context files?" - that's the 
+obvious intent.
 
 ---
 
@@ -260,7 +265,8 @@ Exit criteria must include:
 **Discovered**: 2026-01-23
 **Session**: 2026-01-23-* (check sessions/ for "do you remember" discussion)
 
-**Context**: User asked "Do you remember?" and agent used parallel file reads instead of `ctx agent`. Compared outputs to understand the delta.
+**Context**: User asked "Do you remember?" and agent used parallel file reads 
+instead of `ctx agent`. Compared outputs to understand the delta.
 
 **Lesson**: `ctx agent` is optimized for task execution:
 - Filters to pending tasks only
@@ -278,7 +284,10 @@ Manual file reading is better for exploratory/memory questions:
 - "Do you remember?" → parallel file reads (need history)
 - "What should I work on?" → `ctx agent` (need tasks)
 
-- **[2026-01-23]** Claude Code skills are markdown files in .claude/commands/ with YAML frontmatter (description, argument-hint, allowed-tools). Body is the prompt. Use code blocks with ! prefix for shell execution. $ARGUMENTS passes command args.
+- **[2026-01-23]** Claude Code skills are markdown files in .claude/commands/ 
+  with YAML frontmatter (description, argument-hint, allowed-tools). Body is 
+  the prompt. Use code blocks with ! prefix for shell execution. $ARGUMENTS 
+  passes command args.
 
 ---
 
@@ -287,7 +296,8 @@ Manual file reading is better for exploratory/memory questions:
 ### Autonomous Mode Creates Technical Debt
 **Discovered**: 2026-01-25
 
-**Context**: Compared commits from autonomous "YOLO mode" (auto-accept, agent-driven) vs human-guided refactoring sessions.
+**Context**: Compared commits from autonomous "YOLO mode" (auto-accept, 
+agent-driven) vs human-guided refactoring sessions.
 
 **Lesson**: YOLO mode is effective for feature velocity but accumulates technical debt:
 
@@ -308,7 +318,9 @@ Manual file reading is better for exploratory/memory questions:
 ### Hook Regex Can Overfit
 **Discovered**: 2026-01-25
 
-**Context**: `.claude/hooks/block-non-path-ctx.sh` was blocking legitimate sed commands because the regex `ctx[^ ]*` matched paths containing "ctx" as a directory component (e.g., `/home/user/ctx/internal/...`).
+**Context**: `.claude/hooks/block-non-path-ctx.sh` was blocking legitimate sed 
+commands because the regex `ctx[^ ]*` matched paths containing "ctx" as a 
+directory component (e.g., `/home/user/ctx/internal/...`).
 
 **Lesson**: When writing shell hook regexes:
 - Test against paths that contain the target string as a substring
@@ -318,10 +330,17 @@ Manual file reading is better for exploratory/memory questions:
 
 **Application**: Always test hooks with edge cases before deploying.
 
-- **[2026-01-25-2208]** AGENTS.md is not auto-loaded by Claude Code. Only CLAUDE.md is read automatically. Projects using ctx should rely on the CLAUDE.md → AGENT_PLAYBOOK.md chain, not AGENTS.md.
+- **[2026-01-25-2208]** AGENTS.md is not auto-loaded by Claude Code. 
+  Only CLAUDE.md is read automatically. Projects using ctx should rely on the 
+  CLAUDE.md → AGENT_PLAYBOOK.md chain, not AGENTS.md.
 
-- **[2026-01-25-2208]** CI tests need CTX_SKIP_PATH_CHECK=1 because ctx binary isn't installed on CI runners. Tests that call ctx init will fail without this env var.
+- **[2026-01-25-2208]** CI tests need CTX_SKIP_PATH_CHECK=1 because ctx binary 
+  isn't installed on CI runners. Tests that call ctx init will fail without 
+  this env var.
 
-- **[2026-01-25-2208]** When golangci-lint is built with an older Go version than the project targets, use install-mode: goinstall in CI to build the linter from source using the project's Go version.
+- **[2026-01-25-2208]** When golangci-lint is built with an older Go version 
+  than the project targets, use install-mode: goinstall in CI to build the 
+  linter from source using the project's Go version.
 
-- **[2026-01-25-2208]** defer os.Chdir(x) fails errcheck linter. Use defer func() { _ = os.Chdir(x) }() to explicitly ignore the error return value.
+- **[2026-01-25-2208]** defer os.Chdir(x) fails errcheck linter. Use 
+  defer func() { _ = os.Chdir(x) }() to explicitly ignore the error return value.
