@@ -346,3 +346,5 @@ directory component (e.g., `/home/user/ctx/internal/...`).
   defer func() { _ = os.Chdir(x) }() to explicitly ignore the error return value.
 
 - **[2026-01-26-0553]** Claude Code settings.local.json hook keys are 'PreToolUse' and 'SessionEnd' (not 'PreToolUseHooks'/'SessionEndHooks'). The 'Hooks' suffix causes 'Invalid key in record' errors.
+
+- **[2026-01-26-0612]** Go's json.Marshal escapes `>`, `<`, and `&` as unicode (\u003e, \u003c, \u0026) by default for HTML safety. Use json.Encoder with SetEscapeHTML(false) when generating config files that contain shell commands like `2>/dev/null`.
