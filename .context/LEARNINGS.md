@@ -344,3 +344,5 @@ directory component (e.g., `/home/user/ctx/internal/...`).
 
 - **[2026-01-25-2208]** defer os.Chdir(x) fails errcheck linter. Use 
   defer func() { _ = os.Chdir(x) }() to explicitly ignore the error return value.
+
+- **[2026-01-26-0553]** Claude Code settings.local.json hook keys are 'PreToolUse' and 'SessionEnd' (not 'PreToolUseHooks'/'SessionEndHooks'). The 'Hooks' suffix causes 'Invalid key in record' errors.
