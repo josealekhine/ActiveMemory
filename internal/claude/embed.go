@@ -119,12 +119,16 @@ func CreateDefaultHooks(projectDir string) HookConfig {
 	return HookConfig{
 		PreToolUse: []HookMatcher{
 			{
-				// Block non-PATH ctx invocations (./ctx, ./dist/ctx, go run ./cmd/ctx)
+				// Block non-PATH ctx invocations and require approval for git push
 				Matcher: "Bash",
 				Hooks: []Hook{
 					{
 						Type:    "command",
 						Command: fmt.Sprintf("%s/block-non-path-ctx.sh", hooksDir),
+					},
+					{
+						Type:    "command",
+						Command: `if echo "$CLAUDE_TOOL_INPUT" | grep -qE 'git\s+push'; then echo '{"decision": "block", "reason": "git push not allowed - ask user first"}'; exit 0; fi`,
 					},
 				},
 			},
