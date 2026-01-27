@@ -115,8 +115,10 @@ Requires [Go 1.25+](https://go.dev/):
 ```bash
 git clone https://github.com/ActiveMemory/ctx.git
 cd ctx
-CGO_ENABLED=0 go build -o ctx ./cmd/ctx
-sudo mv ctx /usr/local/bin/
+make build
+sudo make install
+# or:
+# sudo mv ctx /usr/local/bin/
 ```
 
 Verify installation:
