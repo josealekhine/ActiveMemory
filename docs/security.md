@@ -13,7 +13,7 @@ icon: lucide/shield
 
 At `ctx` we take security very seriously.
 
-If you discover a security vulnerability in ctx, please report it responsibly.
+If you discover a security vulnerability in `ctx`, please report it responsibly.
 
 **Do NOT open a public issue for security vulnerabilities.**
 
@@ -49,7 +49,7 @@ Send details to **security@ctx.ist**
 - **No secrets in context**: The constitution explicitly forbids storing
   secrets, tokens, API keys, or credentials in `.context/` files
 - **Local only**: ctx runs entirely locally with no external network calls
-- **No code execution**: ctx reads and writes markdown files only; it does 
+- **No code execution**: ctx reads and writes Markdown files only; it does 
   not execute arbitrary code
 - **Git-tracked**: All context files are meant to be committed, so they should
   never contain sensitive data
@@ -57,7 +57,8 @@ Send details to **security@ctx.ist**
 ## Best Practices
 
 1. **Review before committing**: Always review `.context/` files before committing
-2. **Use .gitignore**: If you must store sensitive notes locally, add them to `.gitignore`
+2. **Use .gitignore**: If you must store sensitive notes locally,
+   add them to `.gitignore`
 3. **Drift detection**: Run `ctx drift` to check for potential issues
 
 ## Attribution

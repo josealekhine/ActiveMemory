@@ -779,7 +779,7 @@
 
 <h2 id="reporting-vulnerabilities">Reporting Vulnerabilities<a class="headerlink" href="#reporting-vulnerabilities" title="Permanent link">&para;</a></h2>
 <p>At <code>ctx</code> we take security very seriously.</p>
-<p>If you discover a security vulnerability in ctx, please report it responsibly.</p>
+<p>If you discover a security vulnerability in <code>ctx</code>, please report it responsibly.</p>
 <p><strong>Do NOT open a public issue for security vulnerabilities.</strong></p>
 <h3 id="email">Email<a class="headerlink" href="#email" title="Permanent link">&para;</a></h3>
 <p>Send details to <strong><a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#115;&#101;&#99;&#117;&#114;&#105;&#116;&#121;&#64;&#99;&#116;&#120;&#46;&#105;&#115;&#116;">&#115;&#101;&#99;&#117;&#114;&#105;&#116;&#121;&#64;&#99;&#116;&#120;&#46;&#105;&#115;&#116;</a></strong></p>
@@ -825,7 +825,7 @@
 <li><strong>No secrets in context</strong>: The constitution explicitly forbids storing
   secrets, tokens, API keys, or credentials in <code>.context/</code> files</li>
 <li><strong>Local only</strong>: ctx runs entirely locally with no external network calls</li>
-<li><strong>No code execution</strong>: ctx reads and writes markdown files only; it does 
+<li><strong>No code execution</strong>: ctx reads and writes Markdown files only; it does 
   not execute arbitrary code</li>
 <li><strong>Git-tracked</strong>: All context files are meant to be committed, so they should
   never contain sensitive data</li>
@@ -833,7 +833,8 @@
 <h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
 <ol>
 <li><strong>Review before committing</strong>: Always review <code>.context/</code> files before committing</li>
-<li><strong>Use .gitignore</strong>: If you must store sensitive notes locally, add them to <code>.gitignore</code></li>
+<li><strong>Use .gitignore</strong>: If you must store sensitive notes locally,
+   add them to <code>.gitignore</code></li>
 <li><strong>Drift detection</strong>: Run <code>ctx drift</code> to check for potential issues</li>
 </ol>
 <h2 id="attribution">Attribution<a class="headerlink" href="#attribution" title="Permanent link">&para;</a></h2>
