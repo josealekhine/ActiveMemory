@@ -15,9 +15,10 @@ icon: lucide/message-circle
 
 Effective prompts for working with AI assistants in ctx-enabled projects.
 
-> [!tip] Help Your AI Sidekick
-> AI assistants *may not* automatically read context files. 
-> **The right prompt triggers the right behavior**. 
+!!! tip Help Your AI Sidekick
+    AI assistants *may not* automatically read context files.
+
+    **The right prompt triggers the right behavior**. 
 
 This guide documents prompts that reliably produce good results.
 
