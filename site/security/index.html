@@ -783,6 +783,7 @@
 
 <h1 id="security">Security<a class="headerlink" href="#security" title="Permanent link">&para;</a></h1>
 <h2 id="reporting-vulnerabilities">Reporting Vulnerabilities<a class="headerlink" href="#reporting-vulnerabilities" title="Permanent link">&para;</a></h2>
+<p>At <code>ctx</code> we take security very seriously.</p>
 <p>If you discover a security vulnerability in ctx, please report it responsibly.</p>
 <p><strong>Do NOT open a public issue for security vulnerabilities.</strong></p>
 <h3 id="email">Email<a class="headerlink" href="#email" title="Permanent link">&para;</a></h3>
@@ -824,12 +825,15 @@
 </tbody>
 </table>
 <h2 id="security-design">Security Design<a class="headerlink" href="#security-design" title="Permanent link">&para;</a></h2>
-<p>ctx is designed with security in mind:</p>
+<p><code>ctx</code> is designed with security in mind:</p>
 <ul>
-<li><strong>No secrets in context</strong>: The constitution explicitly forbids storing secrets, tokens, API keys, or credentials in <code>.context/</code> files</li>
+<li><strong>No secrets in context</strong>: The constitution explicitly forbids storing
+  secrets, tokens, API keys, or credentials in <code>.context/</code> files</li>
 <li><strong>Local only</strong>: ctx runs entirely locally with no external network calls</li>
-<li><strong>No code execution</strong>: ctx reads and writes markdown files only; it does not execute arbitrary code</li>
-<li><strong>Git-tracked</strong>: All context files are meant to be committed, so they should never contain sensitive data</li>
+<li><strong>No code execution</strong>: ctx reads and writes markdown files only; it does 
+  not execute arbitrary code</li>
+<li><strong>Git-tracked</strong>: All context files are meant to be committed, so they should
+  never contain sensitive data</li>
 </ul>
 <h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
 <ol>
@@ -838,7 +842,8 @@
 <li><strong>Drift detection</strong>: Run <code>ctx drift</code> to check for potential issues</li>
 </ol>
 <h2 id="attribution">Attribution<a class="headerlink" href="#attribution" title="Permanent link">&para;</a></h2>
-<p>We appreciate responsible disclosure and will acknowledge security researchers who report valid vulnerabilities (unless they prefer to remain anonymous).</p>
+<p>We appreciate responsible disclosure and will acknowledge security researchers
+who report valid vulnerabilities (<em>unless they prefer to remain anonymous</em>).</p>
 
 
 
