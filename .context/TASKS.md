@@ -171,3 +171,5 @@
       ask AI what we have learned about this.
 
 
+
+- [ ] Implement .contextrc config file support (YAML format) #priority:low #added:2026-01-27-065231

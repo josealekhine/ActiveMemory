@@ -496,18 +496,18 @@ ctx session parse transcript.jsonl --extract
 
 ## Configuration File
 
-Optional `.contextrc` or `context.config.js` at project root:
+> **Note:** Not yet implemented. See [TASKS.md](https://github.com/ActiveMemory/ctx/blob/main/.context/TASKS.md) for status.
 
-```javascript
-module.exports = {
-  contextDir: '.context', // Context directory name
-  tokenBudget: 8000,      // Default token budget
-  priorityOrder: [        // File loading priority
-    'TASKS.md',
-    'DECISIONS.md',
-    'CONVENTIONS.md',
-  ],
-  autoArchive: true,   // Auto-archive old items
-  archiveAfterDays: 7, // Days before archiving
-};
+Optional `.contextrc` (YAML format) at project root:
+
+```yaml
+# .contextrc
+context_dir: .context      # Context directory name
+token_budget: 8000         # Default token budget
+priority_order:            # File loading priority
+  - TASKS.md
+  - DECISIONS.md
+  - CONVENTIONS.md
+auto_archive: true         # Auto-archive old items
+archive_after_days: 7      # Days before archiving
 ```
