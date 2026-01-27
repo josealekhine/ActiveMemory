@@ -142,8 +142,8 @@ func TestSettingsStructure(t *testing.T) {
 	// Test that Settings struct can be instantiated correctly
 	settings := Settings{
 		Hooks: CreateDefaultHooks(""),
-		Permissions: map[string]interface{}{
-			"allow": []string{"read", "write"},
+		Permissions: PermissionsConfig{
+			Allow: []string{"Bash(ctx status:*)", "Bash(ctx agent:*)"},
 		},
 	}
 
@@ -151,7 +151,34 @@ func TestSettingsStructure(t *testing.T) {
 		t.Error("Settings.Hooks.PreToolUse should not be empty")
 	}
 
-	if settings.Permissions == nil {
-		t.Error("Settings.Permissions should not be nil")
+	if len(settings.Permissions.Allow) == 0 {
+		t.Error("Settings.Permissions.Allow should not be empty")
+	}
+}
+
+func TestCreateDefaultPermissions(t *testing.T) {
+	perms := CreateDefaultPermissions()
+
+	if len(perms) == 0 {
+		t.Error("CreateDefaultPermissions should return permissions")
+	}
+
+	// Check that essential ctx commands are included
+	expected := []string{
+		"Bash(ctx status:*)",
+		"Bash(ctx agent:*)",
+		"Bash(ctx add:*)",
+		"Bash(ctx session:*)",
+	}
+
+	permSet := make(map[string]bool)
+	for _, p := range perms {
+		permSet[p] = true
+	}
+
+	for _, e := range expected {
+		if !permSet[e] {
+			t.Errorf("Missing expected permission: %s", e)
+		}
 	}
 }

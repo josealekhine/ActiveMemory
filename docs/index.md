@@ -215,6 +215,7 @@ ctx drift
 
 ## Next Steps
 
+- [Prompting Guide](prompting-guide.md) — Effective prompts for AI sessions
 - [CLI Reference](cli-reference.md) — All commands and options
 - [Context Files](context-files.md) — File formats and structure
 - [Ralph Loop Integration](ralph-loop.md) — Autonomous AI development workflows

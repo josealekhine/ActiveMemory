@@ -12,13 +12,13 @@
         <meta name="author" content="Jose Alekhinne <alekhinejose@gmail.com>">
       
       
-        <link rel="canonical" href="https://ctx.ist/comparison/">
+        <link rel="canonical" href="https://ctx.ist/prompting-guide/">
       
       
-        <link rel="prev" href="../prompting-guide/">
+        <link rel="prev" href="..">
       
       
-        <link rel="next" href="../cli-reference/">
+        <link rel="next" href="../comparison/">
       
       
         
@@ -29,7 +29,7 @@
     
     
       
-        <title>ctx and Similar Tools - ctx: do you remember?</title>
+        <title>Prompting Guide - ctx: do you remember?</title>
       
     
     
@@ -85,7 +85,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#high-level-mental-model" class="md-skip">
+        <a href="#prompting-guide" class="md-skip">
           Skip to content
         </a>
       
@@ -120,7 +120,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              ctx and Similar Tools
+              Prompting Guide
             
           </span>
         </div>
@@ -264,11 +264,18 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../prompting-guide/" class="md-nav__link">
-        
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
   
   
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-message-circle" viewBox="0 0 24 24"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/></svg>
@@ -284,42 +291,6 @@
   
   
 
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-git-compare" viewBox="0 0 24 24"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7M11 18H8a2 2 0 0 1-2-2V9"/></svg>
-  
-  <span class="md-ellipsis">
-    
-  
-    ctx and Similar Tools
-  
-
-    
-  </span>
-  
-  
-
           <span class="md-nav__icon md-icon"></span>
         </label>
       
@@ -327,12 +298,12 @@
         
   
   
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-git-compare" viewBox="0 0 24 24"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7M11 18H8a2 2 0 0 1-2-2V9"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-message-circle" viewBox="0 0 24 24"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/></svg>
   
   <span class="md-ellipsis">
     
   
-    ctx and Similar Tools
+    Prompting Guide
   
 
     
@@ -357,10 +328,288 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#high-level-mental-model" class="md-nav__link">
+  <a href="#prompting-guide" class="md-nav__link">
     <span class="md-ellipsis">
       
-        High-Level Mental Model
+        Prompting Guide
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prompting Guide">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-this-matters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why This Matters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#session-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Session Start
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Session Start">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#do-you-remember" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "Do you remember?"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#whats-the-current-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "What's the current state?"
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#during-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        During Work
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="During Work">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-doesnt-x-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "Why doesn't X work?"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#is-this-consistent-with-our-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "Is this consistent with our decisions?"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-would-break-if-we" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "What would break if we..."
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#before-you-start-read-x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "Before you start, read X"
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reflection-persistence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reflection &amp; Persistence
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reflection &amp; Persistence">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-did-we-learn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "What did we learn?"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-this-as-a-learningdecision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "Add this as a learning/decision"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#save-context-before-we-end" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "Save context before we end"
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exploration-research" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exploration &amp; Research
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exploration &amp; Research">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#explore-the-codebase-for-x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "Explore the codebase for X"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-does-x-work-in-this-codebase" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "How does X work in this codebase?"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#find-all-places-where-x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "Find all places where X"
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Meta &amp; Process
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Meta &amp; Process">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-should-we-document-from-this" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "What should we document from this?"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#is-this-the-right-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "Is this the right approach?"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-am-i-missing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "What am I missing?"
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#anti-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Anti-Patterns
       
     </span>
   </a>
@@ -368,10 +617,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-ctx-differs-from-similar-tools" class="md-nav__link">
+  <a href="#quick-reference" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How ctx Differs from Similar Tools
+        Quick Reference
       
     </span>
   </a>
@@ -379,87 +628,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-core-distinction" class="md-nav__link">
+  <a href="#contributing" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The Core Distinction
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#prompt-management-tools" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Prompt Management Tools
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#retrieval-augmented-generation-rag" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Retrieval-Augmented Generation (RAG)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#agent-frameworks" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Agent Frameworks
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#sdk-level-context-objects" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        SDK-Level Context Objects
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#enterprise-context-platforms" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Enterprise Context Platforms
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#when-ctx-is-a-good-fit" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        When ctx Is a Good Fit
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#when-ctx-is-not-the-right-tool" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        When ctx Is Not the Right Tool
+        Contributing
       
     </span>
   </a>
@@ -470,6 +642,35 @@
   
 </nav>
       
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../comparison/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-git-compare" viewBox="0 0 24 24"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7M11 18H8a2 2 0 0 1-2-2V9"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    ctx and Similar Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -616,10 +817,288 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#high-level-mental-model" class="md-nav__link">
+  <a href="#prompting-guide" class="md-nav__link">
     <span class="md-ellipsis">
       
-        High-Level Mental Model
+        Prompting Guide
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prompting Guide">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-this-matters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why This Matters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#session-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Session Start
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Session Start">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#do-you-remember" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "Do you remember?"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#whats-the-current-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "What's the current state?"
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#during-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        During Work
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="During Work">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-doesnt-x-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "Why doesn't X work?"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#is-this-consistent-with-our-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "Is this consistent with our decisions?"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-would-break-if-we" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "What would break if we..."
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#before-you-start-read-x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "Before you start, read X"
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reflection-persistence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reflection &amp; Persistence
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reflection &amp; Persistence">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-did-we-learn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "What did we learn?"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-this-as-a-learningdecision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "Add this as a learning/decision"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#save-context-before-we-end" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "Save context before we end"
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exploration-research" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exploration &amp; Research
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exploration &amp; Research">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#explore-the-codebase-for-x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "Explore the codebase for X"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-does-x-work-in-this-codebase" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "How does X work in this codebase?"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#find-all-places-where-x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "Find all places where X"
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Meta &amp; Process
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Meta &amp; Process">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-should-we-document-from-this" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "What should we document from this?"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#is-this-the-right-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "Is this the right approach?"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-am-i-missing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "What am I missing?"
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#anti-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Anti-Patterns
       
     </span>
   </a>
@@ -627,10 +1106,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-ctx-differs-from-similar-tools" class="md-nav__link">
+  <a href="#quick-reference" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How ctx Differs from Similar Tools
+        Quick Reference
       
     </span>
   </a>
@@ -638,87 +1117,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-core-distinction" class="md-nav__link">
+  <a href="#contributing" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The Core Distinction
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#prompt-management-tools" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Prompt Management Tools
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#retrieval-augmented-generation-rag" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Retrieval-Augmented Generation (RAG)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#agent-frameworks" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Agent Frameworks
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#sdk-level-context-objects" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        SDK-Level Context Objects
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#enterprise-context-platforms" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Enterprise Context Platforms
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#when-ctx-is-a-good-fit" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        When ctx Is a Good Fit
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#when-ctx-is-not-the-right-tool" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        When ctx Is Not the Right Tool
+        Contributing
       
     </span>
   </a>
@@ -751,258 +1153,215 @@
   
 
 
-  <h1>ctx and Similar Tools</h1>
+  <h1>Prompting Guide</h1>
 
 <p><img alt="ctx" src="../images/ctx-banner.png" /></p>
-<h2 id="high-level-mental-model">High-Level Mental Model<a class="headerlink" href="#high-level-mental-model" title="Permanent link">&para;</a></h2>
-<p>Many tools help AI <em>think</em>.</p>
-<p><code>ctx</code> helps AI <em>remember</em>.</p>
-<p><strong>Not</strong> by storing thoughts,
-<strong>but</strong> by preserving intent.</p>
-<h2 id="how-ctx-differs-from-similar-tools">How <code>ctx</code> Differs from Similar Tools<a class="headerlink" href="#how-ctx-differs-from-similar-tools" title="Permanent link">&para;</a></h2>
-<p>There are many tools in the AI ecosystem that touch <em>parts</em> of the context
-problem:</p>
-<ul>
-<li>Some manage prompts.  </li>
-<li>Some retrieve data.  </li>
-<li>Some provide runtime context objects.  </li>
-<li>Some offer enterprise platforms.</li>
-</ul>
-<p><code>ctx</code> focuses on a different layer entirely.</p>
-<p>This page explains where <code>ctx</code> fits, and where it <strong>intentionally</strong> does not.</p>
+<h2 id="prompting-guide">Prompting Guide<a class="headerlink" href="#prompting-guide" title="Permanent link">&para;</a></h2>
+<p>Effective prompts for working with AI assistants in ctx-enabled projects.</p>
+<h3 id="why-this-matters">Why This Matters<a class="headerlink" href="#why-this-matters" title="Permanent link">&para;</a></h3>
+<p>AI assistants don't automatically read context files. The right prompt triggers
+the right behavior. This guide documents prompts that reliably produce good results.</p>
 <hr />
-<h2 id="the-core-distinction">The Core Distinction<a class="headerlink" href="#the-core-distinction" title="Permanent link">&para;</a></h2>
-<p>Most tools treat context as <strong>input</strong>.</p>
-<p><code>ctx</code> treats context as <strong>infrastructure</strong>.</p>
-<p>That single difference explains nearly all of <code>ctx</code>'s design choices.</p>
+<h2 id="session-start">Session Start<a class="headerlink" href="#session-start" title="Permanent link">&para;</a></h2>
+<h3 id="do-you-remember">"Do you remember?"<a class="headerlink" href="#do-you-remember" title="Permanent link">&para;</a></h3>
+<p><strong>What it does</strong>: Triggers the AI to read AGENT_PLAYBOOK, CONSTITUTION, sessions/,
+and other context files before responding.</p>
+<p><strong>When to use</strong>: Start of every important session.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Do you remember what we were working on?
+</span></code></pre></div>
+<p><strong>Why it works</strong>: The question implies prior context exists. The AI checks files
+rather than admitting ignorance.</p>
+<h3 id="whats-the-current-state">"What's the current state?"<a class="headerlink" href="#whats-the-current-state" title="Permanent link">&para;</a></h3>
+<p><strong>What it does</strong>: Prompts reading of TASKS.md, recent sessions, and status overview.</p>
+<p><strong>When to use</strong>: Resuming work after a break.</p>
+<p><strong>Variants</strong>:</p>
+<ul>
+<li>"Where did we leave off?"</li>
+<li>"What's in progress?"</li>
+<li>"Show me the open tasks"</li>
+</ul>
+<hr />
+<h2 id="during-work">During Work<a class="headerlink" href="#during-work" title="Permanent link">&para;</a></h2>
+<h3 id="why-doesnt-x-work">"Why doesn't X work?"<a class="headerlink" href="#why-doesnt-x-work" title="Permanent link">&para;</a></h3>
+<p><strong>What it does</strong>: Triggers root cause analysis rather than surface-level fixes.</p>
+<p><strong>When to use</strong>: When something fails unexpectedly.</p>
+<p><strong>Why it works</strong>: Framing as "why" encourages investigation before action.
+The AI will trace through code, check configurations, and identify the actual cause.</p>
+<div class="admonition example">
+<p class="admonition-title">Real example</p>
+<p>"Why can't I run /ctx-save?" led to discovering missing permissions
+in settings.local.json bootstrapping—a fix that benefited all users.</p>
+</div>
+<h3 id="is-this-consistent-with-our-decisions">"Is this consistent with our decisions?"<a class="headerlink" href="#is-this-consistent-with-our-decisions" title="Permanent link">&para;</a></h3>
+<p><strong>What it does</strong>: Prompts checking DECISIONS.md before implementing.</p>
+<p><strong>When to use</strong>: Before making architectural choices.</p>
+<p><strong>Variants</strong>:</p>
+<ul>
+<li>"Check if we've decided on this before"</li>
+<li>"Does this align with our conventions?"</li>
+</ul>
+<h3 id="what-would-break-if-we">"What would break if we..."<a class="headerlink" href="#what-would-break-if-we" title="Permanent link">&para;</a></h3>
+<p><strong>What it does</strong>: Triggers defensive thinking and impact analysis.</p>
+<p><strong>When to use</strong>: Before making significant changes.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>What would break if we change the Settings struct?
+</span></code></pre></div>
+<h3 id="before-you-start-read-x">"Before you start, read X"<a class="headerlink" href="#before-you-start-read-x" title="Permanent link">&para;</a></h3>
+<p><strong>What it does</strong>: Ensures specific context is loaded before work begins.</p>
+<p><strong>When to use</strong>: When you know relevant context exists in a specific file.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Before you start, read .context/sessions/2026-01-20-auth-discussion.md
+</span></code></pre></div>
+<hr />
+<h2 id="reflection-persistence">Reflection &amp; Persistence<a class="headerlink" href="#reflection-persistence" title="Permanent link">&para;</a></h2>
+<h3 id="what-did-we-learn">"What did we learn?"<a class="headerlink" href="#what-did-we-learn" title="Permanent link">&para;</a></h3>
+<p><strong>What it does</strong>: Prompts reflection on the session and often triggers adding
+learnings to LEARNINGS.md.</p>
+<p><strong>When to use</strong>: After completing a task or debugging session.</p>
+<p><strong>Why it works</strong>: Explicit reflection prompt. The AI will summarize insights
+and often offer to persist them.</p>
+<h3 id="add-this-as-a-learningdecision">"Add this as a learning/decision"<a class="headerlink" href="#add-this-as-a-learningdecision" title="Permanent link">&para;</a></h3>
+<p><strong>What it does</strong>: Explicit persistence request.</p>
+<p><strong>When to use</strong>: When you've discovered something worth remembering.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Add this as a learning: &quot;JSON marshal escapes angle brackets by default&quot;
+</span></code></pre></div>
+<h3 id="save-context-before-we-end">"Save context before we end"<a class="headerlink" href="#save-context-before-we-end" title="Permanent link">&para;</a></h3>
+<p><strong>What it does</strong>: Triggers context persistence before session close.</p>
+<p><strong>When to use</strong>: End of session, or before switching topics.</p>
+<p><strong>Variants</strong>:</p>
+<ul>
+<li>"Let's persist what we did"</li>
+<li>"Update the context files"</li>
+<li><code>/ctx-save</code> (slash command in Claude Code)</li>
+</ul>
+<hr />
+<h2 id="exploration-research">Exploration &amp; Research<a class="headerlink" href="#exploration-research" title="Permanent link">&para;</a></h2>
+<h3 id="explore-the-codebase-for-x">"Explore the codebase for X"<a class="headerlink" href="#explore-the-codebase-for-x" title="Permanent link">&para;</a></h3>
+<p><strong>What it does</strong>: Triggers thorough codebase search rather than guessing.</p>
+<p><strong>When to use</strong>: When you need to understand how something works.</p>
+<p><strong>Why it works</strong>: "Explore" signals that investigation is needed, not immediate action.</p>
+<h3 id="how-does-x-work-in-this-codebase">"How does X work in this codebase?"<a class="headerlink" href="#how-does-x-work-in-this-codebase" title="Permanent link">&para;</a></h3>
+<p><strong>What it does</strong>: Prompts reading actual code rather than explaining general concepts.</p>
+<p><strong>When to use</strong>: Understanding existing implementation.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>How does session saving work in this codebase?
+</span></code></pre></div>
+<h3 id="find-all-places-where-x">"Find all places where X"<a class="headerlink" href="#find-all-places-where-x" title="Permanent link">&para;</a></h3>
+<p><strong>What it does</strong>: Comprehensive search across the codebase.</p>
+<p><strong>When to use</strong>: Before refactoring or understanding impact.</p>
+<hr />
+<h2 id="meta-process">Meta &amp; Process<a class="headerlink" href="#meta-process" title="Permanent link">&para;</a></h2>
+<h3 id="what-should-we-document-from-this">"What should we document from this?"<a class="headerlink" href="#what-should-we-document-from-this" title="Permanent link">&para;</a></h3>
+<p><strong>What it does</strong>: Prompts identifying learnings, decisions, and conventions
+worth persisting.</p>
+<p><strong>When to use</strong>: After complex discussions or implementations.</p>
+<h3 id="is-this-the-right-approach">"Is this the right approach?"<a class="headerlink" href="#is-this-the-right-approach" title="Permanent link">&para;</a></h3>
+<p><strong>What it does</strong>: Invites the AI to challenge the current direction.</p>
+<p><strong>When to use</strong>: When you want a sanity check.</p>
+<p><strong>Why it works</strong>: Gives permission to disagree. AIs often default to agreeing;
+this prompt signals you want honest assessment.</p>
+<h3 id="what-am-i-missing">"What am I missing?"<a class="headerlink" href="#what-am-i-missing" title="Permanent link">&para;</a></h3>
+<p><strong>What it does</strong>: Prompts thinking about edge cases, overlooked requirements,
+or unconsidered approaches.</p>
+<p><strong>When to use</strong>: Before finalizing a design or implementation.</p>
+<hr />
+<h2 id="anti-patterns">Anti-Patterns<a class="headerlink" href="#anti-patterns" title="Permanent link">&para;</a></h2>
+<p>Prompts that tend to produce poor results:</p>
 <table>
 <thead>
 <tr>
-<th>Question</th>
-<th>Most tools</th>
-<th>ctx</th>
+<th>Prompt</th>
+<th>Problem</th>
+<th>Better Alternative</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Where does context live?</td>
-<td>In prompts or APIs</td>
-<td>In files</td>
+<td>"Fix this"</td>
+<td>Too vague, may patch symptoms</td>
+<td>"Why is this failing?"</td>
 </tr>
 <tr>
-<td>How long does it last?</td>
-<td>One request / one session</td>
-<td>Across time</td>
+<td>"Make it work"</td>
+<td>Encourages quick hacks</td>
+<td>"What's the right way to solve this?"</td>
 </tr>
 <tr>
-<td>Who can read it?</td>
-<td>The model</td>
-<td>Humans and tools</td>
+<td>"Just do it"</td>
+<td>Skips planning</td>
+<td>"Plan this, then implement"</td>
 </tr>
 <tr>
-<td>How is it updated?</td>
-<td>Implicitly</td>
-<td>Explicitly</td>
+<td>"You should remember"</td>
+<td>Confrontational</td>
+<td>"Do you remember?"</td>
 </tr>
 <tr>
-<td>Is it inspectable?</td>
-<td>Rarely</td>
-<td>Always</td>
+<td>"Obviously..."</td>
+<td>Discourages questions</td>
+<td>State the requirement directly</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="prompt-management-tools">Prompt Management Tools<a class="headerlink" href="#prompt-management-tools" title="Permanent link">&para;</a></h2>
-<p>Examples include:</p>
-<ul>
-<li>prompt templates</li>
-<li>reusable system prompts</li>
-<li>prompt libraries</li>
-<li>prompt versioning tools</li>
-</ul>
-<p>These tools help you <em>start</em> a session.</p>
-<p>They do not help you <em>continue</em> one.</p>
-<p>Prompt tools:</p>
-<ul>
-<li>inject text at session start</li>
-<li>are ephemeral by design</li>
-<li>do not evolve with the project</li>
-</ul>
-<p><code>ctx</code>:</p>
-<ul>
-<li>persists knowledge over time</li>
-<li>accumulates decisions and learnings</li>
-<li>makes the context part of the repository itself</li>
-</ul>
-<p>Prompt tooling and <code>ctx</code> are complementary; not competing. 
-Yet, they operate at different layers.</p>
-<hr />
-<h2 id="retrieval-augmented-generation-rag">Retrieval-Augmented Generation (RAG)<a class="headerlink" href="#retrieval-augmented-generation-rag" title="Permanent link">&para;</a></h2>
-<p>RAG systems typically:</p>
-<ul>
-<li>index documents</li>
-<li>embed text</li>
-<li>retrieve chunks dynamically at runtime</li>
-</ul>
-<p>They are excellent for:</p>
-<ul>
-<li>large knowledge bases</li>
-<li>static documentation</li>
-<li>reference material</li>
-</ul>
-<p>RAG answers questions like:</p>
-<blockquote>
-<p>"What information might be relevant right now?"</p>
-</blockquote>
-<p><code>ctx</code> answers a different question:</p>
-<blockquote>
-<p>"What have we already decided, learned, or committed to?"</p>
-</blockquote>
-<p>Here are some key differences:</p>
+<h2 id="quick-reference">Quick Reference<a class="headerlink" href="#quick-reference" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>RAG</th>
-<th>ctx</th>
+<th>Goal</th>
+<th>Prompt</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Statistical relevance</td>
-<td>Intentional relevance</td>
+<td>Load context</td>
+<td>"Do you remember?"</td>
 </tr>
 <tr>
-<td>Embedding-based</td>
-<td>File-based</td>
+<td>Resume work</td>
+<td>"What's the current state?"</td>
 </tr>
 <tr>
-<td>Opaque retrieval</td>
-<td>Explicit structure</td>
+<td>Debug</td>
+<td>"Why doesn't X work?"</td>
 </tr>
 <tr>
-<td>Runtime query</td>
-<td>Persistent memory</td>
+<td>Validate</td>
+<td>"Is this consistent with our decisions?"</td>
+</tr>
+<tr>
+<td>Impact analysis</td>
+<td>"What would break if we..."</td>
+</tr>
+<tr>
+<td>Reflect</td>
+<td>"What did we learn?"</td>
+</tr>
+<tr>
+<td>Persist</td>
+<td>"Add this as a learning"</td>
+</tr>
+<tr>
+<td>Explore</td>
+<td>"How does X work in this codebase?"</td>
+</tr>
+<tr>
+<td>Sanity check</td>
+<td>"Is this the right approach?"</td>
+</tr>
+<tr>
+<td>Completeness</td>
+<td>"What am I missing?"</td>
 </tr>
 </tbody>
 </table>
-<p><code>ctx</code> does not replace RAG.
-Instead, it defines a persistent context layer that RAG can optionally augment.</p>
-<blockquote>
-<p>RAG belongs to the <strong>data plane</strong>; ctx defines the <strong>context control plane</strong>.</p>
-</blockquote>
-<p>It focuses on <strong>project memory</strong>, not knowledge search.</p>
 <hr />
-<h2 id="agent-frameworks">Agent Frameworks<a class="headerlink" href="#agent-frameworks" title="Permanent link">&para;</a></h2>
-<p>Agent frameworks often provide:</p>
-<ul>
-<li>task loops</li>
-<li>tool orchestration</li>
-<li>planner/executor patterns</li>
-<li>autonomous iteration</li>
-</ul>
-<p>These systems are powerful, but they typically assume that:</p>
-<ul>
-<li>memory is external</li>
-<li>context is injected</li>
-<li>state is transient</li>
-</ul>
-<p>Agent frameworks answer:</p>
-<blockquote>
-<p>"How should the agent act?"</p>
-</blockquote>
-<p><code>ctx</code> answers:</p>
-<blockquote>
-<p>"What should the agent remember?"</p>
-</blockquote>
-<p>Without persistent context, agents tend to:</p>
-<ul>
-<li>rediscover decisions</li>
-<li>repeat mistakes</li>
-<li>lose architectural intent</li>
-</ul>
-<p>This is why <code>ctx</code> pairs well with loop-based workflows such as the
-<a href="https://ghuntley.com/ralph/">Ralph Wiggum technique</a>:</p>
-<ul>
-<li><code>ralph</code> provides iteration</li>
-<li><code>ctx</code> provides continuity</li>
-</ul>
-<p>Together, loops become cumulative instead of forgetful.</p>
-<hr />
-<h2 id="sdk-level-context-objects">SDK-Level Context Objects<a class="headerlink" href="#sdk-level-context-objects" title="Permanent link">&para;</a></h2>
-<p>Some SDKs expose "context" objects that exist:</p>
-<ul>
-<li>inside a process</li>
-<li>during a request</li>
-<li>for the lifetime of a call chain</li>
-</ul>
-<p>These are extremely useful and completely different.</p>
-<p>SDK context objects:</p>
-<ul>
-<li>are in-memory</li>
-<li>disappear when the process ends</li>
-<li>are not shared across sessions</li>
-</ul>
-<p><code>ctx</code>:</p>
-<ul>
-<li>survives process restarts</li>
-<li>survives new chats</li>
-<li>survives new days</li>
-</ul>
-<p>They share a name, not a purpose.</p>
-<hr />
-<h2 id="enterprise-context-platforms">Enterprise Context Platforms<a class="headerlink" href="#enterprise-context-platforms" title="Permanent link">&para;</a></h2>
-<p>Enterprise platforms often provide:</p>
-<ul>
-<li>centralized context services</li>
-<li>dashboards</li>
-<li>access control</li>
-<li>organizational knowledge layers</li>
-</ul>
-<p>These tools are designed for:</p>
-<ul>
-<li>teams</li>
-<li>governance</li>
-<li>compliance</li>
-<li>managed environments</li>
-</ul>
-<p><code>ctx</code> is intentionally:</p>
-<ul>
-<li>local-first</li>
-<li>file-based</li>
-<li>dependency-free</li>
-<li>CLI-driven</li>
-<li>developer-controlled</li>
-</ul>
-<p>It does not require:</p>
-<ul>
-<li>a server</li>
-<li>a database</li>
-<li>an account</li>
-<li>a SaaS backend</li>
-</ul>
-<p><code>ctx</code> optimizes for <em>individual and small-team workflows</em> where context should
-live next to code; <strong>not</strong> behind a service boundary.</p>
-<hr />
-<h2 id="when-ctx-is-a-good-fit">When <code>ctx</code> Is a Good Fit<a class="headerlink" href="#when-ctx-is-a-good-fit" title="Permanent link">&para;</a></h2>
-<p><code>ctx</code> works best when:</p>
-<ul>
-<li>you want AI work to compound over time</li>
-<li>architectural decisions matter</li>
-<li>context must be inspectable</li>
-<li>humans and AI must share the same source of truth</li>
-<li>Git history should include <em>why</em>, not just <em>what</em></li>
-</ul>
-<hr />
-<h2 id="when-ctx-is-not-the-right-tool">When <code>ctx</code> Is Not the Right Tool<a class="headerlink" href="#when-ctx-is-not-the-right-tool" title="Permanent link">&para;</a></h2>
-<p><code>ctx</code> is probably not what you want if:</p>
-<ul>
-<li>you only need one-off prompts</li>
-<li>you rely exclusively on RAG</li>
-<li>you want autonomous agents without a human-readable state</li>
-<li>you require centralized enterprise control</li>
-<li>you want black-box memory systems</li>
-</ul>
-<p>These are valid goals; just different ones.</p>
+<h2 id="contributing">Contributing<a class="headerlink" href="#contributing" title="Permanent link">&para;</a></h2>
+<p>Found a prompt that works well?
+<a href="https://github.com/ActiveMemory/ctx/issues">Open an issue</a> or PR with:</p>
+<ol>
+<li>The prompt text</li>
+<li>What behavior it triggers</li>
+<li>When to use it</li>
+<li>Why it works (optional but helpful)</li>
+</ol>
 
 
 
@@ -1045,7 +1404,7 @@ live next to code; <strong>not</strong> behind a service boundary.</p>
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../prompting-guide/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Prompting Guide">
+          <a href=".." class="md-footer__link md-footer__link--prev" aria-label="Previous: Getting Started">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
@@ -1055,20 +1414,20 @@ live next to code; <strong>not</strong> behind a service boundary.</p>
                 Previous
               </span>
               <div class="md-ellipsis">
-                Prompting Guide
+                Getting Started
               </div>
             </div>
           </a>
         
         
           
-          <a href="../cli-reference/" class="md-footer__link md-footer__link--next" aria-label="Next: CLI Reference">
+          <a href="../comparison/" class="md-footer__link md-footer__link--next" aria-label="Next: ctx and Similar Tools">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                CLI Reference
+                ctx and Similar Tools
               </div>
             </div>
             <div class="md-footer__button md-icon">

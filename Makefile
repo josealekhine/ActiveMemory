@@ -2,7 +2,7 @@
 #
 # Common targets for Go developers
 
-.PHONY: build test vet fmt lint clean all release build-all dogfood help test-coverage smoke
+.PHONY: build test vet fmt lint clean all release build-all dogfood help test-coverage smoke site site-serve site-setup
 
 # Default binary name and output
 BINARY := ctx
@@ -113,6 +113,20 @@ install:
 	@test -f $(BINARY) || (echo "Binary not found. Run 'make build' first, then 'sudo make install'" && exit 1)
 	cp $(BINARY) /usr/local/bin/$(BINARY)
 	@echo "Installed ctx to /usr/local/bin/ctx"
+
+## site-setup: Create venv and install zensical
+site-setup:
+	python3 -m venv .venv
+	.venv/bin/pip install --upgrade pip
+	.venv/bin/pip install zensical
+
+## site: Build documentation site
+site:
+	.venv/bin/zensical build
+
+## site-serve: Serve documentation site locally
+site-serve:
+	.venv/bin/zensical serve
 
 ## help: Show this help
 help:

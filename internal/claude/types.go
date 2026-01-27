@@ -43,14 +43,23 @@ type Hook struct {
 	Command string `json:"command"`
 }
 
+// PermissionsConfig represents the permissions section of Claude Code's
+// settings.local.json.
+//
+// Fields:
+//   - Allow: List of tool patterns that are pre-approved (e.g., "Bash(ctx status:*)")
+type PermissionsConfig struct {
+	Allow []string `json:"allow,omitempty"`
+}
+
 // Settings represents the full Claude Code settings.local.json structure.
 //
 // This is used when reading or writing project-level Claude Code configuration.
 //
 // Fields:
 //   - Hooks: Hook configuration for lifecycle events
-//   - Permissions: Tool permission overrides (key: tool pattern, value: permission)
+//   - Permissions: Tool permission configuration
 type Settings struct {
-	Hooks       HookConfig             `json:"hooks,omitempty"`
-	Permissions map[string]interface{} `json:"permissions,omitempty"`
+	Hooks       HookConfig        `json:"hooks,omitempty"`
+	Permissions PermissionsConfig `json:"permissions,omitempty"`
 }

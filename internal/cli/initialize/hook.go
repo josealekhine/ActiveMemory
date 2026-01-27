@@ -96,15 +96,15 @@ func createClaudeHooks(cmd *cobra.Command, force bool) error {
 	return nil
 }
 
-// mergeSettingsHooks creates or merges hooks into settings.local.json.
+// mergeSettingsHooks creates or merges hooks and permissions into settings.local.json.
 //
-// Only adds missing hooks to preserve user customizations. Creates the
-// .claude/ directory if needed.
+// Only adds missing hooks and permissions to preserve user customizations.
+// Creates the .claude/ directory if needed.
 //
 // Parameters:
 //   - cmd: Cobra command for output messages
 //   - projectDir: Project root directory for hook paths
-//   - force: If true, overwrite existing hooks
+//   - force: If true, overwrite existing hooks (permissions are always merged additively)
 //
 // Returns:
 //   - error: Non-nil if JSON parsing or file operations fail
@@ -127,32 +127,29 @@ func mergeSettingsHooks(
 		}
 	}
 
-	// Get our default hooks
+	// Get our defaults
 	defaultHooks := claude.CreateDefaultHooks(projectDir)
+	defaultPerms := claude.CreateDefaultPermissions()
 
 	// Check if hooks already exist
 	hasPreToolUse := len(settings.Hooks.PreToolUse) > 0
 	hasSessionEnd := len(settings.Hooks.SessionEnd) > 0
 
-	if fileExists && hasPreToolUse && hasSessionEnd && !force {
-		cmd.Printf(
-			"  %s %s (hooks exist, skipped)\n", yellow("○"), config.FileSettings,
-		)
-		return nil
-	}
-
-	// Merge hooks - only add what's missing
-	modified := false
+	// Merge hooks - only add what's missing (or force overwrite)
+	hooksModified := false
 	if !hasPreToolUse || force {
 		settings.Hooks.PreToolUse = defaultHooks.PreToolUse
-		modified = true
+		hooksModified = true
 	}
 	if !hasSessionEnd || force {
 		settings.Hooks.SessionEnd = defaultHooks.SessionEnd
-		modified = true
+		hooksModified = true
 	}
 
-	if !modified {
+	// Merge permissions - always additive, never removes existing permissions
+	permsModified := mergePermissions(&settings.Permissions, defaultPerms)
+
+	if !hooksModified && !permsModified {
 		cmd.Printf(
 			"  %s %s (no changes needed)\n", yellow("○"), config.FileSettings,
 		)
@@ -177,11 +174,47 @@ func mergeSettingsHooks(
 		return fmt.Errorf("failed to write %s: %w", config.FileSettings, err)
 	}
 
-	if fileExists {
+	// Report what was done
+	switch {
+	case fileExists && hooksModified && permsModified:
+		cmd.Printf("  %s %s (merged hooks and permissions)\n", green("✓"), config.FileSettings)
+	case fileExists && hooksModified:
 		cmd.Printf("  %s %s (merged hooks)\n", green("✓"), config.FileSettings)
-	} else {
+	case fileExists && permsModified:
+		cmd.Printf("  %s %s (added ctx permissions)\n", green("✓"), config.FileSettings)
+	default:
 		cmd.Printf("  %s %s\n", green("✓"), config.FileSettings)
 	}
 
 	return nil
+}
+
+// mergePermissions adds missing permissions to the allow list.
+//
+// Only adds permissions that don't already exist. Never removes existing
+// permissions to preserve user customizations.
+//
+// Parameters:
+//   - perms: Existing permissions config to modify
+//   - defaults: Default permissions to add if missing
+//
+// Returns:
+//   - bool: True if any permissions were added
+func mergePermissions(perms *claude.PermissionsConfig, defaults []string) bool {
+	// Build a set of existing permissions for fast lookup
+	existing := make(map[string]bool)
+	for _, p := range perms.Allow {
+		existing[p] = true
+	}
+
+	// Add missing permissions
+	added := false
+	for _, p := range defaults {
+		if !existing[p] {
+			perms.Allow = append(perms.Allow, p)
+			added = true
+		}
+	}
+
+	return added
 }

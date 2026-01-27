@@ -16,7 +16,7 @@
       
       
       
-        <link rel="next" href="comparison/">
+        <link rel="next" href="prompting-guide/">
       
       
         
@@ -549,6 +549,35 @@
   
   
     <li class="md-nav__item">
+      <a href="prompting-guide/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-message-circle" viewBox="0 0 24 24"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Prompting Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="comparison/" class="md-nav__link">
         
   
@@ -1062,8 +1091,10 @@ files that version with your code and persist across sessions.</p>
 <p>Requires <a href="https://go.dev/">Go 1.25+</a>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/ActiveMemory/ctx.git
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="nb">cd</span><span class="w"> </span>ctx
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="nv">CGO_ENABLED</span><span class="o">=</span><span class="m">0</span><span class="w"> </span>go<span class="w"> </span>build<span class="w"> </span>-o<span class="w"> </span>ctx<span class="w"> </span>./cmd/ctx
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>sudo<span class="w"> </span>mv<span class="w"> </span>ctx<span class="w"> </span>/usr/local/bin/
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>make<span class="w"> </span>build
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>sudo<span class="w"> </span>make<span class="w"> </span>install
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="c1"># or:</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="c1"># sudo mv ctx /usr/local/bin/</span>
 </span></code></pre></div>
 <p>Verify installation:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>ctx<span class="w"> </span>--version
@@ -1120,6 +1151,7 @@ or previous session topics.</p>
 </span></code></pre></div>
 <h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
 <ul>
+<li><a href="prompting-guide/">Prompting Guide</a> — Effective prompts for AI sessions</li>
 <li><a href="cli-reference/">CLI Reference</a> — All commands and options</li>
 <li><a href="context-files/">Context Files</a> — File formats and structure</li>
 <li><a href="ralph-loop/">Ralph Loop Integration</a> — Autonomous AI development workflows</li>
@@ -1168,13 +1200,13 @@ or previous session topics.</p>
         
         
           
-          <a href="comparison/" class="md-footer__link md-footer__link--next" aria-label="Next: ctx and Similar Tools">
+          <a href="prompting-guide/" class="md-footer__link md-footer__link--next" aria-label="Next: Prompting Guide">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                ctx and Similar Tools
+                Prompting Guide
               </div>
             </div>
             <div class="md-footer__button md-icon">

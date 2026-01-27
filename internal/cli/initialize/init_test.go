@@ -7,10 +7,13 @@
 package initialize
 
 import (
+	"encoding/json"
 	"os"
 	"path/filepath"
 	"strings"
 	"testing"
+
+	"github.com/ActiveMemory/ctx/internal/claude"
 )
 
 // TestInitCommand tests the init command creates the .context directory.
@@ -247,6 +250,145 @@ Run make test.
 	// Original content should be preserved
 	if !strings.Contains(contentStr, "Run make test") {
 		t.Error("original content was lost")
+	}
+}
+
+// TestInitCreatesPermissions tests that init creates settings.local.json with
+// ctx command permissions.
+func TestInitCreatesPermissions(t *testing.T) {
+	tmpDir, err := os.MkdirTemp("", "cli-init-perms-*")
+	if err != nil {
+		t.Fatalf("failed to create temp dir: %v", err)
+	}
+	defer os.RemoveAll(tmpDir)
+
+	origDir, _ := os.Getwd()
+	if err := os.Chdir(tmpDir); err != nil {
+		t.Fatalf("failed to chdir: %v", err)
+	}
+	defer func() { _ = os.Chdir(origDir) }()
+
+	// Run init
+	cmd := Cmd()
+	cmd.SetArgs([]string{})
+	if err := cmd.Execute(); err != nil {
+		t.Fatalf("init command failed: %v", err)
+	}
+
+	// Read settings.local.json
+	settingsPath := filepath.Join(tmpDir, ".claude", "settings.local.json")
+	content, err := os.ReadFile(settingsPath)
+	if err != nil {
+		t.Fatalf("failed to read settings.local.json: %v", err)
+	}
+
+	var settings claude.Settings
+	if err := json.Unmarshal(content, &settings); err != nil {
+		t.Fatalf("failed to parse settings.local.json: %v", err)
+	}
+
+	// Check that permissions include ctx commands
+	permSet := make(map[string]bool)
+	for _, p := range settings.Permissions.Allow {
+		permSet[p] = true
+	}
+
+	requiredPerms := []string{
+		"Bash(ctx status:*)",
+		"Bash(ctx agent:*)",
+		"Bash(ctx add:*)",
+		"Bash(ctx session:*)",
+	}
+
+	for _, p := range requiredPerms {
+		if !permSet[p] {
+			t.Errorf("missing required permission: %s", p)
+		}
+	}
+}
+
+// TestInitMergesPermissions tests that init adds missing permissions without
+// removing existing ones.
+func TestInitMergesPermissions(t *testing.T) {
+	tmpDir, err := os.MkdirTemp("", "cli-init-merge-perms-*")
+	if err != nil {
+		t.Fatalf("failed to create temp dir: %v", err)
+	}
+	defer os.RemoveAll(tmpDir)
+
+	origDir, _ := os.Getwd()
+	if err := os.Chdir(tmpDir); err != nil {
+		t.Fatalf("failed to chdir: %v", err)
+	}
+	defer func() { _ = os.Chdir(origDir) }()
+
+	// Create .claude directory and settings with existing permissions
+	if err := os.MkdirAll(".claude", 0755); err != nil {
+		t.Fatalf("failed to create .claude: %v", err)
+	}
+
+	existingSettings := claude.Settings{
+		Permissions: claude.PermissionsConfig{
+			Allow: []string{
+				"Bash(git status:*)",
+				"Bash(make build:*)",
+				"Bash(ctx status:*)", // Already has one ctx permission
+			},
+		},
+	}
+	existingJSON, _ := json.MarshalIndent(existingSettings, "", "  ")
+	if err := os.WriteFile(".claude/settings.local.json", existingJSON, 0644); err != nil {
+		t.Fatalf("failed to write settings: %v", err)
+	}
+
+	// Run init
+	cmd := Cmd()
+	cmd.SetArgs([]string{})
+	if err := cmd.Execute(); err != nil {
+		t.Fatalf("init command failed: %v", err)
+	}
+
+	// Read updated settings
+	content, err := os.ReadFile(".claude/settings.local.json")
+	if err != nil {
+		t.Fatalf("failed to read settings: %v", err)
+	}
+
+	var settings claude.Settings
+	if err := json.Unmarshal(content, &settings); err != nil {
+		t.Fatalf("failed to parse settings: %v", err)
+	}
+
+	// Check existing permissions are preserved
+	permSet := make(map[string]bool)
+	for _, p := range settings.Permissions.Allow {
+		permSet[p] = true
+	}
+
+	if !permSet["Bash(git status:*)"] {
+		t.Error("existing permission 'Bash(git status:*)' was removed")
+	}
+	if !permSet["Bash(make build:*)"] {
+		t.Error("existing permission 'Bash(make build:*)' was removed")
+	}
+
+	// Check new ctx permissions were added
+	if !permSet["Bash(ctx agent:*)"] {
+		t.Error("missing new permission 'Bash(ctx agent:*)'")
+	}
+	if !permSet["Bash(ctx session:*)"] {
+		t.Error("missing new permission 'Bash(ctx session:*)'")
+	}
+
+	// Check no duplicates (ctx status should appear once)
+	count := 0
+	for _, p := range settings.Permissions.Allow {
+		if p == "Bash(ctx status:*)" {
+			count++
+		}
+	}
+	if count != 1 {
+		t.Errorf("'Bash(ctx status:*)' appears %d times, expected 1", count)
 	}
 }
 

@@ -79,6 +79,24 @@ func GetCommand(name string) ([]byte, error) {
 	return content, nil
 }
 
+// CreateDefaultPermissions returns the default permissions for ctx commands.
+//
+// These permissions allow Claude Code to run ctx CLI commands without
+// prompting for approval. All ctx subcommands are pre-approved.
+//
+// Returns:
+//   - []string: List of permission patterns for ctx commands
+func CreateDefaultPermissions() []string {
+	return []string{
+		"Bash(ctx status:*)",
+		"Bash(ctx agent:*)",
+		"Bash(ctx add:*)",
+		"Bash(ctx session:*)",
+		"Bash(ctx tasks:*)",
+		"Bash(ctx loop:*)",
+	}
+}
+
 // CreateDefaultHooks returns the default ctx hooks configuration for
 // Claude Code.
 //

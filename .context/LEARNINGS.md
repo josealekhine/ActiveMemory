@@ -348,3 +348,5 @@ directory component (e.g., `/home/user/ctx/internal/...`).
 - **[2026-01-26-0553]** Claude Code settings.local.json hook keys are 'PreToolUse' and 'SessionEnd' (not 'PreToolUseHooks'/'SessionEndHooks'). The 'Hooks' suffix causes 'Invalid key in record' errors.
 
 - **[2026-01-26-0612]** Go's json.Marshal escapes `>`, `<`, and `&` as unicode (\u003e, \u003c, \u0026) by default for HTML safety. Use json.Encoder with SetEscapeHTML(false) when generating config files that contain shell commands like `2>/dev/null`.
+
+- **[2026-01-27-054706]** Claude Code slash commands using `!` bash syntax require matching permissions in settings.local.json. When adding new /ctx-* commands, ensure ctx init pre-seeds the required Bash(ctx <subcommand>:*) permissions. Use additive merging for user config - never remove existing permissions.
