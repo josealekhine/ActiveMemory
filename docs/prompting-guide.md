@@ -13,7 +13,7 @@ icon: lucide/message-circle
 
 ## Prompting Guide
 
-Effective prompts for working with AI assistants in ctx-enabled projects.
+Effective prompts for working with AI assistants in `ctx`-enabled projects.
 
 !!! tip Help Your AI Sidekick
     AI assistants *may not* automatically read context files.
