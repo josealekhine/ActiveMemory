@@ -1162,7 +1162,7 @@ through code, check configurations, and identify the actual cause.</p>
 in settings.local.json bootstrapping—a fix that benefited all users.</p>
 </div>
 <h3 id="is-this-consistent-with-our-decisions">"Is this consistent with our decisions?"<a class="headerlink" href="#is-this-consistent-with-our-decisions" title="Permanent link">&para;</a></h3>
-<p>This prompts checking DECISIONS.md before implementing.</p>
+<p>This prompts checking <code>DECISIONS.md</code> before implementing.</p>
 <p>Use this before making architectural choices.</p>
 <p><strong>Variants</strong>:</p>
 <ul>
@@ -1170,7 +1170,7 @@ in settings.local.json bootstrapping—a fix that benefited all users.</p>
 <li>"Does this align with our conventions?"</li>
 </ul>
 <h3 id="what-would-break-if-we">"What would break if we..."<a class="headerlink" href="#what-would-break-if-we" title="Permanent link">&para;</a></h3>
-<p>This triggers defensive thinking and impact analysis.</p>
+<p>This triggers <strong>defensive thinking</strong> and <strong>impact analysis</strong>.</p>
 <p>Use this before making significant changes.</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>What would break if we change the Settings struct?
 </span></code></pre></div>
@@ -1181,7 +1181,7 @@ in settings.local.json bootstrapping—a fix that benefited all users.</p>
 </span></code></pre></div>
 <h2 id="reflection-and-persistence">Reflection and Persistence<a class="headerlink" href="#reflection-and-persistence" title="Permanent link">&para;</a></h2>
 <h3 id="what-did-we-learn">"What did we learn?"<a class="headerlink" href="#what-did-we-learn" title="Permanent link">&para;</a></h3>
-<p>This prompts reflection on the session and often triggers adding
+<p>This prompts <strong>reflection</strong> on the session and often triggers adding
 learnings to <code>LEARNINGS.md</code>.</p>
 <p>Use this after completing a task or debugging session.</p>
 <p>This is an <strong>explicit reflection prompt</strong>. The AI will summarize insights
@@ -1196,8 +1196,8 @@ and often offer to persist them.</p>
 </span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a># and let the AI autonomously infer and summarize.
 </span></code></pre></div>
 <h3 id="save-context-before-we-end">"Save context before we end"<a class="headerlink" href="#save-context-before-we-end" title="Permanent link">&para;</a></h3>
-<p>This triggers context persistence before the session closes.</p>
-<p>Use it at the end of the session, or before switching topics.</p>
+<p>This triggers <strong>context persistence</strong> before the session closes.</p>
+<p>Use it at the end of the session or before switching topics.</p>
 <p><strong>Variants</strong>:</p>
 <ul>
 <li>"Let's persist what we did"</li>
@@ -1209,7 +1209,7 @@ and often offer to persist them.</p>
 <h3 id="explore-the-codebase-for-x">"Explore the codebase for X"<a class="headerlink" href="#explore-the-codebase-for-x" title="Permanent link">&para;</a></h3>
 <p>This triggers thorough codebase search rather than guessing.</p>
 <p>Use this when you need to understand how something works.</p>
-<p>This works, because "<strong>Explore</strong>" signals that <strong>investigation is needed</strong>, 
+<p>This works because "<strong>Explore</strong>" signals that <strong>investigation is needed</strong>, 
 not immediate action.</p>
 <h3 id="how-does-x-work-in-this-codebase">"How does X work in this codebase?"<a class="headerlink" href="#how-does-x-work-in-this-codebase" title="Permanent link">&para;</a></h3>
 <p>This prompts reading actual code rather than explaining general concepts.</p>
@@ -1217,8 +1217,8 @@ not immediate action.</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>How does session saving work in this codebase?
 </span></code></pre></div>
 <h3 id="find-all-places-where-x">"Find all places where X"<a class="headerlink" href="#find-all-places-where-x" title="Permanent link">&para;</a></h3>
-<p>This triggers a comprehensive search across the codebase.</p>
-<p>Use this before refactoring or understanding impact.</p>
+<p>This triggers a <strong>comprehensive search</strong> across the codebase.</p>
+<p>Use this before refactoring or understanding the impact.</p>
 <hr />
 <h2 id="meta-and-process">Meta and Process<a class="headerlink" href="#meta-and-process" title="Permanent link">&para;</a></h2>
 <h3 id="what-should-we-document-from-this">"What should we document from this?"<a class="headerlink" href="#what-should-we-document-from-this" title="Permanent link">&para;</a></h3>

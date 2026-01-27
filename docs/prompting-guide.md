@@ -71,7 +71,7 @@ through code, check configurations, and identify the actual cause.
 
 ### "Is this consistent with our decisions?"
 
-This prompts checking DECISIONS.md before implementing.
+This prompts checking `DECISIONS.md` before implementing.
 
 Use this before making architectural choices.
 
@@ -82,7 +82,7 @@ Use this before making architectural choices.
 
 ### "What would break if we..."
 
-This triggers defensive thinking and impact analysis.
+This triggers **defensive thinking** and **impact analysis**.
 
 Use this before making significant changes.
 
@@ -104,7 +104,7 @@ Before you start, read .context/sessions/2026-01-20-auth-discussion.md
 
 ### "What did we learn?"
 
-This prompts reflection on the session and often triggers adding
+This prompts **reflection** on the session and often triggers adding
 learnings to `LEARNINGS.md`.
 
 Use this after completing a task or debugging session.
@@ -128,9 +128,9 @@ Add this as a learning.
 
 ### "Save context before we end"
 
-This triggers context persistence before the session closes.
+This triggers **context persistence** before the session closes.
 
-Use it at the end of the session, or before switching topics.
+Use it at the end of the session or before switching topics.
 
 **Variants**:
 
@@ -148,7 +148,7 @@ This triggers thorough codebase search rather than guessing.
 
 Use this when you need to understand how something works.
 
-This works, because "**Explore**" signals that **investigation is needed**, 
+This works because "**Explore**" signals that **investigation is needed**, 
 not immediate action.
 
 ### "How does X work in this codebase?"
@@ -163,9 +163,9 @@ How does session saving work in this codebase?
 
 ### "Find all places where X"
 
-This triggers a comprehensive search across the codebase.
+This triggers a **comprehensive search** across the codebase.
 
-Use this before refactoring or understanding impact.
+Use this before refactoring or understanding the impact.
 
 ---
 
