@@ -177,8 +177,8 @@ const (
 What I begrudgingly learned was: 
 **YOLO mode is effective for velocity but accumulates debt**. 
 
-So I took a mental note to schedule periodic consolidation sessions from that
-point onward.
+So I took a mental note to schedule **periodic consolidation sessions** 
+from that point onward.
 
 ## The Dogfooding Test That Failed
 
