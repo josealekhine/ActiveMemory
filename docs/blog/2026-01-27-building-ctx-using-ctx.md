@@ -12,7 +12,7 @@ author: Jose Alekhinne
 same tool to remember what you are building? 
 
 This is the story of `ctx`, how it evolved from a hasty "*YOLO mode*" experiment 
-to a disciplined system for **persistent AI context**, and what we have 
+to a disciplined system for **persistent AI context**, and what I have 
 learned along the way.
 
 !!! info "Context is a Record"
@@ -161,7 +161,7 @@ point onward.
 
 ## The Dogfooding Test That Failed
 
-On January 21st, we ran an experiment: have another Claude instance rebuild 
+On January 21st, I ran an experiment: have another Claude instance rebuild 
 `ctx` from scratch using only the specs and `PROMPT.md`. 
 
 The Ralph Loop ran, all tasks got checked off, the loop exited successfully.
@@ -221,7 +221,7 @@ Here's how `ctx` explained why the distinction was important:
 
 Claude Code hooks seemed simple: run a script before/after certain events. 
 
-But we hit multiple gotchas:
+But I hit multiple gotchas:
 
 **1. Key names matter**
 

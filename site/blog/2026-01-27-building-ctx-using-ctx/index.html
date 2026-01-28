@@ -1076,7 +1076,7 @@
 same tool to remember what you are building? </p>
 </blockquote>
 <p>This is the story of <code>ctx</code>, how it evolved from a hasty "<em>YOLO mode</em>" experiment 
-to a disciplined system for <strong>persistent AI context</strong>, and what we have 
+to a disciplined system for <strong>persistent AI context</strong>, and what I have 
 learned along the way.</p>
 <div class="admonition info">
 <p class="admonition-title">Context is a Record</p>
@@ -1202,7 +1202,7 @@ type system catching any misses.</p>
 <p>So I took a mental note to schedule periodic consolidation sessions from that
 point onward.</p>
 <h2 id="the-dogfooding-test-that-failed">The Dogfooding Test That Failed<a class="headerlink" href="#the-dogfooding-test-that-failed" title="Permanent link">&para;</a></h2>
-<p>On January 21<sup>st</sup>, we ran an experiment: have another Claude instance rebuild 
+<p>On January 21<sup>st</sup>, I ran an experiment: have another Claude instance rebuild 
 <code>ctx</code> from scratch using only the specs and <code>PROMPT.md</code>. </p>
 <p>The Ralph Loop ran, all tasks got checked off, the loop exited successfully.</p>
 <p><strong>But the binary was broken</strong>!</p>
@@ -1245,7 +1245,7 @@ Conventions can be bent; constitution cannot."
 </blockquote>
 <h2 id="hooks-harder-than-they-look">Hooks: Harder Than They Look<a class="headerlink" href="#hooks-harder-than-they-look" title="Permanent link">&para;</a></h2>
 <p>Claude Code hooks seemed simple: run a script before/after certain events. </p>
-<p>But we hit multiple gotchas:</p>
+<p>But I hit multiple gotchas:</p>
 <p><strong>1. Key names matter</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>// WRONG - &quot;Invalid key in record&quot; error
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>&quot;PreToolUseHooks&quot;: [...]
