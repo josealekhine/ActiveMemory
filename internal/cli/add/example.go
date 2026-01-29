@@ -28,8 +28,10 @@ func getExamplesForType(fileType string) string {
 		return `  ctx add task "Implement user authentication"
   ctx add task "Fix login bug" --priority high`
 	case config.UpdateTypeLearning, config.UpdateTypeLearnings:
-		return `  ctx add learning "Vitest mocks must be hoisted above imports"
-  ctx add learning "Go embed requires files in same package directory"`
+		return `  ctx add learning "Go embed requires files in same package" \
+    --context "Tried to embed files from parent directory" \
+    --lesson "go:embed only works with files in same or child directories" \
+    --application "Keep embedded files in internal/templates/"`
 	case config.UpdateTypeConvention, config.UpdateTypeConventions:
 		return `  ctx add convention "Use camelCase for function names"
   ctx add convention "All API responses use JSON"`

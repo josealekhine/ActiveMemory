@@ -5,6 +5,14 @@
 
 ---
 
+## [2026-01-28-191951] Required flags now enforced for learnings
+
+**Context**: Implemented ctx add learning flags to match decision's ADR pattern
+
+**Lesson**: Structured entries with Context/Lesson/Application are more useful than one-liners
+
+**Application**: Always use ctx add learning with all three flags; agents guided via AGENT_PLAYBOOK.md
+
 - **[2026-01-28-072838]** Changelogs document WHAT; blogs explain WHY. Same information, different engagement. Changelogs are for machines (audits, dependency trackers). Blogs are for humans (narrative, context, lessons). When synthesizing session history, output both: changelog for completeness, blog for readability.
 
 - **[2026-01-28-051426]** IDE is already the UI: Discovery, search, and 

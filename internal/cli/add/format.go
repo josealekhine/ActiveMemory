@@ -32,18 +32,29 @@ func FormatTask(content string, priority string) string {
 	return fmt.Sprintf("- [ ] %s%s #added:%s\n", content, priorityTag, timestamp)
 }
 
-// FormatLearning formats a learning entry as a timestamped markdown list item.
+// FormatLearning formats a learning entry as a structured markdown section.
 //
-// Format: "- **[YYYY-MM-DD-HHMMSS]** content"
+// The output includes a timestamped heading and complete sections for context,
+// lesson, and application.
 //
 // Parameters:
-//   - content: Learning description text
+//   - title: Learning title/summary text
+//   - context: What prompted this learning
+//   - lesson: The key insight
+//   - application: How to apply this going forward
 //
 // Returns:
-//   - string: Formatted learning line with trailing newline
-func FormatLearning(content string) string {
+//   - string: Formatted learning section with all fields
+func FormatLearning(title, context, lesson, application string) string {
 	timestamp := time.Now().Format("2006-01-02-150405")
-	return fmt.Sprintf("- **[%s]** %s\n", timestamp, content)
+	return fmt.Sprintf(`## [%s] %s
+
+**Context**: %s
+
+**Lesson**: %s
+
+**Application**: %s
+`, timestamp, title, context, lesson, application)
 }
 
 // FormatConvention formats a convention entry as a simple markdown list item.

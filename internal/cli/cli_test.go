@@ -105,7 +105,10 @@ func TestBinaryIntegration(t *testing.T) {
 
 	// Subtest: ctx add learning modifies LEARNINGS.md
 	t.Run("add learning modifies LEARNINGS.md", func(t *testing.T) {
-		addCmd := exec.Command(binaryPath, "add", "learning", "Test learning from integration test")
+		addCmd := exec.Command(binaryPath, "add", "learning", "Test learning from integration test",
+			"--context", "Testing integration",
+			"--lesson", "Integration tests catch bugs",
+			"--application", "Always run integration tests")
 		addCmd.Dir = testDir
 		if output, err := addCmd.CombinedOutput(); err != nil {
 			t.Fatalf("ctx add learning failed: %v\n%s", err, output)

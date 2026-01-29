@@ -68,6 +68,38 @@ Example:
 		}
 	}
 
+	// Validate required flags for learnings
+	if fType == config.UpdateTypeLearning || fType == config.UpdateTypeLearnings {
+		var missing []string
+		if flags.context == "" {
+			missing = append(missing, "--context")
+		}
+		if flags.lesson == "" {
+			missing = append(missing, "--lesson")
+		}
+		if flags.application == "" {
+			missing = append(missing, "--application")
+		}
+		if len(missing) > 0 {
+			return fmt.Errorf(`learnings require complete format
+
+Missing required flags: %s
+
+Usage:
+  ctx add learning "Learning title" \
+    --context "What prompted this learning" \
+    --lesson "The key insight" \
+    --application "How to apply this going forward"
+
+Example:
+  ctx add learning "Go embed requires files in same package" \
+    --context "Tried to embed files from parent directory, got compile error" \
+    --lesson "go:embed only works with files in same or child directories" \
+    --application "Keep embedded files in internal/templates/, not project root"`,
+				strings.Join(missing, ", "))
+		}
+	}
+
 	// Determine the content source: args, --file, or stdin
 	var content string
 
@@ -142,7 +174,7 @@ Examples:
 	case config.UpdateTypeTask, config.UpdateTypeTasks:
 		entry = FormatTask(content, flags.priority)
 	case config.UpdateTypeLearning, config.UpdateTypeLearnings:
-		entry = FormatLearning(content)
+		entry = FormatLearning(content, flags.context, flags.lesson, flags.application)
 	case config.UpdateTypeConvention, config.UpdateTypeConventions:
 		entry = FormatConvention(content)
 	}

@@ -121,10 +121,15 @@ func TestAddDecisionAndLearning(t *testing.T) {
 		}
 	})
 
-	// Test adding a learning
+	// Test adding a learning with required flags
 	t.Run("add learning", func(t *testing.T) {
 		addCmd := Cmd()
-		addCmd.SetArgs([]string{"learning", "Always check for nil before dereferencing"})
+		addCmd.SetArgs([]string{
+			"learning", "Always check for nil before dereferencing",
+			"--context", "Got a nil pointer panic in production",
+			"--lesson", "Always validate pointers before use",
+			"--application", "Add nil checks in all pointer-receiving functions",
+		})
 		if err := addCmd.Execute(); err != nil {
 			t.Fatalf("add learning failed: %v", err)
 		}
@@ -133,8 +138,31 @@ func TestAddDecisionAndLearning(t *testing.T) {
 		if err != nil {
 			t.Fatalf("failed to read LEARNINGS.md: %v", err)
 		}
-		if !strings.Contains(string(content), "Always check for nil before dereferencing") {
-			t.Error("learning was not added to LEARNINGS.md")
+		contentStr := string(content)
+		if !strings.Contains(contentStr, "Always check for nil before dereferencing") {
+			t.Error("learning title was not added to LEARNINGS.md")
+		}
+		if !strings.Contains(contentStr, "Got a nil pointer panic in production") {
+			t.Error("learning context was not added to LEARNINGS.md")
+		}
+		if !strings.Contains(contentStr, "Always validate pointers before use") {
+			t.Error("learning lesson was not added to LEARNINGS.md")
+		}
+		if !strings.Contains(contentStr, "Add nil checks in all pointer-receiving functions") {
+			t.Error("learning application was not added to LEARNINGS.md")
+		}
+	})
+
+	// Test that learning without required flags fails
+	t.Run("add learning without flags fails", func(t *testing.T) {
+		addCmd := Cmd()
+		addCmd.SetArgs([]string{"learning", "Incomplete learning"})
+		err := addCmd.Execute()
+		if err == nil {
+			t.Fatal("expected error when adding learning without required flags")
+		}
+		if !strings.Contains(err.Error(), "--context") {
+			t.Errorf("error should mention missing --context flag: %v", err)
 		}
 	})
 
@@ -222,14 +250,24 @@ func TestPrependOrder(t *testing.T) {
 	t.Run("learnings are prepended", func(t *testing.T) {
 		// Add first learning
 		addCmd := Cmd()
-		addCmd.SetArgs([]string{"learning", "First learning"})
+		addCmd.SetArgs([]string{
+			"learning", "First learning",
+			"--context", "First context",
+			"--lesson", "First lesson",
+			"--application", "First application",
+		})
 		if err := addCmd.Execute(); err != nil {
 			t.Fatalf("add first learning failed: %v", err)
 		}
 
 		// Add second learning
 		addCmd = Cmd()
-		addCmd.SetArgs([]string{"learning", "Second learning"})
+		addCmd.SetArgs([]string{
+			"learning", "Second learning",
+			"--context", "Second context",
+			"--lesson", "Second lesson",
+			"--application", "Second application",
+		})
 		if err := addCmd.Execute(); err != nil {
 			t.Fatalf("add second learning failed: %v", err)
 		}
@@ -354,15 +392,20 @@ func TestAddFromFile(t *testing.T) {
 		t.Fatalf("init failed: %v", err)
 	}
 
-	// Create a file with content
+	// Create a file with content (title)
 	contentFile := filepath.Join(tmpDir, "learning-content.md")
 	if err := os.WriteFile(contentFile, []byte("Content from file test"), 0644); err != nil {
 		t.Fatalf("failed to create content file: %v", err)
 	}
 
-	// Test adding from file
+	// Test adding from file (still needs flags for learning)
 	addCmd := Cmd()
-	addCmd.SetArgs([]string{"learning", "--file", contentFile})
+	addCmd.SetArgs([]string{
+		"learning", "--file", contentFile,
+		"--context", "Testing file input",
+		"--lesson", "File input works",
+		"--application", "Use --file for long content",
+	})
 	if err := addCmd.Execute(); err != nil {
 		t.Fatalf("add from file failed: %v", err)
 	}

@@ -114,7 +114,10 @@ func runAddSilent(args []string) error {
 	case config.UpdateTypeTask, config.UpdateTypeTasks:
 		entry = add.FormatTask(content, "")
 	case config.UpdateTypeLearning, config.UpdateTypeLearnings:
-		entry = add.FormatLearning(content)
+		entry = add.FormatLearning(content,
+			"[Context from watch - please update]",
+			"[Lesson from watch - please update]",
+			"[Application from watch - please update]")
 	case config.UpdateTypeConvention, config.UpdateTypeConventions:
 		entry = add.FormatConvention(content)
 	}
