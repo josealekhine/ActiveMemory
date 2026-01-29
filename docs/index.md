@@ -48,7 +48,7 @@ Most AI-driven development fails not because models are weak—they fail because
 * The AI repeats past mistakes
 * Decisions get rediscovered instead of remembered
 
-`ctx` solves this by treating context as infrastructure: 
+`ctx` solves this by treating context as **infrastructure**: 
 files that version with your code and persist across sessions.
 
 ## Installation
